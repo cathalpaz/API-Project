@@ -5,6 +5,12 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       // define association here
+      User.hasMany(models.Group, {foreignKey: 'organizerId'});
+      User.belongsToMany(models.Group, {
+        through: 'Membership',
+        foreignKey: 'userId',
+        otherKey: 'groupId'
+      })
     }
   }
 
@@ -22,6 +28,8 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
+      firstName: DataTypes.STRING(20),
+      lastName: DataTypes.STRING(20),
       email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -37,8 +45,6 @@ module.exports = (sequelize, DataTypes) => {
           len: [60, 60],
         },
       },
-      firstName: DataTypes.STRING(20),
-      lastName: DataTypes.STRING(20)
     },
     {
       sequelize,
