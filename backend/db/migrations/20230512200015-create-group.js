@@ -23,7 +23,7 @@ module.exports = {
         }
       },
       name: {
-        type: Sequelize.STRING(60),
+        type: Sequelize.STRING,
         allowNull: false
       },
       about: {
@@ -32,7 +32,6 @@ module.exports = {
       type: {
         type: Sequelize.ENUM("Online", "In Person"),
         allowNull: false,
-        defaultValue: "In Person"
       },
       private: {
         type: Sequelize.BOOLEAN
