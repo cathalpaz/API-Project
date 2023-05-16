@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Group extends Model {
     /**
@@ -11,42 +9,48 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Group.belongsTo(models.User, {foreignKey: 'organizerId', as: 'Organizer'});
-      Group.hasMany(models.Venue, {foreignKey: 'groupId'});
-      Group.hasMany(models.GroupImage, {foreignKey: 'groupId'});
-      Group.hasMany(models.Membership, {foreignKey: 'groupId'})
-      Group.hasMany(models.Event, {foreignKey: 'groupId'})
+      Group.belongsTo(models.User, {
+        foreignKey: "organizerId",
+        as: "Organizer",
+      });
+      Group.hasMany(models.Venue, { foreignKey: "groupId" });
+      Group.hasMany(models.GroupImage, { foreignKey: "groupId" });
+      Group.hasMany(models.Membership, { foreignKey: "groupId" });
+      Group.hasMany(models.Event, { foreignKey: "groupId" });
     }
   }
-  Group.init({
-    organizerId: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+  Group.init(
+    {
+      organizerId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      about: {
+        type: DataTypes.TEXT,
+      },
+      type: {
+        type: DataTypes.ENUM("Online", "In person"),
+      },
+      private: {
+        type: DataTypes.BOOLEAN,
+      },
+      city: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      state: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    about: {
-      type: DataTypes.TEXT,
-    },
-    type: {
-      type: DataTypes.ENUM('Online', 'In person')
-    },
-    private: {
-      type: DataTypes.BOOLEAN,
-    },
-    city: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    state: {
-      type: DataTypes.STRING,
-      allowNull: false
+    {
+      sequelize,
+      modelName: "Group",
     }
-  }, {
-    sequelize,
-    modelName: 'Group',
-  });
+  );
   return Group;
 };
