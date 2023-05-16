@@ -14,6 +14,16 @@ router.get('/', async (req, res) => {
             }
         })
         group.dataValues.numMembers = numMembers.length
+        let images = await GroupImage.findAll({
+            where: {
+                groupId: group.id
+            }
+        })
+        let urls = []
+        for (let image of images) {
+            urls.push(image.url)
+        }
+        group.dataValues.previewImage = urls
     }
     return res.json({Groups: groups})
 })
@@ -61,7 +71,6 @@ router.post('/', requireAuth, async(req, res) => {
     if (!private && typeof private != 'boolean') errors.private = 'Private must be a boolean';
     if (!city) errors.city = "City is required"
     if (!state) errors.state = "State is required"
-
     if (Object.keys(errors).length) {
         return res.status(400).json({
             message: 'Bad Request',
@@ -95,8 +104,14 @@ router.post('/:groupId/images', requireAuth, async(req, res) => {
     const { url, preview } = req.body
 
     if (!group) return res.status(404).json({message: "Group couldn't be found"})
-
-    
+    if (group.organizerId !== req.user.id) return res.status(401).json({message: 'Only organizer is authorized to add an image'})
+    const groupId = group.id
+    const newGroupImage = await GroupImage.create({
+        groupId,
+        url,
+        preview
+    });
+    return res.json(newGroupImage)
 })
 
 
