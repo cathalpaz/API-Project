@@ -8,7 +8,7 @@ const { requireAuth } = require('../../utils/auth')
 router.get('/', async (req, res) => {
     const groups = await Group.findAll()
     for (let group of groups) {
-        let numMembers = await Membership.findAll({
+        const numMembers = await Membership.findAll({
             where: {
                 groupId: group.id
             }
@@ -30,7 +30,33 @@ router.get('/', async (req, res) => {
 
 // Get all Groups joined or organized by the Current User
 router.get('/current', requireAuth, async(req, res) => {
-
+    const groups = await Group.findAll({
+        // include: {
+        //     model: Membership,
+        //     where: {
+        //         userId: req.user.id
+        //     }
+        // }
+    })
+    for (let group of groups) {
+        const numMembers = await Membership.findAll({
+            where: {
+                groupId: group.id
+            }
+        })
+        group.dataValues.numMembers = numMembers.length
+        let images = await GroupImage.findAll({
+            where: {
+                groupId: group.id
+            }
+        })
+        let urls = []
+        for (let image of images) {
+            urls.push(image.url)
+        }
+        group.dataValues.previewImage = urls
+    }
+    return res.json({Groups: groups})
 })
 
 // Get details of a Group from an id
@@ -67,7 +93,7 @@ router.post('/', requireAuth, async(req, res) => {
     const errors = {}
     if (!name || name.length > 60) errors.name = 'Name must be 60 characters or less';
     if (!about || about.length < 50) errors.about = 'About must be 50 characters or more';
-    if (!type || (type !== 'Online' || type !== 'In Person')) errors.type = "Type must be 'Online' or 'In person'";
+    if (!type || type !== 'Online' || type !== 'In Person') errors.type = "Type must be 'Online' or 'In person'";
     if (!private && typeof private != 'boolean') errors.private = 'Private must be a boolean';
     if (!city) errors.city = "City is required"
     if (!state) errors.state = "State is required"
