@@ -16,7 +16,7 @@ module.exports = {
         name: "The Breakfast Club",
         about:
           "A group of highschool students in detention on a Saturday morning.",
-        type: "In Person",
+        type: "In person",
         private: true,
         city: "Los Angeles",
         state: "CA",
@@ -36,7 +36,7 @@ module.exports = {
         name: "Gym Enthusiasts",
         about:
           "A group for people who love lifting weights, open to bodybuilders, powerlifters, etc.",
-        type: "In Person",
+        type: "In person",
         private: false,
         city: "Miami",
         state: "FL",
