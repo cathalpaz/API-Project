@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
       Event.belongsToMany(models.User, {
         through: models.Attendance,
         foreignKey: 'eventId',
-        otherKey: 'userId'
+        otherKey: 'userId',
+        onDelete: 'cascade'
       })
       Event.belongsTo(models.Group, {foreignKey: 'groupId'})
       Event.belongsTo(models.Venue, {foreignKey: 'venueId'})
@@ -39,8 +40,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     type: {
-      type: DataTypes.ENUM('Online', 'In Person'),
-      defaultValue: 'In Person'
+      type: DataTypes.ENUM('Online', 'In Person')
     },
     capacity: {
       type: DataTypes.INTEGER,

@@ -5,17 +5,14 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       // define association here
-      User.hasMany(models.Group, {foreignKey: 'organizerId'});
-      User.belongsToMany(models.Group, {
-        through: models.Membership,
-        foreignKey: 'userId',
-        otherKey: 'groupId'
-      });
+      User.hasMany(models.Group, { foreignKey: "organizerId" });
+      User.hasMany(models.Attendance, { foreignKey: "userId" });
+      User.hasMany(models.Membership, { foreignKey: "userId" });
       User.belongsToMany(models.Event, {
         through: models.Attendance,
-        foreignKey: 'userId',
-        otherKey: 'eventId'
-      })
+        foreignKey: "userId",
+        otherKey: "eventId",
+      });
     }
   }
 
@@ -56,9 +53,9 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "User",
       defaultScope: {
         attributes: {
-          exclude: ["hashedPassword", "email", "createdAt", "updatedAt"]
-        }
-      }
+          exclude: ["hashedPassword", "email", "createdAt", "updatedAt"],
+        },
+      },
     }
   );
   return User;
