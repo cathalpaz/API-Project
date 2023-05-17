@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Group, Membership, GroupImage, Venue, User } = require('../../db/models');
+const { Group, Membership, GroupImage, Venue, User, Attendance, Event, EventImage } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth')
 
 
@@ -255,5 +255,88 @@ router.post('/:groupId/venues', requireAuth, async(req, res) => {
     }
     return res.json(venueObj)
 })
+
+// Get all Events of a Group specified by its id
+router.get('/:groupId/events', async(req, res) => {
+    const group = await Group.findByPk(req.params.groupId)
+    if (!group) return res.status(404).json({message: "Group couldn't be found"})
+
+    const events = await Event.findAll({
+        attributes: ['id', 'groupId', 'venueId', 'name', 'type', 'startDate', 'endDate'],
+        include: [{
+            model: Group,
+            where: {
+                id: req.params.groupId
+            },
+            attributes: ['id', 'name', 'city', 'state']
+        }, {
+            model: Venue,
+            attributes: ['id', 'city', 'state']
+        }]
+    })
+    for (let event of events) {
+        const numAttending = await Attendance.findAll({
+            where: {
+                eventId: event.id
+            }
+        })
+        event.dataValues.numAttending = numAttending.length
+        const previewImage = await EventImage.findOne({
+            where: {
+                eventId: event.id
+            }
+        })
+        event.dataValues.previewImage = previewImage.url
+    }
+
+    return res.json({Events: events})
+})
+
+// Create an Event for a Group specified by its id
+router.post('/:groupId/events', requireAuth, async(req, res) => {
+    const group = await Group.findByPk(req.params.groupId, {
+        include: {
+            model: Membership,
+            where: {
+                userId: req.user.id
+            },
+        }
+    })
+    if (!group) return res.status(404).json({message: "Group couldn't be found"})
+    if (group.dataValues.Memberships[0].status != 'organizer' && group.dataValues.Memberships[0].status != 'co-host') return res.status(401).json({message: 'Must be organizer or co-host to add events for this group'});
+
+    const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
+    const errors = {}
+    const checkVenue = await Venue.findByPk(venueId)
+    if (!venueId && !checkVenue) errors.venueId = 'Venue does not exist'
+    if (!name || name.length < 5) errors.name = 'Name must be at least 5 characters'
+    if (!type || type !== 'Online' && type!== 'In person') errors.type = 'Type must be Online or In person'
+    if (!capacity || typeof capacity !== 'number') errors.capacity = 'Capacity must be an integer'
+    if (!price || typeof price !== 'number') errors.price = 'Price is invalid'
+    if (!description) errors.description = 'Description is required'
+    if (!startDate || Date.parse(startDate) < Date.now()) errors.startDate = 'Start date must be in the future';
+    if (!endDate || Date.parse(endDate) < Date.parse(startDate)) errors.endDate = 'End date is less than start date';
+
+    if (Object.keys(errors).length) {
+        return res.status(400).json({
+            message: 'Bad Request',
+            errors
+        })
+    }
+
+    const newEvent = await Event.create({
+        venueId,
+        groupId: group.dataValues.id,
+        name,
+        type,
+        capacity,
+        price,
+        description,
+        startDate,
+        endDate
+    })
+    return res.json(newEvent)
+})
+
 
 module.exports = router;
