@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { Group, Membership, GroupImage, Venue, User, Attendance, Event, EventImage } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth')
+const { Op } = require('sequelize')
 
 
 // Get all Groups
@@ -10,20 +11,21 @@ router.get('/', async (req, res) => {
     for (let group of groups) {
         const numMembers = await Membership.findAll({
             where: {
-                groupId: group.id
+                groupId: group.id,
+                status: {
+                    [Op.notIn]: ['pending']
+                }
             }
         })
         group.dataValues.numMembers = numMembers.length
-        let images = await GroupImage.findAll({
+        const image = await GroupImage.findOne({
             where: {
                 groupId: group.id
             }
         })
-        let urls = []
-        for (let image of images) {
-            urls.push(image.url)
+        if (image) {
+            group.dataValues.previewImage = image.url
         }
-        group.dataValues.previewImage = urls
     }
     return res.json({Groups: groups})
 })
@@ -42,20 +44,21 @@ router.get('/current', requireAuth, async(req, res) => {
     for (let group of groups) {
         const numMembers = await Membership.findAll({
             where: {
-                groupId: group.id
+                groupId: group.id,
+                status: {
+                    [Op.notIn]: ['pending']
+                }
             }
         })
         group.dataValues.numMembers = numMembers.length
-        let images = await GroupImage.findAll({
+        const image = await GroupImage.findOne({
             where: {
                 groupId: group.id
             }
         })
-        let urls = []
-        for (let image of images) {
-            urls.push(image.url)
+        if (image) {
+            group.dataValues.previewImage = image.url
         }
-        group.dataValues.previewImage = urls
     }
     return res.json({Groups: groups})
 })
@@ -83,8 +86,17 @@ router.get('/:groupId', async(req, res) => {
     ]
     })
     if (!group) return res.status(404).json({message: "Group couldn't be found"})
-    const members = await Membership.findAll({where: {groupId: group.id}})
+
+    const members = await Membership.findAll({
+        where: {
+            groupId: group.id,
+            status: {
+                [Op.notIn]: ['pending']
+            }
+        }
+    })
     group.dataValues.numMembers = members.length
+
     return res.json(group)
 })
 
@@ -119,10 +131,13 @@ router.post('/', requireAuth, async(req, res) => {
 
     const organizerId = req.user.id;
     const newGroup = await Group.create({organizerId, name, about, type, private, city, state})
-    const userId = req.user.id;
-    const groupId = newGroup.id;
-    const status = 'organizer'
-    const newMembership = await Membership.create({userId, groupId, status})
+
+    // create membership association
+    const newMembership = await Membership.create({
+        userId: req.user.id,
+        groupId: newGroup.id,
+        status: 'organizer'
+    })
 
     return res.status(201).json(newGroup);
 })
@@ -134,9 +149,9 @@ router.post('/:groupId/images', requireAuth, async(req, res) => {
 
     if (!group) return res.status(404).json({message: "Group couldn't be found"})
     if (group.organizerId !== req.user.id) return res.status(401).json({message: 'Only organizer is authorized'})
-    const groupId = group.id
+
     const newGroupImage = await GroupImage.create({
-        groupId,
+        groupId: group.id,
         url,
         preview
     });
@@ -161,7 +176,7 @@ router.put('/:groupId', requireAuth, async(req, res) => {
     if (type && type !== 'Online' && type !== 'In person') {
         errors.type = "Type must be 'Online' or 'In person'";
     }
-    if (!private && typeof private != 'boolean') {
+    if (private && typeof private != 'boolean') {
         errors.private = 'Private must be a boolean'
     }
     if (Object.keys(errors).length) {
@@ -182,7 +197,7 @@ router.put('/:groupId', requireAuth, async(req, res) => {
     if (city) group.city = city
     if (state) group.state = state
 
-    group.save()
+    await group.save()
     return res.json(group)
 })
 
