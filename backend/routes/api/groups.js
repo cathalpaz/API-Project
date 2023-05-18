@@ -470,7 +470,7 @@ router.put('/:groupId/membership', requireAuth, async(req, res) => {
 })
 
 // Delete membership to a group specified by id
-router.delete(':groupId/membership', requireAuth, async(req, res) => {
+router.delete('/:groupId/membership', requireAuth, async(req, res) => {
     const group = await Group.findByPk(req.params.groupId);
     if (!group) return res.status(404).json({message: "Group couldn't be found"})
 
@@ -485,7 +485,7 @@ router.delete(':groupId/membership', requireAuth, async(req, res) => {
     const checkOwnerMembership = await Membership.findOne({
         where: {
             userId: req.user.id,
-            group: group.id
+            groupId: group.id
         }
     })
     if (checkOwnerMembership.status != 'organizer' && memberId != req.user.id) {

@@ -332,7 +332,6 @@ router.put('/:eventId/attendance', requireAuth, async(req, res) => {
 router.delete('/:eventId/attendance', requireAuth, async(req, res) => {
     const event = await Event.findByPk(req.params.eventId)
     if (!event) return res.status(404).json({message: "Event couldn't be found"})
-
     const { userId } = req.body
     const attendance = await Attendance.findOne({
         where: {
@@ -340,19 +339,18 @@ router.delete('/:eventId/attendance', requireAuth, async(req, res) => {
             userId: userId
         }
     })
-    if (!attendance) return res.status.json({message: "Attendance does not exist for this User"})
+    if (!attendance) return res.status(404).json({message: "Attendance does not exist for this User"})
     const membership = await Membership.findOne({
         where: {
             userId: req.user.id,
             groupId: event.groupId
         }
     })
-    if (userId != req.user.id || membership.status !== 'organizer') {
-        return res.status(403).json({message: "Only the User or organizer may delete an Attendance"})
-    } else {
-        await attendance.destroy()
-        return res.json({message: "Successfully deleted attendance from event"})
+    if (!membership || (userId != req.user.id && membership.status != 'organizer')) {
+        return res.status(403).json({message: "Unauthorized to delete this attendance"})
     }
+    await attendance.destroy()
+    return res.json({message: "Successfully deleted attendance from event"})
 })
 
 

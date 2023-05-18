@@ -11,7 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      GroupImage.belongsTo(models.Group, {foreignKey: 'groupId'})
+      GroupImage.belongsTo(models.Group, {
+        foreignKey: 'groupId',
+        onDelete: 'cascade'
+      })
     }
   }
   GroupImage.init({
