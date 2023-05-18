@@ -6,10 +6,37 @@ const { Op } = require('sequelize')
 
 // Get all Events
 router.get('/', async(req, res) => {
+    // query filters:
+    let { page, size, name, type, startDate } = req.query
+    const errors = {}
+    if (page && page < 1) errors.page = 'Page must be greater than or equal to 1';
+    if (size && size < 1) errors.size = 'Size must be greater than or equal to 1';
+    if (name && typeof name == 'string') errors.name = 'Name must be a string';
+    if (type && type !== 'Online' && type !== 'In person') errors.type = 'Type must be Online or In person';
+    if (startDate && typeof Date.parse(startDate) !== 'number') errors.startDate = 'Start date must be a valid datetime'
+    if (Object.keys(errors).length) {
+        return res.status(400).json({
+            message: 'Bad Request',
+            errors
+        })
+    }
+    let pagination = {}
+    page = !page ? 1 : page
+    size = !size ? 20 : size
+    pagination.limit = size
+    pagination.offset = size * (page - 1)
+
+    let where = {}
+    if (name) where.name = name;
+    if (type) where.type = type;
+    if (startDate) where.startDate = startDate;
+
     const events = await Event.findAll({
         attributes: {
             exclude: ['createdAt', 'updatedAt']
-        }
+        },
+        where,
+        ...pagination
     })
     for (let event of events) {
         const numAttending = await Attendance.findAll({
@@ -23,7 +50,11 @@ router.get('/', async(req, res) => {
                 eventId: event.id
             }
         })
-        event.dataValues.previewImage = image.url
+        if (image) {
+            event.dataValues.previewImage = image.url
+        } else {
+            event.dataValues.previewImage = 'no image'
+        }
         const group = await Group.findOne({
             where: {
                 id: event.groupId
