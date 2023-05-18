@@ -387,6 +387,7 @@ router.post('/:groupId/membership', requireAuth, async(req, res) => {
     }
 })
 
+// Change the status of a membership for a group specified by id
 router.put('/:groupId/membership', requireAuth, async(req, res) => {
     const group = await Group.findByPk(req.params.groupId)
     if (!group) return res.status(404).json({message: "Group couldn't be found"})
@@ -416,11 +417,13 @@ router.put('/:groupId/membership', requireAuth, async(req, res) => {
     if (myMembership.status === 'co-host' || myMembership.status === 'organizer') {
         if (newMembership.status === 'pending') {
             newMembership.status = 'member'
+            await newMembership.save()
             return res.json(newMembership)
         }
     } else if (myMembership === 'organizer') {
         if (newMembership.status === 'member') {
             newMembership.status = 'co-host'
+            await newMembership.save()
             return res.json(newMembership)
         }
     } else {
@@ -429,6 +432,33 @@ router.put('/:groupId/membership', requireAuth, async(req, res) => {
 
 
 })
+
+// Delete membership to a group specified by id
+router.delete(':groupId/membership', requireAuth, async(req, res) => {
+    const group = await Group.findByPk(req.params.groupId);
+    if (!group) return res.status(404).json({message: "Group couldn't be found"})
+
+    const { memberId } = req.body
+    const membership = await Membership.findOne({
+        where: {
+            userId: memberId,
+            groupId: group.id
+        }
+    })
+    if (!membership) return res.status(404).json({message: "Membership does not exist for this User"})
+    const checkOwnerMembership = await Membership.findOne({
+        where: {
+            userId: req.user.id,
+            group: group.id
+        }
+    })
+    if (checkOwnerMembership.status != 'organizer' && memberId != req.user.id) {
+        return res.status(403).json({message: 'Unauthorized to delete this member'})
+    }
+    await membership.destroy()
+    return res.json(message: "Successfully deleted membership from group")
+})
+
 
 
 module.exports = router;
