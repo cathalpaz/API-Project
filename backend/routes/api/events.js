@@ -222,7 +222,138 @@ router.delete('/:eventId', requireAuth, async(req, res) => {
     return res.json({message: "Successfully deleted"})
 })
 
+// Get all Attendees of an Event specified by its id
+router.get('/:eventId/attendees', async(req, res) => {
+    const event = await Event.findByPk(req.params.eventId)
+    if (!event) return res.status(404).json({message: "Event couldn't be found"})
 
+    const currentMembership = await Membership.findOne({
+        where: {
+            userId: req.user.id,
+            groupId: event.groupId
+        }
+    })
+    if (currentMembership.status === 'organizer' || currentMembership.status === 'co-host') {
+        const attendees = await User.findAll({
+            attributes: ['id', 'firstName', 'lastName'],
+            include: {
+                model: Attendance,
+                where: {
+                    eventId: event.id
+                },
+                attributes: ['status'],
+            },
+        })
+        return res.json({Attendees: attendees})
+    } else {
+        const attendees = await User.findAll({
+            attributes: ['id', 'firstName', 'lastName'],
+            include: {
+                model: Attendance,
+                where: {
+                    eventId: event.id,
+                    status: {
+                        [Op.not]: 'pending'
+                    }
+                },
+                attributes: ['status']
+            }
+        })
+        return res.json({Attendees: attendees})
+    }
+})
+
+// Request to Attend an Event based on the Event's id
+router.post('/:eventId/attendance', requireAuth, async(req, res) => {
+    const event = await Event.findByPk(req.params.eventId)
+    if (!event) return res.status(404).json({message: "Event couldn't be found"})
+
+    const checkAttendance = await Attendance.findOne({
+        where: {
+            eventId: event.id,
+            userId: req.user.id
+        }
+    })
+    if (!checkAttendance) {
+        // set to pending here, create new attendance
+        const newAttendance = await Attendance.create({
+            eventId: event.id,
+            userId: req.user.id,
+            status: 'pending'
+        })
+        const attendanceObj = {
+            userId: newAttendance.userId,
+            status: newAttendance.status
+        }
+        return res.json(attendanceObj)
+    } else if (checkAttendance.status === 'pending') {
+        // attendance already been requested here
+        return res.status(400).json({message: "Attendance has already been requested"})
+    } else {
+        // user already an attendee here
+        return res.status(400).json({message: "User is already an attendee of the event"})
+    }
+})
+
+// Change the status of an attendance for an event specified by id
+router.put('/:eventId/attendance', requireAuth, async(req, res) => {
+    const event = await Event.findByPk(req.params.eventId)
+    if (!event) return res.status(404).json({message: "Event couldn't be found"})
+
+    const { userId, status } = req.body
+    const checkAttendance = await Attendance.findOne({
+        where: {
+            eventId: event.id,
+            userId: userId
+        }
+    })
+    if (!checkAttendance) return res.status(404).json({message: "Attendance between the user and the event does not exist"})
+    if (status === 'pending') return res.status(400).json({message: "Cannot change an attendance status to pending"})
+
+    const currentMembership = await Membership.findOne({
+        userId: req.user.id,
+        groupId: event.groupId
+    })
+    if (currentMembership && (currentMembership.status === 'organizer' || currentMembership.status === 'co-host')) {
+        checkAttendance.status = status
+        await checkAttendance.save()
+        return res.json({
+            id: checkAttendance.id,
+            eventId: checkAttendance.eventId,
+            userId: checkAttendance.userId,
+            status: checkAttendance.status
+        })
+    } else {
+        return res.status(403).json({message: 'Unauthorized to change status'})
+    }
+})
+
+// Delete attendance to an event specified by id
+router.delete('/:eventId/attendance', requireAuth, async(req, res) => {
+    const event = await Event.findByPk(req.params.eventId)
+    if (!event) return res.status(404).json({message: "Event couldn't be found"})
+
+    const { userId } = req.body
+    const attendance = await Attendance.findOne({
+        where: {
+            eventId: event.id,
+            userId: userId
+        }
+    })
+    if (!attendance) return res.status.json({message: "Attendance does not exist for this User"})
+    const membership = await Membership.findOne({
+        where: {
+            userId: req.user.id,
+            groupId: event.groupId
+        }
+    })
+    if (userId != req.user.id || membership.status !== 'organizer') {
+        return res.status(403).json({message: "Only the User or organizer may delete an Attendance"})
+    } else {
+        await attendance.destroy()
+        return res.json({message: "Successfully deleted attendance from event"})
+    }
+})
 
 
 

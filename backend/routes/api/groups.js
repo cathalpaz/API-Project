@@ -367,6 +367,7 @@ router.get('/:groupId/members', async(req, res) => {
 
     if (currentMembership.status === 'organizer' || currentMembership.status === 'co-host') {
         const members = await User.findAll({
+            attributes: ['id', 'firstName', 'lastName'],
             include: {
                 model: Membership,
                 where: {
@@ -380,7 +381,6 @@ router.get('/:groupId/members', async(req, res) => {
         // if not organizer or co-host
         const members = await User.findAll({
             attributes: ['id', 'firstName', 'lastName'],
-
             include: {
                 model: Membership,
                 where: {
@@ -391,11 +391,9 @@ router.get('/:groupId/members', async(req, res) => {
                 },
                 attributes: ['status']
             }
-
         })
         return res.json({Members: members})
     }
-
 })
 
 // Request a Membership for a Group based on the Group's id

@@ -75,7 +75,7 @@ module.exports = {
       options,
       {
         username: {
-          [Op.in]: ["Demo-lition", "FakeUser1", "FakeUser2", "FakeUser3", "FakeUser4", "FakeUser5", "FakerUser6"],
+          [Op.in]: ["Demo-lition", "FakeUser1", "FakeUser2", "FakeUser3", "FakeUser4", "FakeUser5", "FakeUser6"],
         },
       },
       {}
