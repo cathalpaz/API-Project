@@ -50,11 +50,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.FLOAT,
     },
     startDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false
     },
     endDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false
     }
   }, {

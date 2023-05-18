@@ -456,7 +456,7 @@ router.delete(':groupId/membership', requireAuth, async(req, res) => {
         return res.status(403).json({message: 'Unauthorized to delete this member'})
     }
     await membership.destroy()
-    return res.json(message: "Successfully deleted membership from group")
+    return res.json({message: "Successfully deleted membership from group"})
 })
 
 
