@@ -356,7 +356,7 @@ router.post('/:groupId/events', requireAuth, async(req, res) => {
 // Get all Members of a Group specified by its id
 router.get('/:groupId/members', async(req, res) => {
     const group = await Group.findByPk(req.params.groupId)
-    const membership = await Membership.findOne({
+    const currentMembership = await Membership.findOne({
         where: {
             groupId: group.id,
             userId: req.user.id
@@ -364,15 +364,38 @@ router.get('/:groupId/members', async(req, res) => {
     })
 
     if (!group) return res.status(404).json({message: "Group couldn't be found"})
-    if (membership.status === 'organizer' || membership.status === 'co-host') {
-        return res.json({Members: await User.findAll({
-            attributes: ['id', 'firstName', 'lastName'],
-            where: {
-                id: membership.userId
+
+    if (currentMembership.status === 'organizer' || currentMembership.status === 'co-host') {
+        const members = await User.findAll({
+            include: {
+                model: Membership,
+                where: {
+                    groupId: group.id
+                },
+                attributes: ['status']
             }
-        })})
+        })
+        return res.json({Members: members})
+    } else {
+        // if not organizer or co-host
+        const members = await User.findAll({
+            attributes: ['id', 'firstName', 'lastName'],
+
+            include: {
+                model: Membership,
+                where: {
+                    status: {
+                        [Op.not]: 'pending'
+                    },
+                    groupId: group.id
+                },
+                attributes: ['status']
+            }
+
+        })
+        return res.json({Members: members})
     }
-    res.json(membership.status)
+
 })
 
 // Request a Membership for a Group based on the Group's id

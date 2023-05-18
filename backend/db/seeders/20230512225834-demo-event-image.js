@@ -31,6 +31,16 @@ module.exports = {
         url: "event4img.png",
         preview: true,
       },
+      {
+        eventId: 5,
+        url: "event5img.png",
+        preview: true,
+      },
+      {
+        eventId: 6,
+        url: "event6img.png",
+        preview: false,
+      },
     ]);
   },
 
@@ -39,7 +49,7 @@ module.exports = {
     const Op = Sequelize.Op;
     await queryInterface.bulkDelete(options, {
       eventId: {
-        [Op.in]: [1, 2, 3, 4],
+        [Op.in]: [1, 2, 3, 4, 5, 6],
       },
     });
   },

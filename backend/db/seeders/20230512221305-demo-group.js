@@ -41,6 +41,26 @@ module.exports = {
         city: "Miami",
         state: "FL",
       },
+      {
+        organizerId: 4,
+        name: "Demo Group",
+        about:
+          "A demo group for testing with random characters to fill in the 50 character limit",
+        type: "Online",
+        private: false,
+        city: "Chicago",
+        state: "IL",
+      },
+      {
+        organizerId: 5,
+        name: "Another Demo Group",
+        about:
+          "Another demo group for testing with random characters to fill in the 50 character limit",
+        type: "In person",
+        private: true,
+        city: "Honolulu",
+        state: "HI",
+      },
     ]);
   },
 
@@ -49,7 +69,7 @@ module.exports = {
     const Op = Sequelize.Op;
     await queryInterface.bulkDelete(options, {
       name: {
-        [Op.in]: ["The Breakfast Club", "The Avengers", "Gym Enthusiasts"],
+        [Op.in]: ["The Breakfast Club", "The Avengers", "Gym Enthusiasts", "Demo Group", "Another Demo Group"],
       },
     });
   },

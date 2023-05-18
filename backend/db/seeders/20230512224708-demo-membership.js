@@ -23,13 +23,18 @@ module.exports = {
       },
       {
         userId: 2,
+        groupId: 2,
+        status: "organizer",
+      },
+      {
+        userId: 2,
         groupId: 1,
         status: "co-host",
       },
       {
         userId: 2,
-        groupId: 2,
-        status: "organizer",
+        groupId: 5,
+        status: "pending",
       },
       {
         userId: 3,
@@ -43,8 +48,43 @@ module.exports = {
       },
       {
         userId: 4,
+        groupId: 4,
+        status: "organizer",
+      },
+      {
+        userId: 4,
         groupId: 3,
+        status: "member",
+      },
+      {
+        userId: 5,
+        groupId: 5,
+        status: "organizer",
+      },
+      {
+        userId: 5,
+        groupId: 1,
         status: "pending",
+      },
+      {
+        userId: 6,
+        groupId: 5,
+        status: "member",
+      },
+      {
+        userId: 6,
+        groupId: 4,
+        status: "member",
+      },
+      {
+        userId: 7,
+        groupId: 1,
+        status: "member",
+      },
+      {
+        userId: 7,
+        groupId: 3,
+        status: "co-host",
       },
     ]);
   },
@@ -54,7 +94,7 @@ module.exports = {
     const Op = Sequelize.Op;
     await queryInterface.bulkDelete(options, {
       userId: {
-        [Op.in]: [1, 2, 3, 4],
+        [Op.in]: [1, 2, 3, 4, 5, 6, 7],
       },
     });
   },
