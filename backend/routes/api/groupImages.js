@@ -16,7 +16,7 @@ router.delete('/:imageId', requireAuth, async(req, res) => {
         }
     })
     if (!membership || (membership.status !== 'organizer' && membership.status !== 'co-host')) {
-        return res.status(403).json({message: 'Unauthorized to delete this image'})
+        return res.status(401).json({message: 'Unauthorized to delete this image'})
     }
     await image.destroy()
     return res.json({message: "Successfully deleted"})
