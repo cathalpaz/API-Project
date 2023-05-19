@@ -30,21 +30,24 @@ router.get('/', async(req, res) => {
     if (name) where.name = name;
     if (type) where.type = type;
     if (startDate) where.startDate = startDate;
-
+    // end of filters
     const events = await Event.findAll({
         attributes: {
-            exclude: ['createdAt', 'updatedAt']
+            exclude: ['createdAt', 'updatedAt', 'description', 'capacity', 'price']
         },
         where,
         ...pagination
     })
     for (let event of events) {
-        const numAttending = await Attendance.findAll({
+        const numAttending = await Attendance.count({
             where: {
-                eventId: event.id
+                eventId: event.id,
+                status: {
+                    [Op.notIn]: ['pending', 'waitlist']
+                }
             },
         })
-        event.dataValues.numAttending = numAttending.length;
+        event.dataValues.numAttending = numAttending;
         const image = await EventImage.findOne({
             where: {
                 eventId: event.id
@@ -70,7 +73,6 @@ router.get('/', async(req, res) => {
         })
         event.dataValues.Venue = venue
     }
-
     res.json({Events: events})
 })
 
@@ -93,12 +95,12 @@ router.get('/:eventId', async(req, res) => {
     ]
     })
     if (!event) return res.status(404).json({message: "Event couldn't be found"})
-    const numAttending = await Attendance.findAll({
+    const numAttending = await Attendance.count({
         where: {
             eventId: event.id
         }
     })
-    event.dataValues.numAttending = numAttending.length
+    event.dataValues.numAttending = numAttending;
     res.json(event)
 })
 

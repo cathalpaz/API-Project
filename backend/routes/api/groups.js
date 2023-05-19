@@ -7,7 +7,7 @@ const { Op } = require('sequelize')
 
 // Get all Groups
 router.get('/', async (req, res) => {
-    const groups = await Group.findAll()
+    const groups = await Group.findAll();
     for (let group of groups) {
         const numMembers = await Membership.findAll({
             where: {
@@ -20,14 +20,16 @@ router.get('/', async (req, res) => {
         group.dataValues.numMembers = numMembers.length
         const image = await GroupImage.findOne({
             where: {
-                groupId: group.id
+                groupId: group.id,
             }
         })
         if (image) {
-            group.dataValues.previewImage = image.url
+            group.dataValues.previewImage = image.url;
+        } else {
+            group.dataValues.previewImage = 'no image';
         }
     }
-    return res.json({Groups: groups})
+    return res.json({Groups: groups});
 })
 
 // Get all Groups joined or organized by the Current User
@@ -40,7 +42,7 @@ router.get('/current', requireAuth, async(req, res) => {
                 userId: req.user.id
             }
         }
-    })
+    });
     for (let group of groups) {
         const numMembers = await Membership.findAll({
             where: {
@@ -49,18 +51,20 @@ router.get('/current', requireAuth, async(req, res) => {
                     [Op.notIn]: ['pending']
                 }
             }
-        })
+        });
         group.dataValues.numMembers = numMembers.length
         const image = await GroupImage.findOne({
             where: {
                 groupId: group.id
             }
-        })
+        });
         if (image) {
-            group.dataValues.previewImage = image.url
+            group.dataValues.previewImage = image.url;
+        } else {
+            group.dataValues.previewImage = 'no image';
         }
     }
-    return res.json({Groups: groups})
+    return res.json({Groups: groups});
 })
 
 // Get details of a Group from an id
@@ -68,15 +72,11 @@ router.get('/:groupId', async(req, res) => {
     const group = await Group.findByPk(req.params.groupId, {
         include: [{
             model: GroupImage,
-            attributes: {
-                exclude: ['createdAt', 'updatedAt', 'groupId']
-            }
+            attributes: ['id', 'url', 'preview']
         }, {
             model: User,
             as: 'Organizer',
-            attributes: {
-                exclude: ['createdAt', 'updatedAt', 'hashedPassword', 'username', 'email']
-            }
+            attributes: ['id', 'firstName', 'lastName']
         }, {
             model: Venue,
             attributes: {
@@ -84,9 +84,8 @@ router.get('/:groupId', async(req, res) => {
             }
         }
     ]
-    })
-    if (!group) return res.status(404).json({message: "Group couldn't be found"})
-
+    });
+    if (!group) return res.status(404).json({message: "Group couldn't be found"});
     const members = await Membership.findAll({
         where: {
             groupId: group.id,
@@ -94,10 +93,9 @@ router.get('/:groupId', async(req, res) => {
                 [Op.notIn]: ['pending']
             }
         }
-    })
-    group.dataValues.numMembers = members.length
-
-    return res.json(group)
+    });
+    group.dataValues.numMembers = members.length;
+    return res.json(group);
 })
 
 // Create a Group
@@ -113,7 +111,7 @@ router.post('/', requireAuth, async(req, res) => {
     if (!type || type !== 'Online' && type !== 'In person') {
         errors.type = "Type must be 'Online' or 'In person'";
     }
-    if (!private && typeof private != 'boolean') {
+    if (!private && typeof private !== 'boolean') {
         errors.private = 'Private must be a boolean'
     }
     if (!city) {
@@ -128,17 +126,15 @@ router.post('/', requireAuth, async(req, res) => {
             errors
         });
     }
-
     const organizerId = req.user.id;
-    const newGroup = await Group.create({organizerId, name, about, type, private, city, state})
+    const newGroup = await Group.create({organizerId, name, about, type, private, city, state});
 
     // create membership association
     const newMembership = await Membership.create({
         userId: req.user.id,
         groupId: newGroup.id,
         status: 'organizer'
-    })
-
+    });
     return res.status(201).json(newGroup);
 })
 
@@ -148,19 +144,18 @@ router.post('/:groupId/images', requireAuth, async(req, res) => {
     const { url, preview } = req.body
 
     if (!group) return res.status(404).json({message: "Group couldn't be found"})
-    if (group.organizerId !== req.user.id) return res.status(401).json({message: 'Only organizer is authorized'})
+    if (group.organizerId !== req.user.id) return res.status(401).json({message: 'Unauthorized to add an image'});
 
     const newGroupImage = await GroupImage.create({
         groupId: group.id,
         url,
         preview
     });
-    const imgObj = {
+    return res.json({
         id: newGroupImage.id,
         url: newGroupImage.url,
         preview: newGroupImage.preview
-    }
-    return res.json(imgObj)
+    })
 })
 
 // Edit a Group
@@ -176,7 +171,7 @@ router.put('/:groupId', requireAuth, async(req, res) => {
     if (type && type !== 'Online' && type !== 'In person') {
         errors.type = "Type must be 'Online' or 'In person'";
     }
-    if (private && typeof private != 'boolean') {
+    if (private && typeof private !== 'boolean') {
         errors.private = 'Private must be a boolean'
     }
     if (Object.keys(errors).length) {
@@ -188,7 +183,7 @@ router.put('/:groupId', requireAuth, async(req, res) => {
     const group = await Group.findByPk(req.params.groupId)
 
     if (!group) return res.status(404).json({message: "Group couldn't be found"})
-    if (group.organizerId !== req.user.id) return res.status(401).json({message: 'Only organizer is authorized'})
+    if (group.organizerId !== req.user.id) return res.status(401).json({message: 'Unauthorized to edit this group'})
 
     if (name) group.name = name
     if (about) group.about = about
@@ -206,7 +201,7 @@ router.delete('/:groupId', requireAuth, async(req, res) => {
     const group = await Group.findByPk(req.params.groupId);
 
     if (!group) return res.status(404).json({message: "Group couldn't be found"});
-    if (group.organizerId != req.user.id) return res.status(401).json({message: 'Only organizer is authorized'});
+    if (group.organizerId !== req.user.id) return res.status(401).json({message: 'Unauthorized to delete this group'});
 
     await group.destroy();
     return res.json({message: "Successfully deleted"});
@@ -214,16 +209,15 @@ router.delete('/:groupId', requireAuth, async(req, res) => {
 
 // Get All Venues for a Group specified by its id
 router.get('/:groupId/venues', requireAuth, async(req, res) => {
-    const group = await Group.findByPk(req.params.groupId, {
-        include: {
-            model: Membership,
-            where: {
-                userId: req.user.id
-            },
+    const group = await Group.findByPk(req.params.groupId);
+    if (!group) return res.status(404).json({message: "Group couldn't be found"});
+    const membership = await Membership.findOne({
+        where: {
+            userId: req.user.id,
+            groupId: group.id
         }
     })
-    if (!group) return res.status(404).json({message: "Group couldn't be found"});
-    if (group.dataValues.Memberships[0].status != 'organizer' && group.dataValues.Memberships[0].status != 'co-host') return res.status(401).json({message: 'Must be organizer or co-host to view venues for this group'});
+    if (!membership || (membership.status !== 'organizer' && membership.status !== 'co-host')) return res.status(401).json({message: 'Unauthorized to view venues for this group'});
 
     const venues = await Venue.findAll({
         where: {
@@ -239,27 +233,32 @@ router.get('/:groupId/venues', requireAuth, async(req, res) => {
 // Create a new Venue for a Group specified by its id
 router.post('/:groupId/venues', requireAuth, async(req, res) => {
     const { address, city, state, lat, lng } = req.body;
+
     const errors = {};
     if (!address) errors.address = "Street address is required"
     if (!city) errors.city = "City is required"
     if (!state) errors.state = "State is required"
     if (!lat) errors.lat = "Latitude is required"
     if (!lng) errors.lng = "Longitude is required"
-
-    const group = await Group.findByPk(req.params.groupId, {
-        include: {
-            model: Membership,
-            where: {
-                userId: req.user.id
-            },
+    if (Object.keys(errors).length) {
+        return res.status(400).json({
+            message: 'Bad Request',
+            errors
+        })
+    }
+    const group = await Group.findByPk(req.params.groupId)
+    if (!group) return res.status(404).json({message: "Group couldn't be found"});
+    const membership = await Membership.findOne({
+        where: {
+            userId: req.user.id,
+            groupId: group.id
         }
     })
-    if (!group) return res.status(404).json({message: "Group couldn't be found"});
-    if (group.dataValues.Memberships[0].status != 'organizer' && group.dataValues.Memberships[0].status != 'co-host') return res.status(401).json({message: 'Must be organizer or co-host to add venues for this group'});
+    if (!membership || (membership.status !== 'organizer' && membership.status !== 'co-host')) return res.status(401).json({message: 'Unauthorized to add venues for this group'});
 
     const groupId = group.id
     const newVenue = await Venue.create({groupId, address, city, state, lat, lng})
-    const venueObj = {
+    return res.json({
         id: newVenue.id,
         groupId: newVenue.groupId,
         address: newVenue.address,
@@ -267,8 +266,7 @@ router.post('/:groupId/venues', requireAuth, async(req, res) => {
         state: newVenue.state,
         lat: newVenue.lat,
         lng: newVenue.lng
-    }
-    return res.json(venueObj)
+    })
 })
 
 // Get all Events of a Group specified by its id
@@ -290,20 +288,26 @@ router.get('/:groupId/events', async(req, res) => {
         }]
     })
     for (let event of events) {
-        const numAttending = await Attendance.findAll({
+        const numAttending = await Attendance.count({
+            where: {
+                eventId: event.id,
+                status: {
+                    [Op.notIn]: ['pending', 'waitlist']
+                }
+            }
+        })
+        event.dataValues.numAttending = numAttending;
+        const image = await EventImage.findOne({
             where: {
                 eventId: event.id
             }
         })
-        event.dataValues.numAttending = numAttending.length
-        const previewImage = await EventImage.findOne({
-            where: {
-                eventId: event.id
-            }
-        })
-        event.dataValues.previewImage = previewImage.url
+        if (image) {
+            event.dataValues.previewImage = image.url
+        } else {
+            event.dataValues.previewImage = 'no image'
+        }
     }
-
     return res.json({Events: events})
 })
 
