@@ -313,6 +313,7 @@ router.get('/:groupId/events', async(req, res) => {
 
 // Create an Event for a Group specified by its id
 router.post('/:groupId/events', requireAuth, async(req, res) => {
+    // eagerly loaded:
     const group = await Group.findByPk(req.params.groupId, {
         include: {
             model: Membership,
@@ -322,20 +323,20 @@ router.post('/:groupId/events', requireAuth, async(req, res) => {
         }
     })
     if (!group) return res.status(404).json({message: "Group couldn't be found"})
-    if (group.dataValues.Memberships[0].status != 'organizer' && group.dataValues.Memberships[0].status != 'co-host') return res.status(401).json({message: 'Must be organizer or co-host to add events for this group'});
+    if (group.Memberships[0].status !== 'organizer' && group.Memberships[0].status !== 'co-host') return res.status(401).json({message: 'Unauthorized to add events for this group'});
 
     const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
+
     const errors = {}
     const checkVenue = await Venue.findByPk(venueId)
-    if (!venueId && !checkVenue) errors.venueId = 'Venue does not exist'
+    if (!venueId || !checkVenue) errors.venueId = 'Venue does not exist'
     if (!name || name.length < 5) errors.name = 'Name must be at least 5 characters'
-    if (!type || type !== 'Online' && type!== 'In person') errors.type = 'Type must be Online or In person'
+    if (!type || type !== 'Online' && type !== 'In person') errors.type = 'Type must be Online or In person'
     if (!capacity || typeof capacity !== 'number') errors.capacity = 'Capacity must be an integer'
     if (!price || typeof price !== 'number') errors.price = 'Price is invalid'
     if (!description) errors.description = 'Description is required'
     if (!startDate || Date.parse(startDate) < Date.now()) errors.startDate = 'Start date must be in the future';
     if (!endDate || Date.parse(endDate) < Date.parse(startDate)) errors.endDate = 'End date is less than start date';
-
     if (Object.keys(errors).length) {
         return res.status(400).json({
             message: 'Bad Request',
@@ -345,7 +346,7 @@ router.post('/:groupId/events', requireAuth, async(req, res) => {
 
     const newEvent = await Event.create({
         venueId,
-        groupId: group.dataValues.id,
+        groupId: group.id,
         name,
         type,
         capacity,
@@ -354,7 +355,18 @@ router.post('/:groupId/events', requireAuth, async(req, res) => {
         startDate,
         endDate
     })
-    return res.json(newEvent)
+    return res.json({
+        id: newEvent.id,
+        groupId: newEvent.groupId,
+        venueId: newEvent.venueId,
+        name: newEvent.name,
+        type: newEvent.type,
+        capacity: newEvent.capacity,
+        price: newEvent.price,
+        description: newEvent.description,
+        startDate: newEvent.startDate,
+        endDate: newEvent.endDate
+    })
 })
 
 // Get all Members of a Group specified by its id
