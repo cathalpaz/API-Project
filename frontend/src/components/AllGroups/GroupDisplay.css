@@ -1,0 +1,15 @@
+div * {
+    text-decoration: none;
+    color: black;
+}
+
+.display-container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    border-top: 1px solid gray;
+}
+
+.bottom-container {
+    display: flex;
+    gap: 1rem;
+}

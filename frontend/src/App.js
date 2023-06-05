@@ -3,7 +3,9 @@ import { useDispatch } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import Home from './components/Home'
+import Home from './components/Home';
+import AllGroups from './components/AllGroups';
+import AllEvents from './components/AllEvents';
 
 function App() {
   const dispatch = useDispatch();
@@ -18,6 +20,12 @@ function App() {
       {isLoaded && <Switch>
         <Route exact path='/'>
           <Home />
+        </Route>
+        <Route exact path='/groups'>
+          <AllGroups />
+        </Route>
+        <Route exact path='/events'>
+          <AllEvents />
         </Route>
         </Switch>}
     </>
