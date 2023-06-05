@@ -42,7 +42,7 @@ function ProfileButton({ user }) {
         <i className="fas fa-user-circle" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
-        {user ? (
+        {/* {user ? ( */}
           <>
             <li>{user.username}</li>
             <li>{user.firstName} {user.lastName}</li>
@@ -51,23 +51,23 @@ function ProfileButton({ user }) {
               <button onClick={logout}>Log Out</button>
             </li>
           </>
-        ) : (
-          <>
-            <li>
-              <OpenModalButton
-                buttonText="Log In"
-                modalComponent={<LoginFormModal />}
-              />
-            </li>
-            <li>
-              <OpenModalButton
-                buttonText="Sign Up"
-                modalComponent={<SignupFormModal />}
-              />
-            </li>
-          </>
-        )}
-      </ul>
+        {/* // ) : (
+        //   <>
+        //     <li>
+        //       <OpenModalButton
+        //         buttonText="Log In"
+        //         modalComponent={<LoginFormModal />}
+        //       />
+        //     </li>
+        //     <li>
+        //       <OpenModalButton
+        //         buttonText="Sign Up"
+        //         modalComponent={<SignupFormModal />}
+        //       />
+        //     </li>
+        //   </>
+        // )} */}
+      </ul> 
     </>
   );
 }

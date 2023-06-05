@@ -1,3 +1,38 @@
 .hidden {
     display: none;
 }
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid gray;
+}
+
+.title {
+    font-size: 40px;
+    text-decoration: none;
+    color: #e32359;
+    font-weight: bold;
+}
+
+.logged-out {
+    display: flex;
+    gap: 30px;
+}
+
+.logged-out > div {
+    cursor: pointer;
+}
+
+.logged-in {
+    display: flex;
+    gap: 30px;
+}
+
+p {
+    color: rgb(13, 156, 156);
+    font-size: 17px;
+    cursor: pointer;
+}

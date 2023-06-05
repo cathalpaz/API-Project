@@ -1,0 +1,55 @@
+.login-box {
+  width: 400px;
+  padding: 20px;
+  background-color: #f0f0f0;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+}
+
+.submit {
+  padding: 10px;
+  background-color: #e32359;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px black;
+  cursor: pointer;
+}
+
+ .submit:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+p {
+  color: red;
+  margin-top: 10px;
+}
+
+.demo {
+    font-size: 20px;
+  text-align: center;
+  margin-top: 20px;
+  cursor: pointer;
+  color: #0d4a8b;
+  text-decoration: underline;
+}
