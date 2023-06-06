@@ -59,6 +59,8 @@ const groupReducer = (state = initialState, action) => {
                 normalizedState[group.id] = group
             })
             return {...state, allGroups: normalizedState}
+        case GET_GROUP_DETAILS:
+            return {...state, singleGroup: action.payload}
         default:
             return state
     }

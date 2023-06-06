@@ -6,7 +6,7 @@ function GroupDisplay({ group }) {
 //   console.log(group);
   return (
     <div>
-        <NavLink to={`/groups/${group.id}`} className='display-container'>
+        <NavLink key={group.id} to={`/groups/${group.id}`} className='display-container'>
             <div className='left-container'>
                 <img alt='group-pic' src={group.previewImage}></img>
             </div>

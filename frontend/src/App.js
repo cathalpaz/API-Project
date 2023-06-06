@@ -6,6 +6,7 @@ import Navigation from "./components/Navigation";
 import Home from './components/Home';
 import AllGroups from './components/AllGroups';
 import AllEvents from './components/AllEvents';
+import GroupDetails from './components/GroupDetails';
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +27,9 @@ function App() {
         </Route>
         <Route exact path='/events'>
           <AllEvents />
+        </Route>
+        <Route exact path='/groups/:groupId'>
+          <GroupDetails />
         </Route>
         </Switch>}
     </>
