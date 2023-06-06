@@ -1,11 +1,19 @@
-// import { csrfFetch } from "./csrf";
+import { csrfFetch } from "./csrf";
 
 // types
+const CREATE_GROUP = 'groups/new'
 const GET_GROUPS = 'groups/allGroups';
 const GET_GROUP_DETAILS = 'groups/groupDetails';
 
 
 // actions
+export const actionCreateGroup = (group) => {
+    return {
+        type: CREATE_GROUP,
+        payload: group
+    }
+}
+
 export const actionGetGroups = (data) => {
     return {
         type: GET_GROUPS,
@@ -22,6 +30,31 @@ export const actionGetGroupDetails = (data) => {
 
 
 // thunks
+export const thunkCreateGroup = (group, img) => async(dispatch) => {
+    const res = await csrfFetch('/api/groups', {
+        headers: { 'Content-Type': 'application/json' },
+        method: 'POST',
+        body: JSON.stringify(group)
+    })
+    if (res.ok) {
+        const data = await res.json()
+        const imgRes = await csrfFetch(`/api/groups/${data.id}/images`, {
+            headers: { 'Content-Type': 'application/json'},
+            method: 'POST',
+            body: JSON.stringify({
+                url: img,
+                preview: true
+            })
+        })
+        data.previewImage = img
+        dispatch(actionCreateGroup(data))
+        return data
+    } else {
+        const errorData = await res.json()
+        return errorData
+    }
+}
+
 export const thunkGetGroups = () => async(dispatch) => {
     const res = await fetch('/api/groups')
     if (res.ok) {
@@ -60,6 +93,8 @@ const groupReducer = (state = initialState, action) => {
             })
             return {...state, allGroups: normalizedState}
         case GET_GROUP_DETAILS:
+            return {...state, singleGroup: action.payload}
+        case CREATE_GROUP:
             return {...state, singleGroup: action.payload}
         default:
             return state

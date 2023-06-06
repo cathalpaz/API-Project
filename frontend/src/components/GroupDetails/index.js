@@ -29,16 +29,16 @@ function GroupDetails() {
         <h4>{group.city}, {group.state}</h4>
         <p>{group.numMembers} members</p>
         <p>{group.private ? 'Private' : 'Public'}</p>
-        <p>Organized by {group.Organizer.firstName} {group.Organizer.lastName}</p>
-        {user ? (
+        {/* <p>Organized by {group.Organizer.firstName} {group.Organizer.lastName}</p> */}
+        {/* {user ? (
           user.id !== group.Organizer.id ? ( <button onClick={() => alert('Feature coming soon...')}>Join this group</button> )
           : ( <div className='organizer-buttons'><button>Create event</button><button>Update</button><button>Delete</button></div> )
 
-        ) : null }
+        ) : null } */}
       </div>
       <div className='lower-container'>
         <h2>Organizer</h2>
-        <h4>{group.Organizer.firstName} {group.Organizer.lastName}</h4>
+        {/* <h4>{group.Organizer.firstName} {group.Organizer.lastName}</h4> */}
         <h2>What we're about</h2>
         <p>{group.about}</p>
       </div>
