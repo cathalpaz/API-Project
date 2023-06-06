@@ -10,14 +10,14 @@ function Home() {
         <div className='upper-container'>
             <h1>The people platform-Where interests become friendships</h1>
             <p>lorem    </p>
-            <img src='' />
+            <img alt='home pic' src='' />
         </div>
         <div>
             <h3>How LinkUp works</h3>
             <p>Sign in as demo...</p>
         </div>
         <div>
-            <img src='' />
+            <img alt='home pic' src='' />
             <NavLink to='/groups' >See all groups</NavLink>
             <p>lorem </p>
         </div>

@@ -15,7 +15,7 @@ function Navigation({ isLoaded }){
   if (sessionUser) {
     userLinks = (
       <div className='logged-in'>
-        <p>Start a new group</p>
+        <NavLink to='/groups/new'>Start a new group</NavLink>
         <ProfileButton user={sessionUser} />
       </div>
     )
