@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { thunkGetGroupDetails } from "../../store/groups";
+import OpenModalButton from "../OpenModalButton";
+import DeleteGroup from "../DeleteGroupModal";
 
 function GroupDetails() {
   const dispatch = useDispatch();
@@ -23,7 +25,6 @@ function GroupDetails() {
     history.push(`/groups/${groupId}/edit`)
   }
 
-
   let loadedPage;
   if (group && group?.id === Number(groupId)) {
     loadedPage = (
@@ -43,7 +44,7 @@ function GroupDetails() {
               <div className="organizer-buttons">
                 <button>Create event</button>
                 <button onClick={editGroup}>Update</button>
-                <button>Delete</button>
+                <OpenModalButton modalComponent={<DeleteGroup />} buttonText={'Delete'}/>
               </div>
             )
           ) : null}
