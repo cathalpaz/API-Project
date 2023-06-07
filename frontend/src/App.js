@@ -8,6 +8,7 @@ import AllGroups from './components/AllGroups';
 import AllEvents from './components/AllEvents';
 import GroupDetails from './components/GroupDetails';
 import CreateGroup from "./components/CreateGroup";
+import EditGroup from "./components/EditGroup";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +35,9 @@ function App() {
         </Route>
         <Route exact path='/groups/:groupId'>
           <GroupDetails />
+        </Route>
+        <Route exact path='/groups/:groupId/edit'>
+          <EditGroup />
         </Route>
         </Switch>}
     </>

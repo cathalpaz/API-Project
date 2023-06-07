@@ -4,6 +4,7 @@ import { csrfFetch } from "./csrf";
 const CREATE_GROUP = 'groups/new'
 const GET_GROUPS = 'groups/allGroups';
 const GET_GROUP_DETAILS = 'groups/groupDetails';
+const UPDATE_GROUP = 'groups/edit'
 
 
 // actions
@@ -13,18 +14,22 @@ export const actionCreateGroup = (group) => {
         payload: group
     }
 }
-
 export const actionGetGroups = (data) => {
     return {
         type: GET_GROUPS,
         payload: data
     }
 }
-
 export const actionGetGroupDetails = (data) => {
     return {
         type: GET_GROUP_DETAILS,
         payload: data
+    }
+}
+export const actionUpdateGroup = (group) => {
+    return {
+        type: UPDATE_GROUP,
+        payload: group
     }
 }
 
@@ -54,7 +59,6 @@ export const thunkCreateGroup = (group, img) => async(dispatch) => {
         return errorData
     }
 }
-
 export const thunkGetGroups = () => async(dispatch) => {
     const res = await fetch('/api/groups')
     if (res.ok) {
@@ -66,12 +70,26 @@ export const thunkGetGroups = () => async(dispatch) => {
         return errorData
     }
 }
-
 export const thunkGetGroupDetails = (groupId) => async(dispatch) => {
     const res = await fetch(`/api/groups/${groupId}`)
     if (res.ok) {
         const data = await res.json()
         dispatch(actionGetGroupDetails(data))
+        return data
+    } else {
+        const errorData = await res.json()
+        return errorData
+    }
+}
+export const thunkUpdateGroup = (group, groupId) => async(dispatch) => {
+    const res = await csrfFetch(`/api/groups/${groupId}`, {
+        headers: { 'Content-Type': 'application/json' },
+        method: 'PUT',
+        body: JSON.stringify(group)
+    })
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(actionUpdateGroup(group))
         return data
     } else {
         const errorData = await res.json()
@@ -96,6 +114,9 @@ const groupReducer = (state = initialState, action) => {
             return {...state, singleGroup: action.payload}
         case CREATE_GROUP:
             return {...state, singleGroup: action.payload}
+        case UPDATE_GROUP:
+            // const groups = {...state.allGroups}
+            // groups[action.groupId] = action.payload
         default:
             return state
     }
