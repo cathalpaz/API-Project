@@ -8,6 +8,7 @@ function CreateGroup() {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
+  // if no user, send to home page
 
   //   const [city, setCity] = useState('');
   //   const [state, setState] = useState('');
@@ -41,34 +42,34 @@ function CreateGroup() {
   };
 
   return (
-    <div class="form-container">
-      <div class="form-header">
-        <span class="form-title">BECOME AN ORGANIZER</span>
+    <div className="form-container">
+      <div className="form-header">
+        <span className="form-title">BECOME AN ORGANIZER</span>
         <h2>
           We'll walk you through a few steps to build your local community
         </h2>
       </div>
       <hr />
-      <div class="form-step">
+      <div className="form-step">
         <h3>First, set your group's location</h3>
         <span>
           Meetup groups meet locally, in person and online. We'll connect you
           with people in your area, and more can join you online.
         </span>
-        <form class="form-step-form" onSubmit={handleSubmit}>
-          <div class="form-group">
+        <form className="form-step-form" onSubmit={handleSubmit}>
+          <div className="form-group">
             <input
               type="text"
-              class="form-input"
+              className="form-input"
               placeholder="City, STATE"
               value={cityState}
               onChange={(e) => setCityState(e.target.value)}
             />
             {validationErrors.cityState && (
-              <span class="errors">{validationErrors.cityState}</span>
+              <span className="errors">{validationErrors.cityState}</span>
             )}
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <h3>What will your group's name be?</h3>
             <span>
               Choose a name that will give people a clear idea of what the group
@@ -80,16 +81,16 @@ function CreateGroup() {
             </span>
             <input
               type="text"
-              class="form-input"
+              className="form-input"
               placeholder="What is your group name?"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
             {validationErrors.name && (
-              <span class="errors">{validationErrors.name}</span>
+              <span className="errors">{validationErrors.name}</span>
             )}
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <h3>Now describe what your group will be about</h3>
             <span>
               People will see this when we promote your group, but you'll be
@@ -99,20 +100,20 @@ function CreateGroup() {
             <span>2. Who should join?</span>
             <span>3. What will you do at your events?</span>
             <textarea
-              class="form-textarea"
+              className="form-textarea"
               value={about}
               placeholder="Please write at least 50 characters"
               onChange={(e) => setAbout(e.target.value)}
             ></textarea>
             {validationErrors.about && (
-              <span class="errors">{validationErrors.about}</span>
+              <span className="errors">{validationErrors.about}</span>
             )}
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <h3>Final steps...</h3>
             <span>Is this an in person or online group?</span>
             <select
-              class="form-select"
+              className="form-select"
               value={type}
               onChange={(e) => setType(e.target.value)}
             >
@@ -121,11 +122,11 @@ function CreateGroup() {
               <option value="In person">In person</option>
             </select>
             {validationErrors.type && (
-              <span class="errors">{validationErrors.type}</span>
+              <span className="errors">{validationErrors.type}</span>
             )}
             <span>Is this group private or public?</span>
             <select
-              class="form-select"
+              className="form-select"
               value={privacy}
               onChange={(e) => setPrivacy(e.target.value)}
             >
@@ -134,21 +135,21 @@ function CreateGroup() {
               <option value={false}>Public</option>
             </select>
             {validationErrors.privacy && (
-              <span class="errors">{validationErrors.privacy}</span>
+              <span className="errors">{validationErrors.privacy}</span>
             )}
             <span>Please add an image URL for your group below.</span>
             <input
               type="url"
-              class="form-input"
+              className="form-input"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
             />
             {validationErrors.url && (
-              <span class="errors">{validationErrors.url}</span>
+              <span className="errors">{validationErrors.url}</span>
             )}
           </div>
           <hr />
-          <button type="submit" class="form-submit-btn">
+          <button type="submit" className="form-submit-btn">
             Create group
           </button>
         </form>

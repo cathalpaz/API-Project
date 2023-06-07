@@ -29,7 +29,7 @@ export const actionGetGroupDetails = (data) => {
 export const actionUpdateGroup = (group) => {
     return {
         type: UPDATE_GROUP,
-        payload: group
+        group
     }
 }
 
@@ -37,15 +37,15 @@ export const actionUpdateGroup = (group) => {
 // thunks
 export const thunkCreateGroup = (group, img) => async(dispatch) => {
     const res = await csrfFetch('/api/groups', {
-        headers: { 'Content-Type': 'application/json' },
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(group)
     })
     if (res.ok) {
         const data = await res.json()
         const imgRes = await csrfFetch(`/api/groups/${data.id}/images`, {
-            headers: { 'Content-Type': 'application/json'},
             method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify({
                 url: img,
                 preview: true
@@ -83,8 +83,8 @@ export const thunkGetGroupDetails = (groupId) => async(dispatch) => {
 }
 export const thunkUpdateGroup = (group, groupId) => async(dispatch) => {
     const res = await csrfFetch(`/api/groups/${groupId}`, {
-        headers: { 'Content-Type': 'application/json' },
         method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(group)
     })
     if (res.ok) {
@@ -115,8 +115,9 @@ const groupReducer = (state = initialState, action) => {
         case CREATE_GROUP:
             return {...state, singleGroup: action.payload}
         case UPDATE_GROUP:
-            // const groups = {...state.allGroups}
-            // groups[action.groupId] = action.payload
+            const updatedGroups = {...state.allGroups}
+            updatedGroups[action.groupId] = action.group
+            return {...state, allGroups: updatedGroups, singleGroup: action.group}
         default:
             return state
     }

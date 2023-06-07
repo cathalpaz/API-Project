@@ -57,7 +57,7 @@ function GroupDetails() {
       </div>
     );
   } else {
-    loadedPage = <div>test</div>;
+    loadedPage = <div>loading</div>;
   }
 
   return <>{loadedPage}</>;
