@@ -13,14 +13,14 @@ function AllEvents() {
   }, dispatch)
 
   return (
-    <div className='groups-container'>
-      <div className='header-links'>
-        <NavLink to='/events'>Events</NavLink>
+    <div className='list-container'>
+      <div className='list-header-links'>
+        <NavLink className='selected' to='/events'>Events</NavLink>
         <NavLink to='/groups'>Groups</NavLink>
       </div>
-      <div className='groups-display'>
+      <div className='list-display'>
         <h3>Events in LinkUp</h3>
-        <div className='groups-list'>
+        <div className='list-item'>
           {events.map(event => {
             return <EventDisplay key={event.id} event={event} />
           })}

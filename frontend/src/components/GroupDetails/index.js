@@ -11,7 +11,7 @@ function GroupDetails() {
   const group = useSelector((state) => state.groups.singleGroup);
   const { groupId } = useParams();
   const history = useHistory()
-  console.log(group, groupId);
+  // console.log(group, groupId);
 
   useEffect(() => {
     dispatch(thunkGetGroupDetails(groupId));

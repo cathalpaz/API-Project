@@ -34,7 +34,7 @@ router.get('/', async(req, res) => {
 
     const events = await Event.findAll({
         attributes: {
-            exclude: ['createdAt', 'updatedAt', 'description', 'capacity', 'price']
+            exclude: ['createdAt', 'updatedAt', 'capacity', 'price']
         },
         where,
         ...pagination
