@@ -13,7 +13,7 @@ function GroupDisplay({ group }) {
             <div className='right-container'>
                 <h2>{group.name}</h2>
                 <h4>{group.city}, {group.state}</h4>
-                <p>{group.about}</p>
+                <p>{group.about} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 <div className='bottom-container'>
                     <p>{group.numMembers} members</p>
                     <p>{group.private ? 'Private' : 'Public'}</p>

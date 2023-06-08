@@ -14,14 +14,14 @@ function AllGroups() {
   }, [dispatch])
 
   return (
-    <div className='groups-container'>
-        <div className='header-links'>
+    <div className='list-container'>
+        <div className='list-header-links'>
             <NavLink to='/events'>Events</NavLink>
-            <NavLink to='/groups'>Groups</NavLink>
+            <NavLink className='selected' to='/groups'>Groups</NavLink>
         </div>
-        <div className='groups-display'>
+        <div className='list-display'>
             <h3>Groups in LinkUp</h3>
-            <div className='groups-list'>
+            <div className='list-item'>
                 {groups.map(group => {
                     return <GroupDisplay key={group.id} group={group} />
                 })}
