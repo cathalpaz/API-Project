@@ -20,7 +20,7 @@ function AllGroups() {
             <NavLink to='/groups'>Groups</NavLink>
         </div>
         <div className='groups-display'>
-            <h3>Groups in Meetup</h3>
+            <h3>Groups in LinkUp</h3>
             <div className='groups-list'>
                 {groups.map(group => {
                     return <GroupDisplay key={group.id} group={group} />

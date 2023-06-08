@@ -10,8 +10,8 @@ function GroupDetails() {
   const user = useSelector((state) => state.session.user);
   const group = useSelector((state) => state.groups.singleGroup);
   const { groupId } = useParams();
-  // console.log(group, groupId);
   const history = useHistory()
+  console.log(group, groupId);
 
   useEffect(() => {
     dispatch(thunkGetGroupDetails(groupId));

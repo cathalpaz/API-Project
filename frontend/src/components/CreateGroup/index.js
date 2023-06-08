@@ -7,7 +7,7 @@ import { thunkCreateGroup } from "../../store/groups";
 function CreateGroup() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const user = useSelector((state) => state.session.user);
+  // const user = useSelector((state) => state.session.user);
   // if no user, send to home page
 
   //   const [city, setCity] = useState('');
@@ -28,17 +28,19 @@ function CreateGroup() {
     if (about.length < 50) errors.about = 'Description must be at least 50 characters long';
     if (type === undefined) errors.type = 'Group Type is required';
     if (privacy === undefined) errors.privacy = 'Visibility type is required';
-    if (!url.endsWith('.png') && !url.endsWith('.jpg') && !url.endsWith('.jpeg')) errors.url = 'Image URL must end in .png, .jpg, or .jpeg'
-
+    if (!url.endsWith('.png') && !url.endsWith('.jpg') && !url.endsWith('.jpeg')) errors.url = 'Image URL must end in .png, .jpg, or .jpeg';
+    setValidationErrors(errors)
     if (Object.values(errors).length) {
-        setValidationErrors(errors)
-    } else {
-        const city = cityState.split(',')[0];
-        const state = cityState.split(',')[1];
-        const payload = {name, about, type, private: privacy, city, state}
-        const newGroup = await dispatch(thunkCreateGroup(payload, url))
-        history.push(`/groups/${newGroup.id}`)
+      return
     }
+    const city = cityState.split(',')[0];
+    const state = cityState.split(',')[1];
+    const payload = {name, about, type, private: privacy, city, state}
+
+    const newGroup = await dispatch(thunkCreateGroup(payload, url))
+
+    history.push(`/groups/${newGroup.id}`)
+
   };
 
   return (
@@ -56,7 +58,7 @@ function CreateGroup() {
           Meetup groups meet locally, in person and online. We'll connect you
           with people in your area, and more can join you online.
         </span>
-        <form className="form-step-form" onSubmit={handleSubmit}>
+        <form className="form-step-form">
           <div className="form-group">
             <input
               type="text"
@@ -149,7 +151,7 @@ function CreateGroup() {
             )}
           </div>
           <hr />
-          <button type="submit" className="form-submit-btn">
+          <button type="submit" className="form-submit-btn" onClick={handleSubmit}>
             Create group
           </button>
         </form>

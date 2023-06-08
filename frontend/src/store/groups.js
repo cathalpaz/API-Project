@@ -58,8 +58,9 @@ export const thunkCreateGroup = (group, img) => async(dispatch) => {
                 preview: true
             })
         })
-        data.previewImage = img
-        dispatch(actionCreateGroup(data))
+        const newImg = await imgRes.json()
+        data.GroupImages = [newImg]
+        dispatch(actionCreateGroup([data]))
         return data
     } else {
         const errorData = await res.json()
@@ -115,6 +116,13 @@ export const thunkDeleteGroup = (groupId) => async(dispatch) => {
     }
 }
 
+const normalizeState = data => {
+    const normalized = {}
+    for (const obj of data) {
+        normalized[obj.id] = obj
+    }
+    return normalized
+}
 
 // reducer
 const initialState = { allGroups: {}, singleGroup: {} }
@@ -131,7 +139,9 @@ const groupReducer = (state = initialState, action) => {
         case GET_GROUP_DETAILS:
             return {...state, singleGroup: action.payload}
         case CREATE_GROUP:
-            return {...state, singleGroup: action.payload}
+            const newGroup = normalizeState(action.payload)
+            return {...state, allGroups: {...state.allGroups, ...newGroup}}
+
         case UPDATE_GROUP:
             const updatedState = {...state.allGroups}
             updatedState[action.groupId] = action.group
