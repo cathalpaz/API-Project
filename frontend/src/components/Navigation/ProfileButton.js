@@ -35,40 +35,21 @@ function ProfileButton({ user }) {
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
+  const profileArrowDirection = showMenu ? 'up' : 'down';
 
   return (
-    <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
-      </button>
+    <div>
+      <div className="nav-profile-btn" onClick={openMenu}>
+        <i className="fas fa-user-circle"></i>
+        <i className={`fa-solid fa-chevron-${profileArrowDirection}`}></i>
+      </div>
       <ul className={ulClassName} ref={ulRef}>
-        {/* {user ? ( */}
-          <>
-            <li>{user.username}</li>
-            <li>{user.firstName} {user.lastName}</li>
-            <li>{user.email}</li>
-            <li>
-              <button onClick={logout}>Log Out</button>
-            </li>
-          </>
-        {/* // ) : (
-        //   <>
-        //     <li>
-        //       <OpenModalButton
-        //         buttonText="Log In"
-        //         modalComponent={<LoginFormModal />}
-        //       />
-        //     </li>
-        //     <li>
-        //       <OpenModalButton
-        //         buttonText="Sign Up"
-        //         modalComponent={<SignupFormModal />}
-        //       />
-        //     </li>
-        //   </>
-        // )} */}
+        <li>Hello, {user.username}</li>
+        <li>{user.firstName} {user.lastName}</li>
+        <li>{user.email}</li>
+        <li onClick={logout}>Log out</li>
       </ul>
-    </>
+    </div>
   );
 }
 

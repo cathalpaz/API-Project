@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import './GroupDisplay.css'
+import './AllGroups.css'
 
 function GroupDisplay({ group }) {
 //   console.log(group);

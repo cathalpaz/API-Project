@@ -14,14 +14,14 @@ function Navigation({ isLoaded }){
   let userLinks;
   if (sessionUser) {
     userLinks = (
-      <div className='logged-in'>
+      <div className='nav-logged-in'>
         <NavLink to='/groups/new'>Start a new group</NavLink>
         <ProfileButton user={sessionUser} />
       </div>
     )
   } else {
     userLinks = (
-      <div className='logged-out'>
+      <div className='nav-logged-out'>
         <OpenModalMenuItem itemText={'Log In'} modalComponent={<LoginFormModal />} />
         <OpenModalMenuItem itemText={'Sign Up'} modalComponent={<SignupFormModal />} />
       </div>
@@ -30,7 +30,7 @@ function Navigation({ isLoaded }){
 
   return (
     <div className='nav-container'>
-        <NavLink className='title' exact to="/">LinkUp</NavLink>
+        <NavLink className='nav-title' exact to="/">LinkUp</NavLink>
       {isLoaded && userLinks}
     </div>
   );

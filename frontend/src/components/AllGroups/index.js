@@ -8,7 +8,6 @@ import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
 function AllGroups() {
   const dispatch = useDispatch()
   const groups = useSelector(state => Object.values(state.groups.allGroups))
-//   console.log(groups);
 
   useEffect(() => {
     dispatch(thunkGetGroups())

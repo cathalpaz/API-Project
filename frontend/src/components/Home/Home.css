@@ -108,4 +108,5 @@
 
 .home-join-btn > button:hover {
     cursor: pointer;
+    background-color: rgba(0, 128, 128, 0.8);
 }
