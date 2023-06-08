@@ -37,7 +37,7 @@
 }
 
 .home-middle-container * {
-    max-width: 350px;
+    max-width: 35%;
     margin: 3px;
     text-align: center;
     color: black;
@@ -91,13 +91,21 @@
     color: gray;
 }
 
-.home-join {
-    background-color: rgb(0 121 138);
+.home-join-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.home-join-btn > button {
+    height: 40px;
+    width: 150px;
+    background-color: teal;
     color: white;
-    width: 220px;
-    height: 590px;
-    font-size: 20px;
-    box-shadow: 2px 2px 2px grey;
-    border: none;
-    border-radius: 15px;
+    font-size: 16px;
+    border: 2px solid black;
+    box-shadow: 2px 2px 2px black;
+}
+
+.home-join-btn > button:hover {
+    cursor: pointer;
 }

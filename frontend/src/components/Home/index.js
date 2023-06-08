@@ -56,9 +56,9 @@ function Home() {
           </p>
         </div>
       </div>
-      <div className="home-button">
+      <div className="home-join-btn">
         {sessionUser ? null : (
-          <OpenModalButton className='home-join' itemText='Join LinkUp' modalComponent={<SignupFormModal />} />
+            <OpenModalButton buttonText={'Join LinkUp'} modalComponent={<SignupFormModal />} />
         )}
       </div>
     </div>
