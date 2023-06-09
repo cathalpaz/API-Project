@@ -9,31 +9,31 @@ const DELETE_GROUP = 'groups/remove';
 
 
 // actions
-export const actionCreateGroup = (group) => {
+const actionCreateGroup = (group) => {
     return {
         type: CREATE_GROUP,
         payload: group
     }
 }
-export const actionGetGroups = (data) => {
+const actionGetGroups = (data) => {
     return {
         type: GET_GROUPS,
         payload: data
     }
 }
-export const actionGetGroupDetails = (data) => {
+const actionGetGroupDetails = (data) => {
     return {
         type: GET_GROUP_DETAILS,
         payload: data
     }
 }
-export const actionUpdateGroup = (group) => {
+const actionUpdateGroup = (group) => {
     return {
         type: UPDATE_GROUP,
         group
     }
 }
-export const actionDeleteGroup = (groupId) => {
+const actionDeleteGroup = (groupId) => {
     return {
         type: DELETE_GROUP,
         groupId

@@ -24,6 +24,9 @@ function GroupDetails() {
   const editGroup = () => {
     history.push(`/groups/${groupId}/edit`)
   }
+  const createEvent = () => {
+    history.push('/events/new')
+  }
 
   let loadedPage;
   if (group && group?.id === Number(groupId)) {
@@ -42,7 +45,7 @@ function GroupDetails() {
               <button onClick={joinGroup}>Join this group</button>
             ) : (
               <div className="organizer-buttons">
-                <button>Create event</button>
+                <button onClick={createEvent}>Create event</button>
                 <button onClick={editGroup}>Update</button>
                 <OpenModalButton modalComponent={<DeleteGroup />} buttonText={'Delete'}/>
               </div>
