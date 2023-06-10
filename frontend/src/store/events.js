@@ -28,8 +28,8 @@ const actionGetEventDetails = (data) => {
 
 
 // thunks
-export const thunkCreateEvent = (event, img) => async(dispatch) => {
-    const res = await csrfFetch('/api/events', {
+export const thunkCreateEvent = (event, groupId, img) => async(dispatch) => {
+    const res = await csrfFetch(`/api/groups/${groupId}/events`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(event)
@@ -46,7 +46,8 @@ export const thunkCreateEvent = (event, img) => async(dispatch) => {
         })
         const newImg = await imgRes.json()
         data.EventImages = [newImg]
-        dispatch(actionCreateEvent(data))
+        dispatch(actionCreateEvent([data]))
+        console.log('hi');
         return data
     } else {
         const errorData = await res.json()
@@ -77,6 +78,13 @@ export const thunkGetEventDetails = (eventId) => async(dispatch) => {
     }
 }
 
+const normalizeState = data => {
+    const normalized = {}
+    for (const obj of data) {
+        normalized[obj.id] = obj
+    }
+    return normalized
+}
 
 // reducer
 const initialState = { allEvents: {}, singleEvent: {} }
@@ -92,7 +100,7 @@ const eventReducer = (state = initialState, action) => {
         case GET_EVENT_DETAILS:
             return {...state, singleEvent: action.payload}
         case CREATE_EVENT:
-            return {...state, allEvents: {}, singleEvent: action.payload}
+            return {...state, allEvents: {...state.allEvents}, [action.payload.id]: action.payload}
         default:
             return state
     }

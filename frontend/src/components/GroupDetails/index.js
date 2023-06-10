@@ -25,7 +25,7 @@ function GroupDetails() {
     history.push(`/groups/${groupId}/edit`)
   }
   const createEvent = () => {
-    history.push('/events/new')
+    history.push(`/groups/${groupId}/newEvent`)
   }
 
   let loadedPage;
