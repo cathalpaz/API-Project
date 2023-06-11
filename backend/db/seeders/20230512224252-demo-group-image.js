@@ -33,7 +33,7 @@ module.exports = {
       },
       {
         groupId: 3,
-        url: "https://media.istockphoto.com/id/518121042/photo/clean-and-jerk.jpg?s=2048x2048&w=is&k=20&c=bIdBcD-RoV3LiIw6R13q_ZQnOWSUEJMCfaIt310IJ1U=",
+        url: "https://media.istockphoto.com/id/1391410249/photo/sports-and-gym-activities.jpg?s=2048x2048&w=is&k=20&c=HyXLi3eLOcUVsnU1RuwhT-HSEbbrdN8G__1F6lvSr3A=",
         preview: true,
       },
       {

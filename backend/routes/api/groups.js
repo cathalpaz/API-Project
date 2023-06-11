@@ -275,7 +275,7 @@ router.get('/:groupId/events', async(req, res) => {
     if (!group) return res.status(404).json({message: "Group couldn't be found"})
 
     const events = await Event.findAll({
-        attributes: ['id', 'groupId', 'venueId', 'name', 'type', 'startDate', 'endDate'],
+        attributes: ['id', 'groupId', 'venueId', 'name', 'type', 'startDate', 'endDate', 'description'],
         include: [{
             model: Group,
             where: {

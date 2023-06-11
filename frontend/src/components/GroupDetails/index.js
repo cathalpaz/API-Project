@@ -6,17 +6,22 @@ import OpenModalButton from "../OpenModalButton";
 import DeleteGroup from "../DeleteGroupModal";
 import './Groupdetails.css';
 import GroupEvents from "./GroupEvents";
+import { thunkGetEventsByGroup } from "../../store/events";
 
 function GroupDetails() {
   const dispatch = useDispatch();
+  const history = useHistory()
+  const { groupId } = useParams();
   const user = useSelector((state) => state.session.user);
   const group = useSelector((state) => state.groups.singleGroup);
-  const { groupId } = useParams();
-  const history = useHistory()
-  console.log(group)
+  const eventState = useSelector((state) => state.events.allEvents)
+  const events = Object.values(eventState)
+  console.log(events);
+  // console.log(group)
 
   useEffect(() => {
     dispatch(thunkGetGroupDetails(groupId));
+    dispatch(thunkGetEventsByGroup(groupId))
   }, [dispatch, groupId]);
 
   // CRUD helpers
@@ -68,7 +73,13 @@ function GroupDetails() {
             <p>{group.about}. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Maecenas accumsan lacus vel facilisis volutpat. Platea dictumst vestibulum rhoncus est pellentesque. Varius morbi enim nunc faucibus a pellentesque sit amet porttitor.</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae.</p>
             <div className="content-events">
-              <GroupEvents groupId={groupId} />
+              <h2>Upcoming Events ({events.length})</h2>
+              <div className="event-card">
+                {events && events.map(event => (
+                  <GroupEvents key={event.id} event={event} group={group} />
+
+                ))}
+              </div>
             </div>
           </div>
       </div>

@@ -54,7 +54,6 @@ export const thunkCreateEvent = (event, groupId, img) => async(dispatch) => {
         return errorData
     }
 }
-
 export const thunkGetEvents = () => async(dispatch) => {
     const res = await fetch('/api/events')
     if (res.ok) {
@@ -77,14 +76,22 @@ export const thunkGetEventDetails = (eventId) => async(dispatch) => {
         return errorData
     }
 }
-
-const normalizeState = data => {
-    const normalized = {}
-    for (const obj of data) {
-        normalized[obj.id] = obj
+export const thunkGetEventsByGroup = (groupId) => async(dispatch) => {
+    const res = await fetch(`/api/groups/${groupId}/events`)
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(actionGetEvents(data))
+        return data
     }
-    return normalized
 }
+
+// const normalizeState = data => {
+//     const normalized = {}
+//     for (const obj of data) {
+//         normalized[obj.id] = obj
+//     }
+//     return normalized
+// }
 
 // reducer
 const initialState = { allEvents: {}, singleEvent: {} }
