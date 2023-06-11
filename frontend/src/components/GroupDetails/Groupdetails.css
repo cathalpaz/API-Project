@@ -1,1 +1,114 @@
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
+.upper-container {
+  padding: 30px 100px 10px 100px;
+}
+
+.upper-container > a {
+  color: teal;
+  font-size: 14px;
+}
+
+.upper-content > img {
+  max-width: 100%;
+  /* width: 200px; */
+  /* border: 1px solid black; */
+}
+.upper-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding-top: 10px;
+}
+
+.content-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.group-details > p {
+  font-size: 14px;
+  color: gray;
+  margin: 10px auto;
+}
+
+.buttons {
+  margin-bottom: 2px;
+}
+
+.buttons > button,
+.organizer-buttons > button {
+  margin-right: 10px;
+  padding: 5px 8px;
+  background-color: #e32359;
+  color: white;
+  border: 2px solid black;
+  box-shadow: 2px 2px 2px black;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.gray-container {
+  background-color: rgba(233, 232, 232, 0.548);
+}
+
+.gray-container * {
+  padding: 0 100px;
+  margin: 5px 0;
+}
+
+.gray-container > h2 {
+  padding-top: 12px;
+}
+
+.gray-container > span {
+  color: gray;
+  font-size: 14px;
+  margin: 2px 0;
+}
+
+.gray-container > p {
+  font-size: 14px;
+  padding: 5px auto;
+}
+
+.content-events {
+    padding: 0;
+    margin-top: 5px;
+}
+
+
+
+
+
+
+
+
+
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 150px;
+}
+
+.loading {
+  width: 40px;
+  height: 40px;
+  border: 5px solid #ccc;
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

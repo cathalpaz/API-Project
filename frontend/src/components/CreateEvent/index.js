@@ -13,7 +13,7 @@ function CreateEvent() {
 
   const [name, setName] = useState('');
   const [type, setType] = useState(undefined);
-  const [privacy, setPrivacy] = useState(undefined);
+  // const [privacy, setPrivacy] = useState(undefined);
   const [price, setPrice] = useState(0);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -40,13 +40,17 @@ function CreateEvent() {
         return
     }
     // check backend for errors
-    const payload = {venueId: 1, name, type, price, capacity: 10, startDate, endDate, description}
+    let priceNum = parseFloat(price)
+    console.log(priceNum);
+    const payload = {venueId: 1, name, type, price: priceNum, capacity: 10, startDate: new Date(startDate), endDate: new Date(endDate), description}
     try {
-        console.log(payload);
+        console.log('payload:', payload);
+        console.log('groupId:', groupId);
+        console.log('url:', url);
         const newEvent = await dispatch(thunkCreateEvent(payload, groupId, url))
         history.push(`/events/${newEvent.id}`)
     } catch (err) {
-        console.log(err);
+        console.log('hi', err);
     }
   }
 
@@ -110,7 +114,7 @@ function CreateEvent() {
                 max={999}
                 step={0.01}
                 placeholder='0'
-                value={price}
+                value={Number(price)}
                 onChange={(e) => setPrice(e.target.value)}
             />
             {validationErrors.price && (

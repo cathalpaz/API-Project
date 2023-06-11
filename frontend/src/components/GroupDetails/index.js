@@ -4,6 +4,8 @@ import { NavLink, useHistory, useParams } from "react-router-dom/cjs/react-route
 import { thunkGetGroupDetails } from "../../store/groups";
 import OpenModalButton from "../OpenModalButton";
 import DeleteGroup from "../DeleteGroupModal";
+import './Groupdetails.css';
+import GroupEvents from "./GroupEvents";
 
 function GroupDetails() {
   const dispatch = useDispatch();
@@ -11,7 +13,7 @@ function GroupDetails() {
   const group = useSelector((state) => state.groups.singleGroup);
   const { groupId } = useParams();
   const history = useHistory()
-  // console.log(group, groupId);
+  console.log(group)
 
   useEffect(() => {
     dispatch(thunkGetGroupDetails(groupId));
@@ -34,34 +36,48 @@ function GroupDetails() {
       <div className="content-container">
         <div className="upper-container">
           <NavLink to="/groups"> &lt; Groups</NavLink>
-          <img alt="group pic" src={group.GroupImages} />
-          <h1>{group.name}</h1>
-          <h4>{group.city}, {group.state}</h4>
-          <p>{group.numMembers} members</p>
-          <p>{group.private ? "Private" : "Public"}</p>
-          <p> Organized by {group.Organizer.firstName} {group.Organizer.lastName}</p>
-          {user ? (
-            user.id !== group.Organizer.id ? (
-              <button onClick={joinGroup}>Join this group</button>
-            ) : (
-              <div className="organizer-buttons">
-                <button onClick={createEvent}>Create event</button>
-                <button onClick={editGroup}>Update</button>
-                <OpenModalButton modalComponent={<DeleteGroup />} buttonText={'Delete'}/>
+          <div className="upper-content">
+            <img alt="group pic" src={group.GroupImages[0].url} />
+            <div className="content-details">
+              <div className="group-details">
+                <h1>{group.name}</h1>
+                <p>{group.city}, {group.state}</p>
+                <p>{group.numMembers} members &#8226; {group.private ? "Private" : "Public"}</p>
+                <p>Organized by {group.Organizer.firstName} {group.Organizer.lastName}</p>
               </div>
-            )
-          ) : null}
+              <div className="buttons">
+                {user ? (
+                  user.id !== group.Organizer.id ? (
+                    <button onClick={joinGroup}>Join this group</button>
+                  ) : (
+                    <div className="organizer-buttons">
+                      <button onClick={createEvent}>Create event</button>
+                      <button onClick={editGroup}>Update</button>
+                      <OpenModalButton modalComponent={<DeleteGroup />} buttonText={'Delete'}/>
+                    </div>
+                  )
+                ) : null}
+          </div>
+              </div>
+            </div>
         </div>
-        <div className="lower-container">
-          <h2>Organizer</h2>
-          <h4>{group.Organizer.firstName} {group.Organizer.lastName}</h4>
-          <h2>What we're about</h2>
-          <p>{group.about}</p>
-        </div>
+          <div className="gray-container">
+            <h2>Organizer</h2>
+            <span>{group.Organizer.firstName} {group.Organizer.lastName}</span>
+            <h2>What we're about</h2>
+            <p>{group.about}. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Maecenas accumsan lacus vel facilisis volutpat. Platea dictumst vestibulum rhoncus est pellentesque. Varius morbi enim nunc faucibus a pellentesque sit amet porttitor.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae.</p>
+            <div className="content-events">
+              <GroupEvents groupId={groupId} />
+            </div>
+          </div>
       </div>
     );
   } else {
-    loadedPage = <div>loading</div>;
+    loadedPage =
+    <div className="loading-container">
+      <div className="loading"></div>
+    </div>
   }
 
   return <>{loadedPage}</>;
