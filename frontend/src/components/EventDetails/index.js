@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  NavLink,
+  useHistory,
+  useParams,
+} from "react-router-dom/cjs/react-router-dom.min";
 import { thunkGetEventDetails } from "../../store/events";
 import { thunkGetGroupDetails } from "../../store/groups";
 import "./EventDetails.css";
@@ -8,26 +12,35 @@ import OpenModalButton from "../OpenModalButton";
 import DeleteEvent from "../DeleteEventModal";
 
 function EventDetails() {
-  const history = useHistory()
+  const history = useHistory();
   const dispatch = useDispatch();
   const event = useSelector((state) => state.events.singleEvent);
   const group = useSelector((state) => state.groups.singleGroup);
-//   console.log(event);
-  console.log(group);
+  const user = useSelector((state) => state.session.user);
+  // console.log(event);
+  // console.log(group);
   const { eventId } = useParams();
 
-  const formatDate = (d) => {
-    if (!d) return null;
-    let raw = new Date(d);
-    let date = raw.toLocaleDateString('it-IT');
-    let [month, day, year] = date.split("/");
-    let time = raw.toLocaleTimeString('en-US').split(/(:| )/);
-    return `${year}-${day.padStart(2, '0')}-${month.padStart(2, '0')} \u2022 ${time[0]}:${time[2]} ${time[6]}`;
-}
+  // console.log(event.startDate);
+  const formatTime = (timeString) => {
+    const date = new Date(timeString);
+    const formattedDate = date.toISOString().split("T")[0];
+    const formattedTime = date.toLocaleString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
+    return `${formattedDate} \u2022 ${formattedTime}`;
+  };
+  const isOrganizer = () => {
+    if (user) {
+      return user.id === group.Organizer.id;
+    }
+  };
 
   const groupClick = () => {
-    history.push(`/groups/${group.id}`)
-  }
+    history.push(`/groups/${group.id}`);
+  };
 
   useEffect(() => {
     dispatch(thunkGetEventDetails(eventId));
@@ -44,7 +57,9 @@ function EventDetails() {
         <div className="event-details-header">
           <NavLink to="/events"> &lt; Events</NavLink>
           <h2>{event.name}</h2>
-          <p>Hosted by {group.Organizer.firstName} {group.Organizer.lastName}</p>
+          <p>
+            Hosted by {group.Organizer.firstName} {group.Organizer.lastName}
+          </p>
         </div>
         <div className="event-gray-container">
           <div className="event-upper-block">
@@ -61,8 +76,8 @@ function EventDetails() {
                 <div className="event-time">
                   <i className="fa-regular fa-clock event-icon"></i>
                   <div>
-                    <span>START {formatDate(event.startDate)}</span>
-                    <span>END {formatDate(event.endDate)}</span>
+                    <span>START {formatTime(event.startDate)}</span>
+                    <span>END {formatTime(event.endDate)}</span>
                   </div>
                 </div>
                 <div className="event-price">
@@ -74,15 +89,32 @@ function EventDetails() {
                   <span>{event.type}</span>
                 </div>
                 <div className="event-delete">
-                  <OpenModalButton modalComponent={<DeleteEvent />} buttonText={'Delete'} />
+                  {isOrganizer() ? (
+                    <OpenModalButton
+                      modalComponent={<DeleteEvent />}
+                      buttonText={"Delete"}
+                    />
+                  ) : null}
                 </div>
               </div>
             </div>
           </div>
           <div className="event-paragraph">
             <h4>Details</h4>
-            <p>{event.description}. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Posuere morbi leo urna molestie at elementum eu facilisis. Eu turpis egestas pretium aenean pharetra magna ac placerat vestibulum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Posuere morbi leo urna molestie at elementum eu facilisis. Eu turpis egestas pretium aenean pharetra magna ac placerat vestibulum.</p>
+            <p>
+              {event.description}. Lorem ipsum dolor sit amet, consectetur
+              adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua. Posuere morbi leo urna molestie at elementum
+              eu facilisis. Eu turpis egestas pretium aenean pharetra magna ac
+              placerat vestibulum.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Posuere morbi leo urna molestie at elementum eu facilisis. Eu
+              turpis egestas pretium aenean pharetra magna ac placerat
+              vestibulum.
+            </p>
           </div>
         </div>
       </div>

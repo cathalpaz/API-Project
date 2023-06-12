@@ -1,25 +1,25 @@
 .right-container-events {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-top: 20px;
 }
 
 .right-container-events > span {
-    font-size: 14px;
-    color: teal;
+  font-size: 14px;
+  color: teal;
 }
 
 .right-container-events > h2 {
-    padding: 5px 0;
+  padding: 5px 0;
 }
 
 .right-container-events > h4 {
-    color: gray;
-    font-size: 14px;
+  color: gray;
+  font-size: 14px;
 }
 
 .list-item > div > p {
-    font-size: 14px;
-    padding: 7px 0;
+  font-size: 14px;
+  padding: 7px 0;
 }
