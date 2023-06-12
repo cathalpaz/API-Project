@@ -9,11 +9,9 @@ function CreateEvent() {
   const history = useHistory()
   const group = useSelector(state => state.groups.singleGroup)
   const { groupId } = useParams()
-//   console.log(group);
 
   const [name, setName] = useState('');
   const [type, setType] = useState(undefined);
-  // const [privacy, setPrivacy] = useState(undefined);
   const [price, setPrice] = useState(0);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -26,7 +24,6 @@ function CreateEvent() {
     const errors = {}
     if (name.length < 5) errors.name = 'Name is required'
     if (type === undefined) errors.type = 'Event Type is required'
-    // if (privacy === undefined) errors.privacy = 'Visibility is required'
     if (price < 0) errors.price = 'Price is required'
     if (!startDate) errors.startDate = 'Event start is required'
     if (!endDate) errors.endDate = 'Event end is required'
@@ -41,16 +38,12 @@ function CreateEvent() {
     }
     // check backend for errors
     let priceNum = parseFloat(price)
-    console.log(priceNum);
     const payload = {venueId: 1, name, type, price: priceNum, capacity: 10, startDate: new Date(startDate), endDate: new Date(endDate), description}
     try {
-        console.log('payload:', payload);
-        console.log('groupId:', groupId);
-        console.log('url:', url);
         const newEvent = await dispatch(thunkCreateEvent(payload, groupId, url))
         history.push(`/events/${newEvent.id}`)
     } catch (err) {
-        console.log('hi', err);
+        console.log(err);
     }
   }
 
@@ -93,19 +86,6 @@ function CreateEvent() {
             {validationErrors.type && (
               <span className="errors">{validationErrors.type}</span>
             )}
-            {/* <h3>Is this event private or public?</h3>
-            <select
-              className="form-select"
-              value={privacy}
-              onChange={(e) => setPrivacy(e.target.value)}
-            >
-              <option value={undefined}>(select one)</option>
-              <option value="Private">Private</option>
-              <option value="Public">Public</option>
-            </select>
-            {validationErrors.privacy && (
-              <span className="errors">{validationErrors.privacy}</span>
-            )} */}
             <h3>What is the price for your event?</h3>
             <input
                 type='number'

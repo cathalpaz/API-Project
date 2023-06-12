@@ -20,7 +20,7 @@ function EventDisplay({ event }) {
         to={`/events/${event.id}`}
         className="display-container"
       >
-        <div className="left-container">
+        <div className="left-container-events">
           <img alt="event" src={event.previewImage}></img>
         </div>
         <div className="right-container-events">

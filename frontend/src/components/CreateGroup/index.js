@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import "./CreateGroup.css"
 import { thunkCreateGroup } from "../../store/groups";
@@ -7,11 +7,7 @@ import { thunkCreateGroup } from "../../store/groups";
 function CreateGroup() {
   const dispatch = useDispatch();
   const history = useHistory();
-  // const user = useSelector((state) => state.session.user);
-  // if no user, send to home page
 
-  //   const [city, setCity] = useState('');
-  //   const [state, setState] = useState('');
   const [cityState, setCityState] = useState("");
   const [name, setName] = useState("");
   const [about, setAbout] = useState("");
@@ -40,7 +36,6 @@ function CreateGroup() {
     const newGroup = await dispatch(thunkCreateGroup(payload, url))
 
     history.push(`/groups/${newGroup.id}`)
-
   };
 
   return (

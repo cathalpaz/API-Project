@@ -5,7 +5,7 @@ import { thunkDeleteGroup } from "../../store/groups";
 import './DeleteGroup.css'
 
 function DeleteGroup() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const history = useHistory();
   const group = useSelector(state => state.groups.singleGroup);
   const { closeModal } = useModal();

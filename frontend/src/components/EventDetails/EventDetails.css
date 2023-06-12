@@ -1,7 +1,6 @@
 .event-group-info > img {
     height: 80%;
     width: 90%;
-    /* border: 2px solid black; */
     align-self: center;
     justify-self: center;
 }
@@ -9,11 +8,6 @@
 .event-upper-block > img {
     height: 100%;
     width: 100%;
-    /* border: 1px solid rgba(34, 34, 34, 0.473); */
-}
-
-.event-content-container {
-
 }
 
 .event-details-header {
@@ -54,10 +48,6 @@
     display: grid;
     grid-template-columns: 55% 45%;
     gap: 1rem;
-}
-
-.event-right-side {
-
 }
 
 .event-group-info {

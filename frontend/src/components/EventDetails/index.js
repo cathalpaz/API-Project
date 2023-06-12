@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  NavLink,
-  useHistory,
-  useParams,
-} from "react-router-dom/cjs/react-router-dom.min";
+import {NavLink, useHistory, useParams,} from "react-router-dom/cjs/react-router-dom.min";
 import { thunkGetEventDetails } from "../../store/events";
 import { thunkGetGroupDetails } from "../../store/groups";
 import "./EventDetails.css";
@@ -49,7 +45,7 @@ function EventDetails() {
     if (event) {
       dispatch(thunkGetGroupDetails(event.groupId));
     }
-  }, [event]);
+  }, [dispatch, event]);
 
   if (Object.values(event).length && Object.values(group).length) {
     return (
@@ -57,9 +53,7 @@ function EventDetails() {
         <div className="event-details-header">
           <NavLink to="/events"> &lt; Events</NavLink>
           <h2>{event.name}</h2>
-          <p>
-            Hosted by {group.Organizer.firstName} {group.Organizer.lastName}
-          </p>
+          <p>Hosted by {group.Organizer.firstName} {group.Organizer.lastName}</p>
         </div>
         <div className="event-gray-container">
           <div className="event-upper-block">

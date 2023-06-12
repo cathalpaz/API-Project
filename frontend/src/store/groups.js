@@ -116,19 +116,25 @@ export const thunkDeleteGroup = (groupId) => async(dispatch) => {
     }
 }
 
-const normalizeState = data => {
-    const normalized = {}
-    for (const obj of data) {
-        normalized[obj.id] = obj
-    }
-    return normalized
-}
+// const normalizeState = data => {
+//     const normalized = {}
+//     for (const obj of data) {
+//         normalized[obj.id] = obj
+//     }
+//     return normalized
+// }
+const normalizeState = (data) => {
+    const normalized = {};
+    data.forEach((obj) => {
+      normalized[obj.id] = obj;
+    });
+    return normalized;
+};
 
 // reducer
 const initialState = { allGroups: {}, singleGroup: {} }
 
 const groupReducer = (state = initialState, action) => {
-    // const newState = {...state, allGroups: {...state.allGroups}, singleGroup: {...state.singleGroup}}
     switch(action.type) {
         case GET_GROUPS:
             const normalizedState = {}
@@ -141,7 +147,6 @@ const groupReducer = (state = initialState, action) => {
         case CREATE_GROUP:
             const newGroup = normalizeState(action.payload)
             return {...state, allGroups: {...state.allGroups, ...newGroup}}
-
         case UPDATE_GROUP:
             const updatedState = {...state.allGroups}
             updatedState[action.groupId] = action.group

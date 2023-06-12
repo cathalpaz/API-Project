@@ -28,15 +28,15 @@ function EditGroup() {
 
   useEffect(() =>  {
     if (groupId && group.Organizer) {
-        if (group.Organizer && (!user || user.id !== group.Organizer.id)) {
-            return history.push('/')
-        }
-        setCityState(group.city.trim() + ', ' + group.state.trim());
-        setName(group.name);
-        setAbout(group.about);
-        setType(group.type);
-        setPrivacy(group.private);
-        setUrl(group.GroupImages[0].url);
+      if (group.Organizer && (!user || user.id !== group.Organizer.id)) {
+          return history.push('/')
+      }
+      setCityState(group.city.trim() + ', ' + group.state.trim());
+      setName(group.name);
+      setAbout(group.about);
+      setType(group.type);
+      setPrivacy(group.private);
+      setUrl(group.GroupImages[0].url);
     }
   }, [group])
 

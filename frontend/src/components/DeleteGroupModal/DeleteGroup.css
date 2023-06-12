@@ -1,16 +1,11 @@
 .delete-modal {
   max-width: 400px;
-  /* margin: 0 auto; */
   padding: 20px;
-  /* background-color: #fff; */
-  /* border-radius: 5px; */
   text-align: center;
-  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); */
 }
 
 .delete-modal-title {
   font-size: 24px;
-  /* font-weight: bold; */
   margin: 10px auto;
 }
 
@@ -26,7 +21,6 @@
 }
 
 .delete-modal-button {
-  /* display: inline-block; */
   padding: 10px 20px;
   font-size: 15px;
   font-weight: bold;
@@ -35,7 +29,6 @@
   border: 2px solid black;
   box-shadow: 2px 2px 2px black;
   cursor: pointer;
-  /* transition: background-color 0.3s ease; */
   margin-bottom: 10px;
   width: 100%;
 }

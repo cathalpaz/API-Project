@@ -10,11 +10,11 @@ import { thunkGetEventsByGroup } from "../../store/events";
 
 function GroupDetails() {
   const dispatch = useDispatch();
-  const history = useHistory()
+  const history = useHistory();
   const { groupId } = useParams();
   const user = useSelector((state) => state.session.user);
   const group = useSelector((state) => state.groups.singleGroup);
-  const eventState = useSelector((state) => state.events.allEvents)
+  const eventState = useSelector((state) => state.events.allEvents);
   const events = Object.values(eventState).sort((a, b) => {
     let dateA = new Date(a.startDate).getTime();
     let dateB = new Date(b.startDate).getTime();
@@ -66,9 +66,9 @@ function GroupDetails() {
                     </div>
                   )
                 ) : null}
-          </div>
               </div>
             </div>
+          </div>
         </div>
           <div className="gray-container">
             <h2>Organizer</h2>
@@ -94,7 +94,6 @@ function GroupDetails() {
       <div className="loading"></div>
     </div>
   }
-
   return <>{loadedPage}</>;
 }
 
