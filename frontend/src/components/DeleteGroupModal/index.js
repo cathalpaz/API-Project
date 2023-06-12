@@ -18,12 +18,12 @@ function DeleteGroup() {
   };
 
   return (
-    <div class="delete-modal">
-        <h1 class="delete-modal-title">Confirm Delete</h1>
-        <span class="delete-modal-message">Are you sure you want to remove this group?</span>
-        <div class="delete-modal-buttons">
-            <button class="delete-modal-button" onClick={handleDelete}>Yes (Delete Group)</button>
-            <button class="delete-modal-button" onClick={closeModal}>No (Keep Group)</button>
+    <div className="delete-modal">
+        <h1 className="delete-modal-title">Confirm Delete</h1>
+        <span className="delete-modal-message">Are you sure you want to remove this group?</span>
+        <div className="delete-modal-buttons">
+            <button className="delete-modal-button" onClick={handleDelete}>Yes (Delete Group)</button>
+            <button className="delete-modal-button" onClick={closeModal}>No (Keep Group)</button>
         </div>
     </div>
   );

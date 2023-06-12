@@ -4,6 +4,8 @@ import { NavLink, useHistory, useParams } from "react-router-dom/cjs/react-route
 import { thunkGetEventDetails } from "../../store/events";
 import { thunkGetGroupDetails } from "../../store/groups";
 import "./EventDetails.css";
+import OpenModalButton from "../OpenModalButton";
+import DeleteEvent from "../DeleteEventModal";
 
 function EventDetails() {
   const history = useHistory()
@@ -11,7 +13,7 @@ function EventDetails() {
   const event = useSelector((state) => state.events.singleEvent);
   const group = useSelector((state) => state.groups.singleGroup);
 //   console.log(event);
-//   console.log(group);
+  console.log(group);
   const { eventId } = useParams();
 
   const formatDate = (d) => {
@@ -70,6 +72,9 @@ function EventDetails() {
                 <div className="event-location">
                   <i className="fa-solid fa-map-pin event-icon"></i>
                   <span>{event.type}</span>
+                </div>
+                <div className="event-delete">
+                  <OpenModalButton modalComponent={<DeleteEvent />} buttonText={'Delete'} />
                 </div>
               </div>
             </div>
