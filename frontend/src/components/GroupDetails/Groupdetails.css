@@ -92,6 +92,7 @@
   max-width: 50vw;
   background-color: white;
   margin-top: 15px;
+  cursor: pointer;
 }
 
 .event-card-dets > article {
@@ -107,6 +108,7 @@
 
 .event-card-pic > img {
   max-width: 100%;
+  height: 100px;
 }
 
 .event-card-dets > p {

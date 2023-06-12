@@ -1,5 +1,129 @@
-.group-info > img {
-    height: 100px;
-    width: 200px;
-    border: 2px solid black;
+.event-group-info > img {
+    height: 80%;
+    width: 90%;
+    /* border: 2px solid black; */
+    align-self: center;
+    justify-self: center;
+}
+
+.event-upper-block > img {
+    height: 100%;
+    width: 100%;
+    /* border: 1px solid rgba(34, 34, 34, 0.473); */
+}
+
+.event-content-container {
+
+}
+
+.event-details-header {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 100px;
+}
+
+.event-details-header * {
+    margin: 0;
+}
+
+.event-details-header > a {
+    color: teal;
+    font-size: 14px;
+    padding-bottom: 10px;
+}
+
+.event-details-header > h2 {
+    font-size: 25px;
+    padding-bottom: 5px;
+}
+
+.event-details-header > p {
+    color: gray;
+    font-size: 14px;
+}
+
+.event-gray-container {
+    background-color: rgba(233, 232, 232, 0.548);
+}
+
+.event-gray-container {
+    padding: 20px 100px;
+}
+
+.event-upper-block {
+    display: grid;
+    grid-template-columns: 55% 45%;
+    gap: 1rem;
+}
+
+.event-right-side {
+
+}
+
+.event-group-info {
+    background-color: white;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.event-group-info > div * {
+    margin: 0;
+}
+
+.event-group-info > div > h4 {
+    padding: 17px 0 10px 0;
+}
+
+.event-group-info > div > p {
+    font-size: 14px;
+    color: gray;
+}
+
+.event-info * {
+    padding: 5px 0;
+}
+
+.event-info {
+    margin-top: 15px;
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.event-icon {
+    font-size: 25px;
+    color: rgb(148, 148, 148);
+    padding-right: 8px;
+}
+
+.event-time {
+    display: flex;
+    align-items: center;
+}
+
+.event-time > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.event-time > div * {
+    font-size: 14px;
+}
+
+
+.event-paragraph > h4 {
+    font-size: 20px;
+    margin: 0;
+    padding-top: 30px;
+}
+
+.event-paragraph > p {
+    margin: 0;
+    padding-top: 10px;
+    font-size: 14px;
 }

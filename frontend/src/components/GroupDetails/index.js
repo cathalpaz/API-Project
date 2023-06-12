@@ -15,8 +15,12 @@ function GroupDetails() {
   const user = useSelector((state) => state.session.user);
   const group = useSelector((state) => state.groups.singleGroup);
   const eventState = useSelector((state) => state.events.allEvents)
-  const events = Object.values(eventState)
-  console.log(events);
+  const events = Object.values(eventState).sort((a, b) => {
+    let dateA = new Date(a.startDate).getTime();
+    let dateB = new Date(b.startDate).getTime();
+    return dateA - dateB;
+  });
+  // console.log(events);
   // console.log(group)
 
   useEffect(() => {

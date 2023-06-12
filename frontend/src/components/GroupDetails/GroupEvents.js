@@ -1,15 +1,6 @@
-// import React from 'react'
-
-// function GroupEvents() {
-//   return (
-//     <div>GroupEvents</div>
-//   )
-// }
-
-// export default GroupEvents
 import { useHistory } from "react-router-dom";
-import "./Groupdetails.css";
 import { useSelector } from "react-redux";
+import "./Groupdetails.css";
 
 const formatDate = (d) => {
   if (!d) return null;
@@ -23,7 +14,7 @@ const formatDate = (d) => {
 const GroupEvents = ({ event, group }) => {
   const history = useHistory();
   const groups = useSelector((state) => state.groups.allGroups);
-  console.log(event);
+  // console.log(event);
   if (!group) group = groups[event.groupId];
 
   const onClick = () => {

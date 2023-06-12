@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { thunkGetEvents } from '../../store/events'
 import { NavLink } from 'react-router-dom/cjs/react-router-dom.min'
 import EventDisplay from './EventDisplay'
+import './AllEvents.css'
 
 function AllEvents() {
   const dispatch = useDispatch()
