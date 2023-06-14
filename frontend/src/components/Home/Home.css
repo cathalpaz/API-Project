@@ -1,10 +1,13 @@
 .home-container {
-    padding: 30px 100px;
+    margin: auto;
+    max-width: 1050px;
+    padding-top: 20px;
 }
 
 .home-upper-container {
     display: grid;
     grid-template-columns: 50% 50%;
+    gap: 1rem;
     max-height: 330px;
 }
 
@@ -13,7 +16,7 @@
 }
 
 .home-upper-text > h1 {
-    font-size: 40px;
+    font-size: 45px;
     text-align: left;
 }
 
@@ -34,6 +37,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 15px 0;
+}
+
+.home-middle-container > h3{
+    font-size: 22px;
 }
 
 .home-middle-container * {
@@ -97,13 +105,12 @@
     align-items: center;
 }
 .home-join-btn > button {
-    height: 40px;
-    width: 150px;
-    background-color: teal;
+    border-radius: 8px;
+    background-color: #00798a;
+    border-color: #00798a;
     color: white;
-    font-size: 16px;
-    border: 2px solid black;
-    box-shadow: 2px 2px 2px black;
+    font-size: 18px;
+    padding: 8px 20px;
 }
 
 .home-join-btn > button:hover {

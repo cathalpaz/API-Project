@@ -30,7 +30,7 @@ function Navigation({ isLoaded }){
 
   return (
     <div className='nav-container'>
-        <NavLink className='nav-title' exact to="/">LinkUp</NavLink>
+        <NavLink className='nav-title' exact to="/">.join(Up)</NavLink>
       {isLoaded && userLinks}
     </div>
   );

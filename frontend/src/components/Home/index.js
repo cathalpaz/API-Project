@@ -12,7 +12,7 @@ function Home() {
     <div className="home-container">
       <div className="home-upper-container">
         <div className="home-upper-text">
-          <h1>The people platform - Where interests become friendships</h1>
+          <h1>The people platform—Where interests become friendships</h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Tortor
@@ -24,7 +24,7 @@ function Home() {
         <img alt="home" src="https://secure.meetupstatic.com/next/images/shared/online_events.svg?w=640" />
       </div>
       <div className="home-middle-container">
-        <h3>How LinkUp works</h3>
+        <h3>How .join(Up) works</h3>
         <p>
           Log in as demo. Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt ut labore et dolore magna
           aliqua.
@@ -58,7 +58,7 @@ function Home() {
       </div>
       <div className="home-join-btn">
         {sessionUser ? null : (
-            <OpenModalButton buttonText={'Join LinkUp'} modalComponent={<SignupFormModal />} />
+            <OpenModalButton buttonText={'Join Us'} modalComponent={<SignupFormModal />} />
         )}
       </div>
     </div>
