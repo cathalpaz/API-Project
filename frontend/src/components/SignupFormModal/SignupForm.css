@@ -38,8 +38,3 @@ input {
 .submit:disabled {
   background-color: #ccc;
 }
-
-.errors {
-  color: red;
-  margin-top: 10px;
-}

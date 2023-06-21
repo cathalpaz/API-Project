@@ -13,7 +13,7 @@ module.exports = {
     await queryInterface.bulkInsert(options, [
       {
         organizerId: 1,
-        name: "The Breakfast Club",
+        name: "App Academy",
         about:
           "A group of highschool students in detention on a Saturday morning.",
         type: "In person",
@@ -69,7 +69,7 @@ module.exports = {
     const Op = Sequelize.Op;
     await queryInterface.bulkDelete(options, {
       name: {
-        [Op.in]: ["The Breakfast Club", "The Avengers", "Gym Enthusiasts", "Demo Group", "Another Demo Group"],
+        [Op.in]: ["App Academy", "The Avengers", "Gym Enthusiasts", "Demo Group", "Another Demo Group"],
       },
     });
   },

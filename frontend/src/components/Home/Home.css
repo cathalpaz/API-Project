@@ -1,7 +1,7 @@
 .home-container {
     margin: auto;
-    max-width: 1050px;
-    padding-top: 20px;
+    max-width: 1024px;
+    padding-top: 30px;
 }
 
 .home-upper-container {
@@ -83,7 +83,6 @@
     font-size: 15px;
     text-align: center;
 }
-
 
 .home-navlink {
     color: teal;
