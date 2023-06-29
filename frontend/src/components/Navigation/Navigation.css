@@ -32,6 +32,10 @@
     font-weight: 500;
 }
 
+.nav-logged-out > div:first-child:hover {
+    text-decoration: underline;
+}
+
 .nav-logged-out > div:last-child {
     border-radius: 8px;
     background-color: #00798a;
@@ -39,6 +43,11 @@
     color: white;
     font-size: 15px;
     font-weight: bold;
+}
+
+.nav-logged-out > div:last-child:hover {
+    cursor: pointer;
+    background-color: rgba(0, 128, 128, 0.8);
 }
 
 .nav-logged-out > div {
