@@ -32,9 +32,7 @@ function EventDisplay({ event }) {
         </div>
       </NavLink>
       <p>
-        {event.description}. Lorem ipsum dolor sit amet, consectetur adipiscing
-        elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Elementum integer enim neque volutpat ac tincidunt vitae semper.
+        {event.description}
       </p>
     </div>
   );

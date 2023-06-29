@@ -20,9 +20,7 @@ function GroupDisplay({ group }) {
             {group.city}, {group.state}
           </h4>
           <p>
-            {group.about} Lorem ipsum dolor sit amet, consectetur adipiscing
-            elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-            aliqua.
+            {group.about}
           </p>
           <div className="bottom-container">
             <p>{group.numMembers} members</p>

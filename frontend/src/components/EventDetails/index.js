@@ -96,11 +96,7 @@ function EventDetails() {
           <div className="event-paragraph">
             <h4>Details</h4>
             <p>
-              {event.description}. Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Posuere morbi leo urna molestie at elementum
-              eu facilisis. Eu turpis egestas pretium aenean pharetra magna ac
-              placerat vestibulum.
+              {event.description}
             </p>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

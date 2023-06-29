@@ -38,10 +38,7 @@ const GroupEvents = ({ event, group }) => {
         </header>
       </article>
       <p className="event-card-description">
-        {event.description}. Lorem ipsum dolor sit amet, consectetur adipiscing
-        elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Quis lectus nulla at volutpat diam ut venenatis tellus. Rhoncus dolor
-        purus non enim praesent.
+        {event.description}
       </p>
     </div>
   );

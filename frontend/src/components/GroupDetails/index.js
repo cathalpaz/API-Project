@@ -74,7 +74,7 @@ function GroupDetails() {
             <h2>Organizer</h2>
             <span>{group.Organizer.firstName} {group.Organizer.lastName}</span>
             <h2>What we're about</h2>
-            <p>{group.about}. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Maecenas accumsan lacus vel facilisis volutpat. Platea dictumst vestibulum rhoncus est pellentesque. Varius morbi enim nunc faucibus a pellentesque sit amet porttitor.</p>
+            <p>{group.about}</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae.</p>
             <div className="content-events">
               <h2>Upcoming Events ({events.length})</h2>
