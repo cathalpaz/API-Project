@@ -27,6 +27,7 @@ function CreateEvent() {
     if (price < 0) errors.price = 'Price is required'
     if (!startDate) errors.startDate = 'Event start is required'
     if (!endDate) errors.endDate = 'Event end is required'
+    if (Date.parse(startDate) < Date.now()) errors.startDate = 'Start date must be in the future'
     if (Date.parse(startDate) > Date.parse(endDate)) errors.startDate = 'Start date must be before end date'
     if (!url.endsWith('.png') && !url.endsWith('.jpg') && !url.endsWith('.jpeg')) errors.url = 'Image URL must end in .png, .jpg, or .jpeg';
     if (description.length < 30) errors.description = 'Description must be at least 30 characters long'

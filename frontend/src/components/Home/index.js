@@ -14,11 +14,8 @@ function Home() {
         <div className="home-upper-text">
           <h1>The people platform—Where interests become friendships</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Tortor
-            vitae purus faucibus ornare suspendisse sed. Hendrerit gravida
-            rutrum quisque non. Tincidunt lobortis feugiat vivamus at. Quam
-            vulputate dignissim suspendisse in est ante.
+          Whatever your interest, from debugging and algorithmic puzzle solving to networking and skill sharing,
+          there are thousands of people who share it on .join(Up). Events are happening every day—sign up to join the fun.
           </p>
         </div>
         <img alt="home" src="https://secure.meetupstatic.com/next/images/shared/online_events.svg?w=640" />
@@ -26,8 +23,7 @@ function Home() {
       <div className="home-middle-container">
         <h3>How .join(Up) works</h3>
         <p>
-          Log in as demo. Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt ut labore et dolore magna
-          aliqua.
+          Meet new people who share your interests through online and in-person events. Log in as demo or feel free to create an account.
         </p>
       </div>
       <div className="home-lower-container">

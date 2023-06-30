@@ -58,8 +58,8 @@ module.exports = {
           "A demo group for testing with random characters to fill the character limit. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh ipsum consequat nisl vel. Eu turpis egestas pretium aenean pharetra magna ac placerat vestibulum.",
         type: "In person",
         private: true,
-        city: "Seattle, Washington",
-        state: "HI",
+        city: "Seattle",
+        state: "WA",
       },
     ]);
   },

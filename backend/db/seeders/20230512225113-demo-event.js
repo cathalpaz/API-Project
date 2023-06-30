@@ -70,7 +70,7 @@ module.exports = {
         venueId: 4,
         groupId: 4,
         name: 'How To: "Change it up a bit"',
-        description: "the creative copy and pasters of the tech industry gather to showcase their artistry in giving code a fresh twist. Prepare to be amazed as participants take existing code snippets and remix them into something entirely new and unexpected. Join us for a showcase of the most ingenious copycat creations in the tech world.",
+        description: "The creative copy and pasters of the tech industry gather to showcase their artistry in giving code a fresh twist. Prepare to be amazed as participants take existing code snippets and remix them into something entirely new and unexpected. Join us for a showcase of the most ingenious copycat creations in the tech world.",
         type: "Online",
         capacity: 5,
         price: 0,

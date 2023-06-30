@@ -116,13 +116,6 @@ export const thunkDeleteGroup = (groupId) => async(dispatch) => {
     }
 }
 
-// const normalizeState = data => {
-//     const normalized = {}
-//     for (const obj of data) {
-//         normalized[obj.id] = obj
-//     }
-//     return normalized
-// }
 const normalizeState = (data) => {
     const normalized = {};
     data.forEach((obj) => {

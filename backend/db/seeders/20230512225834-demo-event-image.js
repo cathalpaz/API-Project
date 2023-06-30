@@ -13,32 +13,32 @@ module.exports = {
     await queryInterface.bulkInsert(options, [
       {
         eventId: 1,
-        url: "https://media.istockphoto.com/id/182844478/photo/mad-teacher.jpg?s=2048x2048&w=is&k=20&c=bYzxXLGRajCZRYLux0Xzx32RyNyukUe0Rh_wLIo0uU4=",
+        url: "https://carteret.edu/wp-content/uploads/2020/06/graduation.jpg",
         preview: true,
       },
       {
         eventId: 2,
-        url: "https://media.istockphoto.com/id/472337014/vector/biking-to-school.jpg?s=2048x2048&w=is&k=20&c=h0ppmN3MAzfEZWKHi5AANZnXJYfPnq1gD25Mt_m21e4=",
+        url: "https://www.bu.edu/ctl/files/2020/09/shutterstock_1683622786-scaled.jpg",
         preview: true,
       },
       {
         eventId: 3,
-        url: "https://media.istockphoto.com/id/1408716657/photo/landing-strip-spaceship-interior-3d-rendering.jpg?s=2048x2048&w=is&k=20&c=rsRqUUWmWYCFVOIy9_KmUVzHx6ZD49Yo1v0terPH2ng=",
+        url: "https://courseclub.me/wp-content/uploads/2022/10/NeetCode.jpg",
         preview: true,
       },
       {
         eventId: 4,
-        url: "https://media.istockphoto.com/id/518121042/photo/clean-and-jerk.jpg?s=2048x2048&w=is&k=20&c=bIdBcD-RoV3LiIw6R13q_ZQnOWSUEJMCfaIt310IJ1U=",
+        url: "https://openaimaster.com/wp-content/uploads/2023/05/Chat-GPT-Error-Generating-Response.png",
         preview: true,
       },
       {
         eventId: 5,
-        url: "https://media.istockphoto.com/id/1277242852/photo/holding-weight-and-sitting.jpg?s=2048x2048&w=is&k=20&c=d0xsKp-TW7fgBGzkoP3XBU8s1kOtOWbCKgL6Xu0jnhM=",
+        url: "https://ares.decipherzone.com/blog-manager/uploads/ckeditor_Chat%20Gpt%20Memes%201.png",
         preview: true,
       },
       {
         eventId: 6,
-        url: "https://media.istockphoto.com/id/519331452/photo/multi-generation-family-watching-tv-at-home-back-view.jpg?s=2048x2048&w=is&k=20&c=OuaqxsDR-I1yWifL2rG4GS5Oyyc3RKKkcB2Zn9moKjs=",
+        url: "https://img.devrant.com/devrant/rant/r_1868941_2H94H.jpg",
         preview: false,
       },
       {

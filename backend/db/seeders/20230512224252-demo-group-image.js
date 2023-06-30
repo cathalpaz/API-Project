@@ -13,7 +13,7 @@ module.exports = {
     await queryInterface.bulkInsert(options, [
       {
         groupId: 1,
-        url: "https://media.istockphoto.com/id/624695614/photo/university-students-doing-group-study.jpg?s=2048x2048&w=is&k=20&c=5eM7yS1ik_JE-U5X6pzCPiainJ_zZJMwxmKMe8EcGaE=",
+        url: "https://top10codingbootcamps.com/wp-content/uploads/2022/05/603820afd31232aab368ea6f_New-Red-logo-emblem-150x150.png",
         preview: true,
       },
       {
@@ -23,7 +23,7 @@ module.exports = {
       },
       {
         groupId: 2,
-        url: "https://media.istockphoto.com/id/171116218/photo/the-avengers-screening-at-bruin-theater.jpg?s=1024x1024&w=is&k=20&c=fl15hxWnOaLhpZX6QKV3nxp_wXfG_obakjOfVO058BY=",
+        url: "https://leetcode.com/static/images/LeetCode_Sharing.png",
         preview: true,
       },
       {
@@ -33,12 +33,12 @@ module.exports = {
       },
       {
         groupId: 3,
-        url: "https://media.istockphoto.com/id/1391410249/photo/sports-and-gym-activities.jpg?s=2048x2048&w=is&k=20&c=HyXLi3eLOcUVsnU1RuwhT-HSEbbrdN8G__1F6lvSr3A=",
+        url: "https://www.digitaltrends.com/wp-content/uploads/2023/03/OpenAI-and-ChatGPT-logos-are-marked-do-not-enter-with-a-red-circle-and-line-symbol.jpg?p=1",
         preview: true,
       },
       {
         groupId: 4,
-        url: "https://media.istockphoto.com/id/898227924/vector/crowd-of-protesters-people-silhouettes-of-people-with-banners-and-megaphones-concept-of.jpg?s=2048x2048&w=is&k=20&c=soUHt4cEv4-Lq5fbTxy2bxt3Eh1GgWe-MQ2JMhdxki0=",
+        url: "https://i.pinimg.com/originals/50/40/5e/50405eb00d710e4a0aa0325c79250d2f.png",
         preview: true,
       },
       {
@@ -48,7 +48,7 @@ module.exports = {
       },
       {
         groupId: 5,
-        url: "https://media.istockphoto.com/id/1206031687/vector/people-greeting-gesture-flat-vector-illustrations-set-different-nations-representatives.jpg?s=2048x2048&w=is&k=20&c=nMZyJkqUFdDOQ3MBd2CjqaM6L7EAxNLYSzuTPBLZ9bs=",
+        url: "https://media.istockphoto.com/id/898227924/vector/crowd-of-protesters-people-silhouettes-of-people-with-banners-and-megaphones-concept-of.jpg?s=2048x2048&w=is&k=20&c=soUHt4cEv4-Lq5fbTxy2bxt3Eh1GgWe-MQ2JMhdxki0=",
         preview: true,
       },
     ]);
