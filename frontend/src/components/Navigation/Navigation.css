@@ -7,7 +7,7 @@
     position: relative;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 22px;
+    padding: 15px 3%;
     border-bottom: 2px solid rgba(128, 128, 128, 0.356);
     list-style: none;
 }
