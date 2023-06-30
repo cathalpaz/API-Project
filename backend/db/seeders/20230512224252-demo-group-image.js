@@ -13,7 +13,7 @@ module.exports = {
     await queryInterface.bulkInsert(options, [
       {
         groupId: 1,
-        url: "https://top10codingbootcamps.com/wp-content/uploads/2022/05/603820afd31232aab368ea6f_New-Red-logo-emblem-150x150.png",
+        url: "https://opengraph.githubassets.com/af568c5e9fee3a7947af842a9dec7452253a2a0092b524597bc930f4e90627da/appacademy/welcome-to-open",
         preview: true,
       },
       {

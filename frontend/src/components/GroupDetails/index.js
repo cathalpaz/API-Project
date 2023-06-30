@@ -4,9 +4,9 @@ import { NavLink, useHistory, useParams } from "react-router-dom/cjs/react-route
 import { thunkGetGroupDetails } from "../../store/groups";
 import OpenModalButton from "../OpenModalButton";
 import DeleteGroup from "../DeleteGroupModal";
-import './Groupdetails.css';
 import GroupEvents from "./GroupEvents";
 import { thunkGetEventsByGroup } from "../../store/events";
+import './Groupdetails.css';
 
 function GroupDetails() {
   const dispatch = useDispatch();
@@ -44,9 +44,11 @@ function GroupDetails() {
     loadedPage = (
       <div className="content-container">
         <div className="upper-container">
-          <NavLink to="/groups"> &lt; Groups</NavLink>
+          <NavLink to="/groups">Back to All Groups</NavLink>
           <div className="upper-content">
-            <img alt="group pic" src={group.GroupImages[0].url} />
+            <div className="group-image-container">
+              <img alt="group pic" src={group.GroupImages[0].url} />
+            </div>
             <div className="content-details">
               <div className="group-details">
                 <h1>{group.name}</h1>
