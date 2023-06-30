@@ -38,7 +38,7 @@ module.exports = {
       },
       {
         groupId: 4,
-        url: "https://i.pinimg.com/originals/50/40/5e/50405eb00d710e4a0aa0325c79250d2f.png",
+        url: "https://static.vecteezy.com/system/resources/previews/004/871/788/original/keyboard-keys-ctrl-c-and-ctrl-v-copy-and-paste-the-key-shortcuts-computer-icon-on-yellow-background-free-vector.jpg",
         preview: true,
       },
       {

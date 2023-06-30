@@ -15,15 +15,14 @@ function GroupDisplay({ group }) {
           <img alt="group-pic" src={group.previewImage}></img>
         </div>
         <div className="right-container">
-          <h2>{group.name}</h2>
-          <h4>
-            {group.city}, {group.state}
-          </h4>
-          <p>
-            {group.about}
-          </p>
+          <div className="right-upper-container">
+            <h2>{group.name}</h2>
+            <h4>{group.city}, {group.state}</h4>
+          </div>
+          <p>{group.about}</p>
           <div className="bottom-container">
             <p>{group.numMembers} members</p>
+            <p>•</p>
             <p>{group.private ? "Private" : "Public"}</p>
           </div>
         </div>
