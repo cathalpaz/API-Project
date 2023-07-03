@@ -49,6 +49,7 @@
 
 .errors {
   color: red;
+  margin-top: 0.25rem;
 }
 
 .form-submit-btn {

@@ -5,7 +5,7 @@
 
 ![meetup-database-schema]
 
-[meetup-database-schema]: ./images/meetup_dbdiagram.png
+[meetup-database-schema]: ./frontend/public/images/meetup_dbdiagram.png
 
 
 ## API Documentation

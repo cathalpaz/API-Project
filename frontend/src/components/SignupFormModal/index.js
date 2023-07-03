@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
+import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
+import LoginFormModal from "../LoginFormModal";
 import "./SignupForm.css";
 
 function SignupFormModal() {
@@ -44,8 +46,13 @@ function SignupFormModal() {
   const disabled = !email.length || username.length < 4 || password.length < 6 || !firstName.length || !lastName.length ? true : false
 
   return (
-    <div className="signup-box">
+    <div className="login-box">
+      <i class="fa-brands fa-meetup"></i>
       <h1>Sign Up</h1>
+      <div className="login-member-sign">
+        <p>Already a member?</p>
+        <OpenModalMenuItem itemText='Log in' modalComponent={<LoginFormModal />} />
+      </div>
       <form onSubmit={handleSubmit}>
         <label>
           Email
@@ -107,7 +114,7 @@ function SignupFormModal() {
           />
         </label>
         {errors.confirmPassword && (
-          <p>{errors.confirmPassword}</p>
+          <p className="errors">{errors.confirmPassword}</p>
         )}
         <button className="submit" disabled={disabled} type="submit">Sign Up</button>
       </form>

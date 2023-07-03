@@ -33,7 +33,7 @@
 }
 
 .nav-logged-out > div:first-child:hover {
-    text-decoration: underline;
+    color: rgba(0, 128, 128, 0.8);
 }
 
 .nav-logged-out > div:last-child {
