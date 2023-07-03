@@ -64,13 +64,12 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     padding: 20px 20px;
-    gap: 1rem;
+    gap: 1.3rem;
 }
 
 .home-links {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
 

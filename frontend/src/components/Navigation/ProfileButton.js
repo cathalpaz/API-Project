@@ -41,12 +41,12 @@ function ProfileButton({ user }) {
   const profileArrowDirection = showMenu ? "up" : "down";
 
   return (
-    <div>
+    <div className="nav-profile">
       <div className="nav-profile-btn" onClick={openMenu}>
         <i className="fas fa-user-circle"></i>
         <i className={`fa-solid fa-chevron-${profileArrowDirection}`}></i>
       </div>
-      <ul className={ulClassName} ref={ulRef}>
+      <ul className={ulClassName + ' profile'} ref={ulRef}>
         <li>Hello, {user.username}</li>
         <li>
           {user.firstName} {user.lastName}

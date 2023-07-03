@@ -23,7 +23,7 @@ function Home() {
       <div className="home-middle-container">
         <h3>How .join(Up) works</h3>
         <p>
-          Meet new people who share your interests through online and in-person events. Log in as demo or feel free to create an account.
+          Meet new people who share your interests through online and in-person events. Log in as a demo user or create an account.
         </p>
       </div>
       <div className="home-lower-container">
@@ -31,24 +31,21 @@ function Home() {
           <img alt="group" src="https://secure.meetupstatic.com/next/images/shared/handsUp.svg?w=256" />
           <NavLink to="/groups" className='home-navlink'>See all groups</NavLink>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Do what you love, meet others who love it, find your community. The rest is history!
           </p>
         </div>
         <div className="home-links">
           <img alt="event" src="https://secure.meetupstatic.com/next/images/shared/ticket.svg?w=256" />
           <NavLink to="/events" className='home-navlink'>Find an event</NavLink>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Events are happening on just about any topic you can think of, from hating on AI models to practicing your programming skills.
           </p>
         </div>
         <div className="home-links">
           <img alt="join" src="https://secure.meetupstatic.com/next/images/shared/joinGroup.svg?w=256" />
           {sessionUser ? <NavLink to="/groups/new" className='home-navlink'>Start a new group</NavLink> : <span>Start a new group</span>}
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          You don’t have to be an expert to gather people together and explore shared interests.
           </p>
         </div>
       </div>

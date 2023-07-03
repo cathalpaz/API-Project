@@ -7,13 +7,13 @@
     position: relative;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 3%;
+    padding: 3px 20px;
     border-bottom: 2px solid rgba(128, 128, 128, 0.356);
     list-style: none;
 }
 
 .nav-title {
-    font-size: 46px;
+    font-size: 44px;
     text-decoration: none;
     color: #e32359;
     font-weight: bold;
@@ -85,7 +85,7 @@
 }
 
 .profile-dropdown > li:last-child {
-    border-top: 2px solid gray;
+    border-top: 1px solid rgb(217 217 217);
     padding-top: 6px;
     cursor: pointer;
 }
@@ -101,11 +101,28 @@
 
 .nav-profile-btn > i {
     cursor: pointer;
-    margin: 0 3px;
+    margin-left: 5px;
     font-size: 18px;
+    color: gray;
 }
 
 .nav-profile-btn > i:first-child {
-    font-size: 26px;
+    font-size: 30px;
     color: #e32359;
+}
+
+.profile {
+    margin-top: 33px;
+    padding: 0.75rem 1rem;
+    border-color: rgb(217 217 217);
+    border-radius: 0.25rem;
+    width: 150px;
+}
+
+.profile > li {
+    line-height: 25px;
+}
+
+.profile > li:last-child:hover {
+    color: #00798a;
 }
