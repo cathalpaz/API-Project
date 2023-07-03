@@ -22,7 +22,7 @@ function AllGroups() {
         </NavLink>
       </div>
       <div className="list-display">
-        <h3>Groups in LinkUp</h3>
+        <h3>Groups in .join(Up)</h3>
         <div className="list-item">
           {groups.map((group) => {
             return <GroupDisplay key={group.id} group={group} />;

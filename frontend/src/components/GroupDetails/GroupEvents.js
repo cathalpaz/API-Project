@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-import "./Groupdetails.css";
+import "./GroupDetails.css";
 
 const formatTime = (timeString) => {
   const date = new Date(timeString);

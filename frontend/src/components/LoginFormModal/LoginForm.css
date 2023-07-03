@@ -112,3 +112,22 @@
   color: #00798A;
   padding-left: 1.5rem;
 }
+
+
+.password-input {
+  position: relative;
+  display: inline-block;
+}
+
+.password-input > input {
+  padding-right: 2.5rem;
+  width: 87%;
+}
+
+.password-input > i {
+  position: absolute;
+  top: 45%;
+  right: 0.5rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+}

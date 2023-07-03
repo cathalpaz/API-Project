@@ -17,6 +17,12 @@ function SignupFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
+  const [showPassword, setShowPassword] = useState(false)
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
@@ -96,12 +102,17 @@ function SignupFormModal() {
         {errors.lastName && <p className="errors">{errors.lastName}</p>}
         <label>
           Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <div className="password-input">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          {showPassword ? (
+            <i onClick={toggleShowPassword} class="fa-sharp fa-regular fa-eye"></i>
+          ) : <i onClick={toggleShowPassword} class="fa-sharp fa-regular fa-eye-slash"></i>}
+          </div>
         </label>
         {errors.password && <p className="errors">{errors.password}</p>}
         <label>

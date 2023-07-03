@@ -15,7 +15,7 @@ function Home() {
           <h1>The people platform—Where interests become friendships</h1>
           <p>
           Whatever your interest, from debugging and algorithmic puzzle solving to networking and skill sharing,
-          there are thousands of people who share it on .join(Up). Events are happening every day—sign up to join the fun.
+          there are thousands of people who share it on .join(Up). Events are happening every day — sign up to join the fun.
           </p>
         </div>
         <img alt="home" src="https://secure.meetupstatic.com/next/images/shared/online_events.svg?w=640" />

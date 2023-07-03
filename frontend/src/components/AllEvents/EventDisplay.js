@@ -14,11 +14,11 @@ function EventDisplay({ event }) {
   };
 
   return (
-    <div>
+    <div className="event-box">
       <NavLink
         key={event.id}
         to={`/events/${event.id}`}
-        className="display-container"
+        className="event-display-container"
       >
         <div className="left-container-events">
           <img alt="event" src={event.previewImage}></img>

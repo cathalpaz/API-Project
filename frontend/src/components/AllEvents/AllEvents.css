@@ -1,17 +1,32 @@
+.event-box {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  /* align-items: center; */
+  justify-content: center;
+}
+
+.event-display-container {
+  display: flex;
+  gap: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(128, 128, 128, 0.788);
+}
+
+
 .right-container-events {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding-top: 10%;
 }
 
 .right-container-events > span {
-  font-size: 14px;
+  font-size: 16px;
   color: teal;
 }
 
 .right-container-events > h2 {
-  padding: 5px 0;
+  padding: 8px 0;
 }
 
 .right-container-events > h4 {
@@ -21,13 +36,12 @@
 
 .list-item > div > p {
   font-size: 14px;
-  padding: 7px 0;
+  padding: 10px 0;
 }
 
 .left-container-events > img {
-  padding: 8px 0;
-  height: 120px;
-  width: 230px;
+  height: 160px;
+  width: 285px;
   display: flex;
   max-width: 100%;
   max-height: 100%;

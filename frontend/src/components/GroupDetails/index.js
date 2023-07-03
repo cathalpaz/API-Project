@@ -6,7 +6,7 @@ import OpenModalButton from "../OpenModalButton";
 import DeleteGroup from "../DeleteGroupModal";
 import GroupEvents from "./GroupEvents";
 import { thunkGetEventsByGroup } from "../../store/events";
-import './Groupdetails.css';
+import './GroupDetails.css';
 
 function GroupDetails() {
   const dispatch = useDispatch();
@@ -44,7 +44,10 @@ function GroupDetails() {
     loadedPage = (
       <div className="content-container">
         <div className="upper-container">
-          <NavLink to="/groups">Back to All Groups</NavLink>
+          <div className="return-to">
+          <i class="fa-solid fa-arrow-left"></i>
+            <NavLink to="/groups">Return to All Groups</NavLink>
+          </div>
           <div className="upper-content">
             <div className="group-image-container">
               <img alt="group pic" src={group.GroupImages[0].url} />
@@ -52,9 +55,20 @@ function GroupDetails() {
             <div className="content-details">
               <div className="group-details">
                 <h1>{group.name}</h1>
-                <p>{group.city}, {group.state}</p>
-                <p>{group.numMembers} members &#8226; {group.private ? "Private" : "Public"}</p>
-                <p>Organized by {group.Organizer.firstName} {group.Organizer.lastName}</p>
+                <div className="group-details-list">
+                  <div className="group-detail">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <p>{group.city}, {group.state}</p>
+                  </div>
+                  <div className="group-detail">
+                    <i class="fa-solid fa-users"></i>
+                    <p>{group.numMembers} members &#8226; {group.private ? "Private" : "Public"}</p>
+                  </div>
+                  <div className="group-detail">
+                    <i class="fa-solid fa-crown"></i>
+                    <p>Organized by {group.Organizer.firstName} {group.Organizer.lastName}</p>
+                  </div>
+                </div>
               </div>
               <div className="buttons">
                 {user ? (
@@ -73,18 +87,20 @@ function GroupDetails() {
           </div>
         </div>
           <div className="gray-container">
-            <h2>Organizer</h2>
-            <span>{group.Organizer.firstName} {group.Organizer.lastName}</span>
-            <h2>What we're about</h2>
-            <p>{group.about}</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae.</p>
-            <div className="content-events">
-              <h2>Upcoming Events ({events.length})</h2>
-              <div className="event-card">
-                {events && events.map(event => (
-                  <GroupEvents key={event.id} event={event} group={group} />
+            <div className="gray-content">
+              <h2>Organizer</h2>
+              <span>{group.Organizer.firstName} {group.Organizer.lastName}</span>
+              <h2>What we're about</h2>
+              <p>{group.about}</p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae.</p>
+              <div className="content-events">
+                <h2>Upcoming Events ({events.length})</h2>
+                <div className="event-card">
+                  {events && events.map(event => (
+                    <GroupEvents key={event.id} event={event} group={group} />
 
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>

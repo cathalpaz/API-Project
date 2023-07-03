@@ -13,6 +13,12 @@ function LoginFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
+  const [showPassword, setShowPassword] = useState(false)
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors({});
@@ -62,12 +68,17 @@ function LoginFormModal() {
         </label>
         <label>
           Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <div className="password-input">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          {showPassword ? (
+            <i onClick={toggleShowPassword} class="fa-sharp fa-regular fa-eye"></i>
+          ) : <i onClick={toggleShowPassword} class="fa-sharp fa-regular fa-eye-slash"></i>}
+          </div>
         </label>
         <button className="submit" disabled={disabled} type="submit">Log in</button>
       </form>

@@ -22,7 +22,7 @@ function AllEvents() {
         <NavLink to="/groups">Groups</NavLink>
       </div>
       <div className="list-display">
-        <h3>Events in LinkUp</h3>
+        <h3>Events in .join(Up)</h3>
         <div className="list-item">
           {events.map((event) => {
             return <EventDisplay key={event.id} event={event} />;
