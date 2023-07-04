@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {NavLink, useHistory, useParams,} from "react-router-dom/cjs/react-router-dom.min";
 import { thunkGetEventDetails } from "../../store/events";
 import { thunkGetGroupDetails } from "../../store/groups";
-import "./EventDetails.css";
 import OpenModalButton from "../OpenModalButton";
 import DeleteEvent from "../DeleteEventModal";
+import "./EventDetails.css";
 
 function EventDetails() {
   const history = useHistory();
@@ -51,60 +51,71 @@ function EventDetails() {
     return (
       <div className="event-content-container">
         <div className="event-details-header">
-          <NavLink to="/events"> &lt; Events</NavLink>
-          <h2>{event.name}</h2>
+          <div className="return-to">
+          <i class="fa-solid fa-arrow-left"></i>
+            <NavLink to="/events">Return to All Events</NavLink>
+          </div>
+          <h1>{event.name}</h1>
           <p>Hosted by {group.Organizer.firstName} {group.Organizer.lastName}</p>
         </div>
         <div className="event-gray-container">
-          <div className="event-upper-block">
-            <img alt="event" src={event.EventImages[0].url} />
-            <div className="event-right-side">
-              <div className="event-group-info" onClick={groupClick}>
-                <img alt="group" src={group.GroupImages[0].url} />
-                <div>
-                  <h4>{group.name}</h4>
-                  <p>{group.private ? "Private" : "Public"}</p>
-                </div>
-              </div>
-              <div className="event-info">
-                <div className="event-time">
-                  <i className="fa-regular fa-clock event-icon"></i>
+          <div className="event-gray-content">
+            <div className="event-upper-block">
+              <img alt="event" src={event.EventImages[0].url} />
+              <div className="event-right-side">
+                <div className="event-group-info" onClick={groupClick}>
+                  <img alt="group" src={group.GroupImages[0].url} />
                   <div>
-                    <span>START {formatTime(event.startDate)}</span>
-                    <span>END {formatTime(event.endDate)}</span>
+                    <h4>{group.name}</h4>
+                    <p>{group.private ? "Private" : "Public"}</p>
                   </div>
                 </div>
-                <div className="event-price">
-                  <i className="fa-solid fa-dollar-sign event-icon"></i>
-                  <span>{event.price === 0 ? "Free" : event.price}</span>
-                </div>
-                <div className="event-location">
-                  <i className="fa-solid fa-map-pin event-icon"></i>
-                  <span>{event.type}</span>
-                </div>
-                <div className="event-delete">
-                  {isOrganizer() ? (
-                    <OpenModalButton
-                      modalComponent={<DeleteEvent />}
-                      buttonText={"Delete"}
-                    />
-                  ) : null}
+                <div className="event-info">
+                  <div className="event-detail">
+                    <i className="fa-regular fa-clock event-icon"></i>
+                    <div className="event-time-date">
+                      <div className="event-time-start-end">
+                        <p>START</p>
+                        <span>{formatTime(event.startDate)}</span>
+                      </div>
+                      <div className="event-time-start-end">
+                        <p>END</p>
+                        <span>{formatTime(event.endDate)}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="event-detail">
+                    <i className="fa-solid fa-dollar-sign event-icon"></i>
+                    <span>{event.price === 0 ? "Free" : event.price}</span>
+                  </div>
+                  <div className="event-detail">
+                    <i className="fa-solid fa-map-pin event-icon"></i>
+                    <span>{event.type}</span>
+                  </div>
+                  <div className="event-delete">
+                    {isOrganizer() ? (
+                      <OpenModalButton
+                        modalComponent={<DeleteEvent />}
+                        buttonText={"Delete"}
+                      />
+                    ) : null}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="event-paragraph">
-            <h4>Details</h4>
-            <p>
-              {event.description}
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Posuere morbi leo urna molestie at elementum eu facilisis. Eu
-              turpis egestas pretium aenean pharetra magna ac placerat
-              vestibulum.
-            </p>
+            <div className="event-paragraph">
+              <h4>Details</h4>
+              <p>
+                {event.description}
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Posuere morbi leo urna molestie at elementum eu facilisis. Eu
+                turpis egestas pretium aenean pharetra magna ac placerat
+                vestibulum.
+              </p>
+            </div>
           </div>
         </div>
       </div>

@@ -1,18 +1,16 @@
 .event-box {
   display: flex;
   flex-direction: column;
-  max-width: 800px;
-  /* align-items: center; */
+  max-width: 960px;
   justify-content: center;
 }
 
 .event-display-container {
   display: flex;
   gap: 1.25rem;
-  padding-top: 1rem;
+  padding-top: 1.2rem;
   border-top: 1px solid rgba(128, 128, 128, 0.788);
 }
-
 
 .right-container-events {
   display: flex;
@@ -35,8 +33,9 @@
 }
 
 .list-item > div > p {
-  font-size: 14px;
-  padding: 10px 0;
+  font-size: 15px;
+  padding: 15px 0;
+  text-align: center;
 }
 
 .left-container-events > img {
@@ -47,4 +46,5 @@
   max-height: 100%;
   align-self: center;
   justify-content: center;
+  border-radius: 8px;
 }

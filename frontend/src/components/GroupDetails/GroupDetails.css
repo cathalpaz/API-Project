@@ -44,7 +44,6 @@
   justify-content: space-between;
   padding-top: 3%;
   padding-bottom: 30px;
-
 }
 
 .group-image-container {
@@ -103,7 +102,7 @@
 .organizer-buttons > button {
   margin-right: 10px;
   padding: 8px 12px;
-  background-color: #00798a;
+  background-color: #e32359;
   color: white;
   border-radius: 8px;
   border: none;
@@ -113,7 +112,7 @@
 
 .buttons > button:hover,
 .organizer-buttons > button:hover {
-  background-color: rgba(0, 128, 128, 0.8);
+  background-color: #e32359cb;
 }
 
 .gray-container {
@@ -149,7 +148,7 @@
 
 .event-card-dets {
   border-radius: 10px;
-  max-width: 75%;
+  max-width: 70%;
   background-color: white;
   margin-top: 15px;
   cursor: pointer;
@@ -160,7 +159,7 @@
   padding: 0 10px;
   display: grid;
   grid-template-columns: 30% 70%;
-  gap: 1rem;
+  gap: 1.2rem;
 }
 
 .event.card > header {

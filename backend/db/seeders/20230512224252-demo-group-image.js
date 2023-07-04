@@ -13,7 +13,7 @@ module.exports = {
     await queryInterface.bulkInsert(options, [
       {
         groupId: 1,
-        url: "https://opengraph.githubassets.com/af568c5e9fee3a7947af842a9dec7452253a2a0092b524597bc930f4e90627da/appacademy/welcome-to-open",
+        url: "https://d1psgljc389n8q.cloudfront.net/discussions/posts/qHddZMInp",
         preview: true,
       },
       {
