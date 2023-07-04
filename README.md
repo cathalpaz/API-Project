@@ -1,4 +1,9 @@
-# Meet Up Clone
+# .join(Up) - MeetUp Clone
+
+## Welcome
+
+Welcome to my first fullstack web application!
+
 
 ## Database Schema Design
 
