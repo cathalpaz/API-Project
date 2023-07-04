@@ -26,8 +26,8 @@
   font-weight: bold;
   color: white;
   background-color: #ff4d4f;
-  border: 2px solid black;
-  box-shadow: 2px 2px 2px black;
+  border-radius: 8px;
+  border: none;
   cursor: pointer;
   margin-bottom: 10px;
   width: 100%;
