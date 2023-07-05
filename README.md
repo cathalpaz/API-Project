@@ -1,8 +1,8 @@
 # .join(Up) - MeetUp Clone
 
-## Welcome
+## About
 
-Welcome to my first fullstack web application!
+Welcome to my first fullstack web application! This project is a clone of Meetup
 
 
 ## Database Schema Design
