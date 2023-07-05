@@ -22,7 +22,7 @@ function CreateEvent() {
   const handleSubmit = async(e) => {
     e.preventDefault()
     const errors = {}
-    if (name.length < 5) errors.name = 'Name must be longer than 5 characters'
+    if (name.length < 5) errors.name = 'Name is required'
     if (type === undefined) errors.type = 'Event Type is required'
     if (price < 0) errors.price = 'Price is required'
     if (!startDate) errors.startDate = 'Event start is required'

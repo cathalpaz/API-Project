@@ -47,7 +47,6 @@ function App() {
         <Route exact path='/events/:eventId'>
           <EventDetails />
         </Route>
-        <Route>Page Not Found</Route>
         </Switch>}
     </>
   );
