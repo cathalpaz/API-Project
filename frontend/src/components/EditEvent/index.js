@@ -18,7 +18,7 @@ function EditEvent() {
   if (!user) {
     history.push("/");
   }
-  console.log(event);
+  // console.log(event);
 
 
   const [name, setName] = useState(event.name ?? "");
@@ -32,10 +32,6 @@ function EditEvent() {
   const [validationErrors, setValidationErrors] = useState({});
 
   useEffect(() => {
-    // if (event && group.Organizer) {
-    //   if (group.Organizer && (!user || user.id !== group.Organizer.id)) {
-    //     return history.push("/");
-    //   }
     if (event) {
       setName(event.name);
       setType(event.type);
@@ -70,12 +66,7 @@ function EditEvent() {
         dispatch(thunkUpdateEvent(payload, eventId))
         history.push(`/events/${eventId}`)
     }
-
   }
-
-
-
-
   return (
     <div className="form-container">
       <div className="form-header">

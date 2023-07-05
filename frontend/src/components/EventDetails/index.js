@@ -13,7 +13,7 @@ function EventDetails() {
   const event = useSelector((state) => state.events.singleEvent);
   const group = useSelector((state) => state.groups.singleGroup);
   const user = useSelector((state) => state.session.user);
-  // console.log(event);
+  console.log(event);
   // console.log(group);
   const { eventId } = useParams();
 
@@ -55,7 +55,7 @@ function EventDetails() {
       <div className="event-content-container">
         <div className="event-details-header">
           <div className="return-to">
-          <i class="fa-solid fa-arrow-left"></i>
+          <i className="fa-solid fa-arrow-left"></i>
             <NavLink to="/events">Return to All Events</NavLink>
           </div>
           <h1>{event.name}</h1>
