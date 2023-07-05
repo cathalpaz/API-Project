@@ -28,15 +28,18 @@ function EventDetails() {
     });
     return `${formattedDate} \u2022 ${formattedTime}`;
   };
+
   const isOrganizer = () => {
     if (user) {
       return user.id === group.Organizer.id;
     }
   };
-
   const groupClick = () => {
     history.push(`/groups/${group.id}`);
   };
+  const editEvent = () => {
+    history.push(`/events/${eventId}/edit`)
+  }
 
   useEffect(() => {
     dispatch(thunkGetEventDetails(eventId));
@@ -92,14 +95,15 @@ function EventDetails() {
                     <i className="fa-solid fa-map-pin event-icon"></i>
                     <span>{event.type}</span>
                   </div>
-                  <div className="event-delete">
-                    {isOrganizer() ? (
+                  {isOrganizer() ? (
+                    <div className="event-delete">
+                      <button onClick={editEvent}>Update</button>
                       <OpenModalButton
                         modalComponent={<DeleteEvent />}
                         buttonText={"Delete"}
                       />
-                    ) : null}
                   </div>
+                    ) : null}
                 </div>
               </div>
             </div>

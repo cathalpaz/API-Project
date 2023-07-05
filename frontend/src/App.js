@@ -11,6 +11,7 @@ import CreateGroup from "./components/CreateGroup";
 import EditGroup from "./components/EditGroup";
 import EventDetails from './components/EventDetails'
 import CreateEvent from './components/CreateEvent'
+import EditEvent from "./components/EditEvent";
 
 function App() {
   const dispatch = useDispatch();
@@ -46,6 +47,9 @@ function App() {
         </Route>
         <Route exact path='/events/:eventId'>
           <EventDetails />
+        </Route>
+        <Route exact path='/events/:eventId/edit'>
+          <EditEvent />
         </Route>
         <Route>Page Not Found</Route>
         </Switch>}

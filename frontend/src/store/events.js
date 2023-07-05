@@ -4,7 +4,8 @@ import { csrfFetch } from "./csrf";
 const CREATE_EVENT = 'events/new'
 const GET_EVENTS = 'events/allEvents';
 const GET_EVENT_DETAILS = 'events/eventDetails';
-const DELETE_EVENT = 'events/delete'
+const UPDATE_EVENT = 'events/edit';
+const DELETE_EVENT = 'events/delete';
 
 
 // actions
@@ -24,6 +25,12 @@ const actionGetEventDetails = (data) => {
     return {
         type: GET_EVENT_DETAILS,
         payload: data
+    }
+}
+const actionUpdateEvent = (event) => {
+    return {
+        type: UPDATE_EVENT,
+        event
     }
 }
 const actionDeleteEvent = (eventId) => {
