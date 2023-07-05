@@ -64,7 +64,8 @@ function EventDetails() {
         <div className="event-gray-container">
           <div className="event-gray-content">
             <div className="event-upper-block">
-              <img alt="event" src={event.EventImages[0].url} />
+              {console.log(event)}
+              <img alt="event" src={event ? event.EventImages[0].url : ""} />
               <div className="event-right-side">
                 <div className="event-group-info" onClick={groupClick}>
                   <img alt="group" src={group.GroupImages[0].url} />

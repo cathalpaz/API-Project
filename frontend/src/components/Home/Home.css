@@ -114,10 +114,11 @@
 .home-join-btn > button {
     border-radius: 8px;
     background-color: #00798a;
-    border-color: #00798a;
+    border: none;
     color: white;
     font-size: 18px;
     padding: 8px 20px;
+    font-weight: 600;
 }
 
 .home-join-btn > button:hover {
