@@ -12,7 +12,7 @@ function EventDisplay({ event }) {
     });
     return `${formattedDate} \u2022 ${formattedTime}`;
   };
-
+  console.log(event);
   return (
     <div className="event-box">
       <NavLink
@@ -27,7 +27,7 @@ function EventDisplay({ event }) {
           <span>{formatTime(event.startDate)}</span>
           <h2>{event.name}</h2>
           <h4>
-            {event.Venue.city}, {event.Venue.state}
+            {event.Venue?.city}, {event.Venue?.state}
           </h4>
         </div>
       </NavLink>

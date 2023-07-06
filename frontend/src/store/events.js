@@ -4,7 +4,8 @@ import { csrfFetch } from "./csrf";
 const CREATE_EVENT = 'events/new'
 const GET_EVENTS = 'events/allEvents';
 const GET_EVENT_DETAILS = 'events/eventDetails';
-const DELETE_EVENT = 'events/delete'
+const UPDATE_EVENT = 'events/edit';
+const DELETE_EVENT = 'events/delete';
 
 
 // actions
@@ -24,6 +25,12 @@ const actionGetEventDetails = (data) => {
     return {
         type: GET_EVENT_DETAILS,
         payload: data
+    }
+}
+const actionUpdateEvent = (event) => {
+    return {
+        type: UPDATE_EVENT,
+        payload: event
     }
 }
 const actionDeleteEvent = (eventId) => {
@@ -54,7 +61,7 @@ export const thunkCreateEvent = (event, groupId, img) => async(dispatch) => {
         const newImg = await imgRes.json()
         data.EventImages = [newImg]
         dispatch(actionCreateEvent([data]))
-        console.log('hi');
+        // console.log('hi');
         return data
     } else {
         const errorData = await res.json()
@@ -91,6 +98,22 @@ export const thunkGetEventsByGroup = (groupId) => async(dispatch) => {
         return data
     }
 }
+export const thunkUpdateEvent = (event, eventId) => async(dispatch) => {
+    const res = await csrfFetch(`/api/events/${eventId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(event)
+    })
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(actionUpdateEvent(event))
+        return data
+    } else {
+        const errorData = await res.json()
+        return errorData
+    }
+
+}
 export const thunkDeleteEvent = (eventId) => async(dispatch) => {
     const res = await csrfFetch(`/api/events/${eventId}`, {
         method: 'DELETE'
@@ -118,10 +141,19 @@ const eventReducer = (state = initialState, action) => {
             return {...state, singleEvent: action.payload}
         case CREATE_EVENT:
             return {...state, allEvents: {...state.allEvents}, [action.payload.id]: action.payload}
-        case DELETE_EVENT:
+        case DELETE_EVENT: {
             const newState = {...state.allEvents}
             delete newState[action.eventId]
             return {...state, allEvents: newState, singleEvent: {}}
+        }
+        case UPDATE_EVENT: {
+            // const updatedState = {...state.allEvents}
+            // updatedState[action.eventId] = action.event
+            // return {...state, allEvents: updatedState, singleEvent: action.event}
+            const newState = { ...state };
+            newState.allEvents = { ...newState.allEvents, [action.payload.id]: action.payload };
+            return newState;
+        }
         default:
             return state
     }

@@ -29,7 +29,7 @@ module.exports = {
       {
         groupId: 2,
         url: "group2img2.png",
-        preview: true,
+        preview: false,
       },
       {
         groupId: 3,

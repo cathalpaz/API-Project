@@ -11,7 +11,7 @@ function AllEvents() {
 
   useEffect(() => {
     dispatch(thunkGetEvents());
-  }, dispatch);
+  }, [dispatch]);
 
   return (
     <div className="list-container">

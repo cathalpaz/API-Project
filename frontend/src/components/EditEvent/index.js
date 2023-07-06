@@ -1,28 +1,54 @@
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min'
-import { thunkCreateEvent } from '../../store/events'
-import { thunkGetGroupDetails } from '../../store/groups'
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useHistory } from "react-router-dom";
+import { thunkGetEventDetails, thunkUpdateEvent } from "../../store/events";
 
-function CreateEvent() {
-  const dispatch = useDispatch()
+function EditEvent() {
+  const dispatch = useDispatch();
   const history = useHistory()
-  const group = useSelector(state => state.groups.singleGroup)
-  const { groupId } = useParams()
+  const { eventId } = useParams();
 
-  const [name, setName] = useState('');
-  const [type, setType] = useState(undefined);
-  const [price, setPrice] = useState(0);
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [url, setUrl] = useState('');
-  const [description, setDescription] = useState('');
-  const [validationErrors, setValidationErrors] = useState({})
+  const event = useSelector(state => state.events.singleEvent);
+  const user = useSelector(state => state.session.user);
 
-  const handleSubmit = async(e) => {
+  useEffect(() => {
+    dispatch(thunkGetEventDetails(eventId));
+  }, [dispatch]);
+
+  if (!user) {
+    history.push("/");
+  }
+  // console.log(event);
+
+
+  const [name, setName] = useState(event.name ?? "");
+  const [type, setType] = useState(event.type ?? "");
+  const [price, setPrice] = useState(event.price ?? "");
+  const [startDate, setStartDate] = useState(event.startDate ?? "");
+  const [endDate, setEndDate] = useState(event.endDate ?? "");
+  const [url, setUrl] = useState(event.id ? event.EventImages[0].url : "");
+  const [description, setDescription] = useState(event.description ?? "");
+
+  const [validationErrors, setValidationErrors] = useState({});
+
+  useEffect(() => {
+    if (event) {
+      setName(event.name);
+      setType(event.type);
+      setPrice(event.price);
+      setStartDate(event.startDate);
+      setEndDate(event.endDate);
+      setUrl(event.EventImages[0].url);
+      setDescription(event.description);
+
+    }
+
+  }, [event]);
+
+  const handleSubmit = (e) => {
     e.preventDefault()
     const errors = {}
-    if (name.length < 5) errors.name = 'Name is required'
+    if (name.length < 5) errors.name = 'Name must be longer than 5 characters'
     if (type === undefined) errors.type = 'Event Type is required'
     if (price < 0) errors.price = 'Price is required'
     if (!startDate) errors.startDate = 'Event start is required'
@@ -32,30 +58,19 @@ function CreateEvent() {
     if (!url.endsWith('.png') && !url.endsWith('.jpg') && !url.endsWith('.jpeg')) errors.url = 'Image URL must end in .png, .jpg, or .jpeg';
     if (description.length < 30) errors.description = 'Description must be at least 30 characters long'
 
-    setValidationErrors(errors)
-
     if (Object.values(errors).length) {
-        return
-    }
-    // check backend for errors
-    let priceNum = parseFloat(price)
-    const payload = {venueId: 1, name, type, price: priceNum, capacity: 10, startDate: new Date(startDate), endDate: new Date(endDate), description}
-    try {
-        const newEvent = await dispatch(thunkCreateEvent(payload, groupId, url))
-        history.push(`/events/${newEvent.id}`)
-    } catch (err) {
-        console.log(err);
+      setValidationErrors(errors)
+    } else {
+        const payload = {name, type, price, startDate, endDate, description}
+
+        dispatch(thunkUpdateEvent(payload, eventId))
+        history.push(`/events/${eventId}`)
     }
   }
-
-  useEffect(() => {
-    dispatch(thunkGetGroupDetails(groupId))
-  }, [dispatch, groupId])
-
   return (
     <div className="form-container">
       <div className="form-header">
-        <span className="form-title">Create an event for {group?.name}</span>
+        <span className="form-title">Update {event?.name}</span>
       </div>
       <hr />
       <div className="form-step">
@@ -124,7 +139,7 @@ function CreateEvent() {
               <span className="errors">{validationErrors.endDate}</span>
             )}
             </div>
-          <div className="form-group">
+          {/* <div className="form-group">
             <h3>Please add an image URL for your group below.</h3>
             <input
               type="url"
@@ -136,7 +151,7 @@ function CreateEvent() {
             {validationErrors.url && (
               <span className="errors">{validationErrors.url}</span>
             )}
-          </div>
+          </div> */}
           <div className='form-group'>
                 <h3>Please describe your event:</h3>
                 <textarea
@@ -151,12 +166,12 @@ function CreateEvent() {
             </div>
           <hr />
           <button type="submit" className="form-submit-btn" onClick={handleSubmit}>
-            Create Event
+            Update Event
           </button>
         </form>
       </div>
     </div>
-  )
+  );
 }
 
-export default CreateEvent
+export default EditEvent;

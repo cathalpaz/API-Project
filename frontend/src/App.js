@@ -11,6 +11,9 @@ import CreateGroup from "./components/CreateGroup";
 import EditGroup from "./components/EditGroup";
 import EventDetails from './components/EventDetails'
 import CreateEvent from './components/CreateEvent'
+import EditEvent from "./components/EditEvent";
+import ManageGroups from "./components/ManageGroups";
+import ManageEvents from "./components/ManageEvents";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +38,9 @@ function App() {
         <Route exact path='/groups/new'>
           <CreateGroup />
         </Route>
+        <Route exact path='/groups/current'>
+          <ManageGroups />
+        </Route>
         <Route exact path='/groups/:groupId'>
           <GroupDetails />
         </Route>
@@ -44,8 +50,14 @@ function App() {
         <Route exact path='/groups/:groupId/newEvent'>
           <CreateEvent />
         </Route>
+        <Route exact path='/events/current'>
+          <ManageEvents />
+        </Route>
         <Route exact path='/events/:eventId'>
           <EventDetails />
+        </Route>
+        <Route exact path='/events/:eventId/edit'>
+          <EditEvent />
         </Route>
         <Route>Page Not Found</Route>
         </Switch>}

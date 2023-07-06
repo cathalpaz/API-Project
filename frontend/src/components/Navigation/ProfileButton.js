@@ -17,6 +17,15 @@ function ProfileButton({ user }) {
     setShowMenu(true);
   };
 
+  const manageGroups = () => {
+    setShowMenu(false)
+    history.push('/groups/current')
+  }
+  const manageEvents = () => {
+    setShowMenu(false)
+    history.push('/events/current')
+  }
+
   useEffect(() => {
     if (!showMenu) return;
 
@@ -52,6 +61,8 @@ function ProfileButton({ user }) {
           {user.firstName} {user.lastName}
         </li>
         <li>{user.email}</li>
+        <li onClick={manageGroups}>Your groups</li>
+        <li onClick={manageEvents}>Your events</li>
         <li onClick={logout}>Log out</li>
       </ul>
     </div>

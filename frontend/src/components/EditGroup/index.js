@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min'
+import { useHistory, useParams } from 'react-router-dom'
 import { thunkGetGroupDetails, thunkUpdateGroup } from '../../store/groups'
 
 function EditGroup() {
@@ -56,7 +56,7 @@ function EditGroup() {
         const city = cityState.split(',')[0];
         const state = cityState.split(',')[1];
         const payload = {name, about, type, private: privacy, city, state}
-        console.log(groupId);
+        // console.log(groupId);
         dispatch(thunkUpdateGroup(payload, groupId))
         history.push(`/groups/${groupId}`)
     }

@@ -87,6 +87,7 @@
 .bottom-container {
   display: flex;
   gap: 0.5rem;
+  align-items: center;
 }
 
 .bottom-container > p {
