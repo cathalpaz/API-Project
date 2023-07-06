@@ -22,3 +22,13 @@
 .list-manage-container > .return-to {
     margin-bottom: 30px;
 }
+
+.no-groups {
+  margin-top: 100px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 40px;
+}
