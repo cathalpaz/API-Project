@@ -1,0 +1,24 @@
+.list-manage-container {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 3% 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.list-manage-container * {
+  text-decoration: none;
+  color: black;
+  margin: 0;
+}
+
+.list-manage-container > .return-to > i {
+    color: white;
+}
+
+.list-manage-container > .return-to {
+    margin-bottom: 30px;
+}
