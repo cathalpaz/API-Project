@@ -2,7 +2,27 @@
 
 ## About
 
-Welcome to my first fullstack web application! This project is a clone of Meetup
+Welcome to my first fullstack web application!
+
+This project is a clone of Meetup, where I have developed a complete backend to create my API routes and access my database hosted on Render.com. The front end consists of React/Redux with CSS to style. This was a great learning experience for me to utilize these tools for the first time, allowing me to enhance my newly acquired skills and gain valuable understanding of the capabilities offered by these libraries.
+
+The frontend currently supports user authentication, full CRUD for Groups as well as for Events. I plan to continue building this project in the future and develop RSVP functionality (backend already built to support this).
+
+This project is deployed live: https://api-project-ziul.onrender.com/. This can also be run locally by cloning the repo, installing the NPM dependcies, and running Node on both the backend and frontend.
+
+## Technologies Used
+
+* Back End
+  * Express
+  * Sequelize
+  * PostgreSQL
+
+* Front End
+  * React
+  * Redux
+  * Vanilla CSS
+
+## Screenshots/GIFS
 
 
 ## Database Schema Design
