@@ -41,6 +41,7 @@ function GroupDetails() {
 
   let loadedPage;
   if (group && group?.id === Number(groupId)) {
+    console.log(group);
     loadedPage = (
       <div className="content-container">
         <div className="upper-container">

@@ -31,9 +31,10 @@
   background-color: rgba(0, 128, 128, 0.8);
 }
 
-.return-to > a {
+.return-to > a, .fa-arrow-left {
   color: white;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .upper-content {

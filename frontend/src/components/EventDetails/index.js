@@ -13,7 +13,7 @@ function EventDetails() {
   const event = useSelector((state) => state.events.singleEvent);
   const group = useSelector((state) => state.groups.singleGroup);
   const user = useSelector((state) => state.session.user);
-  // console.log(event);
+  console.log(event);
   // console.log(group);
   const { eventId } = useParams();
 
@@ -28,15 +28,18 @@ function EventDetails() {
     });
     return `${formattedDate} \u2022 ${formattedTime}`;
   };
+
   const isOrganizer = () => {
     if (user) {
       return user.id === group.Organizer.id;
     }
   };
-
   const groupClick = () => {
     history.push(`/groups/${group.id}`);
   };
+  const editEvent = () => {
+    history.push(`/events/${eventId}/edit`)
+  }
 
   useEffect(() => {
     dispatch(thunkGetEventDetails(eventId));
@@ -52,7 +55,7 @@ function EventDetails() {
       <div className="event-content-container">
         <div className="event-details-header">
           <div className="return-to">
-          <i class="fa-solid fa-arrow-left"></i>
+          <i className="fa-solid fa-arrow-left"></i>
             <NavLink to="/events">Return to All Events</NavLink>
           </div>
           <h1>{event.name}</h1>
@@ -61,7 +64,8 @@ function EventDetails() {
         <div className="event-gray-container">
           <div className="event-gray-content">
             <div className="event-upper-block">
-              <img alt="event" src={event.EventImages[0].url} />
+              {console.log(event)}
+              <img alt="event" src={event ? event.EventImages[0].url : ""} />
               <div className="event-right-side">
                 <div className="event-group-info" onClick={groupClick}>
                   <img alt="group" src={group.GroupImages[0].url} />
@@ -92,14 +96,15 @@ function EventDetails() {
                     <i className="fa-solid fa-map-pin event-icon"></i>
                     <span>{event.type}</span>
                   </div>
-                  <div className="event-delete">
-                    {isOrganizer() ? (
+                  {isOrganizer() ? (
+                    <div className="event-delete">
+                      <button onClick={editEvent}>Update</button>
                       <OpenModalButton
                         modalComponent={<DeleteEvent />}
                         buttonText={"Delete"}
                       />
-                    ) : null}
                   </div>
+                    ) : null}
                 </div>
               </div>
             </div>
