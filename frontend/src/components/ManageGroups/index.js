@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkGetMyGroups } from "../../store/memberships";
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
+import { NavLink, useHistory } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import DeleteGroup from "../DeleteGroupModal";
 import "./ManageGroups.css";
 
 function ManageGroups() {
+  const history = useHistory()
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const myGroups = useSelector((state) =>
@@ -18,10 +19,12 @@ function ManageGroups() {
     dispatch(thunkGetMyGroups());
   }, [dispatch]);
 
+
+
   return (
     <div className="list-manage-container">
       <div className="return-to">
-        <i class="fa-solid fa-arrow-left"></i>
+        <i className="fa-solid fa-arrow-left"></i>
         <NavLink to="/">Back to home page</NavLink>
       </div>
       {myGroups.length > 0 ? (
@@ -32,39 +35,42 @@ function ManageGroups() {
             {myGroups.map((group) => {
               return (
                 <div>
-                  <NavLink
-                    key={group.id}
-                    to={`/groups/${group.id}`}
-                    className="display-container"
+                  <div
+                    // key={group.id}
+                    // to={`/groups/${group.id}`}
+                    className="manage-display-container"
                   >
                     <div className="left-container">
                       <img alt="group-pic" src={group.previewImage}></img>
                     </div>
                     <div className="right-container">
-                      <div className="right-upper-container">
-                        <h2>{group.name}</h2>
+                      <div className="manage-right-upper-container">
+                        <NavLink key={group.id} to={`/groups/${group.id}`}>{group.name}</NavLink>
                         <h4>
                           {group.city}, {group.state}
                         </h4>
                       </div>
                       <p>{group.about}</p>
-                      <div className="bottom-container">
-                        <p>{group.numMembers} members</p>
-                        <p>•</p>
-                        <p>{group.private ? "Private" : "Public"}</p>
-                      </div>
+                      <div className="manage-bottom-container">
+                        <div className="bottom-container-words">
+                          <p>{group.numMembers} members</p>
+                          <p>•</p>
+                          <p>{group.private ? "Private" : "Public"}</p>
+
+                        </div>
                       {group.organizerId === user.id ? (
                           <div className="manage-btns">
-                              <button>Update</button>
+                              <button onClick={(() => history.push(`/groups/${group.id}/edit`)) } >Update</button>
                               <OpenModalButton modalComponent={<DeleteGroup />} buttonText={'Delete'}/>
                           </div>
                       ): (
                           <div className="manage-btns">
-                              <button>Leave</button>
+                              <button onClick={(() => alert('Feature coming soon...'))}>Leave</button>
                           </div>
                       )}
+                      </div>
                     </div>
-                  </NavLink>
+                  </div>
                 </div>
               );
             })}
