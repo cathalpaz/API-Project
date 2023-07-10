@@ -20,6 +20,15 @@ function GroupDetails() {
     let dateB = new Date(b.startDate).getTime();
     return dateA - dateB;
   });
+  const upcomingEvents = []
+  const pastEvents = []
+  for (let event of events) {
+    if (new Date(event.startDate) < new Date()) {
+      pastEvents.push(event)
+    } else {
+      upcomingEvents.push(event)
+    }
+  }
   // console.log(events);
   // console.log(group)
 
@@ -41,12 +50,12 @@ function GroupDetails() {
 
   let loadedPage;
   if (group && group?.id === Number(groupId)) {
-    console.log(group);
+    // console.log(group);
     loadedPage = (
       <div className="content-container">
         <div className="upper-container">
           <div className="return-to">
-          <i class="fa-solid fa-arrow-left"></i>
+          <i className="fa-solid fa-arrow-left"></i>
             <NavLink to="/groups">Return to All Groups</NavLink>
           </div>
           <div className="upper-content">
@@ -58,15 +67,15 @@ function GroupDetails() {
                 <h1>{group.name}</h1>
                 <div className="group-details-list">
                   <div className="group-detail">
-                    <i class="fa-solid fa-location-dot"></i>
+                    <i className="fa-solid fa-location-dot"></i>
                     <p>{group.city}, {group.state}</p>
                   </div>
                   <div className="group-detail">
-                    <i class="fa-solid fa-users"></i>
+                    <i className="fa-solid fa-users"></i>
                     <p>{group.numMembers} members &#8226; {group.private ? "Private" : "Public"}</p>
                   </div>
                   <div className="group-detail">
-                    <i class="fa-solid fa-crown"></i>
+                    <i className="fa-solid fa-crown"></i>
                     <p>Organized by {group.Organizer.firstName} {group.Organizer.lastName}</p>
                   </div>
                 </div>
@@ -95,9 +104,16 @@ function GroupDetails() {
               <p>{group.about}</p>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae.</p>
               <div className="content-events">
-                <h2>Upcoming Events ({events.length})</h2>
+                <h2>Upcoming Events ({upcomingEvents.length})</h2>
                 <div className="event-card">
-                  {events && events.map(event => (
+                  {upcomingEvents && upcomingEvents.map(event => (
+                    <GroupEvents key={event.id} event={event} group={group} />
+
+                  ))}
+                </div>
+                <h2>Past Events ({pastEvents.length})</h2>
+                <div className="event-card">
+                  {pastEvents && pastEvents.map(event => (
                     <GroupEvents key={event.id} event={event} group={group} />
 
                   ))}

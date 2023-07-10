@@ -13,7 +13,6 @@ function ManageGroups() {
   const myGroups = useSelector((state) =>
     Object.values(state.memberships.myGroups)
   );
-  console.log(myGroups);
 
   useEffect(() => {
     dispatch(thunkGetMyGroups());
