@@ -14,6 +14,7 @@ import CreateEvent from './components/CreateEvent'
 import EditEvent from "./components/EditEvent";
 import ManageGroups from "./components/ManageGroups";
 import ManageEvents from "./components/ManageEvents";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -61,6 +62,7 @@ function App() {
         </Route>
         <Route>Page Not Found</Route>
         </Switch>}
+        <Footer />
     </>
   );
 }
