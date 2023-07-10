@@ -44,12 +44,22 @@ module.exports = {
       {
         eventId: 7,
         url: "https://img.devrant.com/devrant/rant/r_1868941_2H94H.jpg",
-        preview: false,
+        preview: true,
       },
       {
         eventId: 8,
+        url: "https://bryceautomation.com/wp-content/uploads/2022/12/image-63.png",
+        preview: true,
+      },
+      {
+        eventId: 9,
+        url: "https://res.cloudinary.com/practicaldev/image/fetch/s--cckIEayI--/c_imagga_scale,f_auto,fl_progressive,h_900,q_auto,w_1600/https://dev-to-uploads.s3.amazonaws.com/i/0nereq40zo31446tgr85.png",
+        preview: true,
+      },
+      {
+        eventId: 10,
         url: "https://media.istockphoto.com/id/1147516791/vector/man-stands-walk-and-run-icon-set-vector-illustration.jpg?s=2048x2048&w=is&k=20&c=DFYrR3p5iXAfw24HmVA-4ldCRDyf3TYAzwZ4HbKat34=",
-        preview: false,
+        preview: true,
       },
     ]);
   },
