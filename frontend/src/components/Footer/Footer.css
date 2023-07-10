@@ -1,16 +1,18 @@
 .footer-container {
     margin-top: 20vh;
-    height: 300px;
     background-color: #212121;
+    height: 35vh;
 }
 
 .footer-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding-top: 20px;
     width: 980px;
     max-width: 1024px;
     padding: auto 10px;
     margin: auto;
-
 }
 
 .footer-content * {
@@ -42,6 +44,6 @@
 }
 
 .footer-tag {
-    padding-top: 30px;
+    padding-top: 20px;
     font-size: 14px;
 }
