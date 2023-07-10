@@ -46,6 +46,17 @@ module.exports = {
       },
       {
         venueId: 2,
+        groupId: 2,
+        name: "JavaScript 101",
+        description: "An event where we embark on a lively journey into the world of basic JavaScript. Whether you're a seasoned coder or just starting your coding adventure, this event is designed to make learning JavaScript a fun and engaging experience. Get ready to unlock the power of JavaScript!",
+        type: "Online",
+        capacity: 10,
+        price: 0,
+        startDate: "2023-02-11 16:00:00",
+        endDate: "2023-02-11 17:00:00",
+      },
+      {
+        venueId: 2,
         groupId: 3,
         name: "Error Message",
         description: "Join us for an evening of delightful ChatGPT failures, where even errors become a source of entertainment and a reminder that technology is not always as perfect as we expect. Witness the AI chaos unfold as Chat GPT, the star of the show, throws a tantrum by generating nonsensical responses and hilarious errors.",
@@ -96,7 +107,7 @@ module.exports = {
     const Op = Sequelize.Op;
     await queryInterface.bulkDelete(options, {
       name: {
-        [Op.in]: ["a/A Graduation", "EOD", "NeetCode Tutoring Session", "Error Message", "AI Roast Battle", 'How To: "Change it up a bit"', "Demo Event"],
+        [Op.in]: ["a/A Graduation", "EOD", "NeetCode Tutoring Session", "JavaScript 101", "Error Message", "AI Roast Battle", 'How To: "Change it up a bit"', "Demo Event"],
       },
     });
   },
