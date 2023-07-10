@@ -52,6 +52,26 @@ module.exports = {
         state: "IL",
       },
       {
+        organizerId: 6,
+        name: "Assembly Language Stans",
+        about:
+          "The fearless masters of the low-level code universe unite and share a friendly banter about the simplicity of high-level languages like Python. Assemble your skills, don your binary capes, and dive into the depths of registers, opcodes, and memory management.",
+        type: "Online",
+        private: false,
+        city: "Tulsa",
+        state: "OK",
+      },
+      {
+        organizerId: 7,
+        name: "Exceptional Error Handlers",
+        about:
+          'A group dedicated to sharing and laughing at the most peculiar and baffling error messages encountered while coding. Members exchange screenshots of bizarre error notifications, like a cryptic message suggesting that the code has been abducted by aliens or an error instructing programmers to "sacrifice a goat" to resolve the issue.',
+        type: "In person",
+        private: true,
+        city: "Atlanta",
+        state: "GA",
+      },
+      {
         organizerId: 5,
         name: "Demo Group",
         about:
@@ -69,7 +89,7 @@ module.exports = {
     const Op = Sequelize.Op;
     await queryInterface.bulkDelete(options, {
       name: {
-        [Op.in]: ["App Academy", "LeetCoders", "ChatGPT Haters", "Ctrl+C, Crtl+V", "Demo Group"],
+        [Op.in]: ["App Academy", "LeetCoders", "ChatGPT Haters", "Ctrl+C, Crtl+V", "Assembly Language Stans", "Exceptional Error Handlers", "Demo Group"],
       },
     });
   },
