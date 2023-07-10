@@ -67,6 +67,22 @@ module.exports = {
         lat: 511.0191,
         lng: 73.5114,
       },
+      {
+        groupId: 6,
+        address: "121 Chestnut St",
+        city: "Brooklyn",
+        state: "NY",
+        lat: 51.2151,
+        lng: 33.4514,
+      },
+      {
+        groupId: 7,
+        address: "9 Broadway Ave",
+        city: "Atlanta",
+        state: "GA",
+        lat: 12.3141,
+        lng: 41.7388,
+      },
     ]);
   },
 
@@ -75,7 +91,7 @@ module.exports = {
     const Op = Sequelize.Op;
     await queryInterface.bulkDelete(options, {
       groupId: {
-        [Op.in]: [1, 2, 3, 4, 5],
+        [Op.in]: [1, 2, 3, 4, 5, 6, 7],
       },
     });
   },
