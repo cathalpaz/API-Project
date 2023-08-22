@@ -1,4 +1,5 @@
 import { csrfFetch } from "./csrf";
+import Cookies from 'js-cookie'
 
 // types
 const CREATE_GROUP = 'groups/new';
@@ -50,16 +51,15 @@ export const thunkCreateGroup = (group, img) => async(dispatch) => {
     })
     if (res.ok) {
         const data = await res.json()
-        const imgRes = await csrfFetch(`/api/groups/${data.id}/images`, {
+        const imageRes = await fetch(`/api/groups/${data.id}/images`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                url: img,
-                preview: true
-            })
+            headers: {"XSRF-TOKEN": Cookies.get('XSRF-TOKEN')},
+            body: img
         })
-        const newImg = await imgRes.json()
-        data.GroupImages = [newImg]
+        console.log('format here', imageRes);
+        // const newImg = await imgRes.json()
+        data.GroupImages = [imageRes]
+        console.log('groupimages', data.GroupImages);
         dispatch(actionCreateGroup([data]))
         return data
     } else {

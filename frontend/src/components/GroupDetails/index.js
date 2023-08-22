@@ -51,7 +51,7 @@ function GroupDetails() {
           </div>
           <div className="upper-content">
             <div className="group-image-container">
-              <img alt="group pic" src={group.GroupImages[0].url} />
+              <img alt="group pic" src={group.GroupImages[0]?.url} />
             </div>
             <div className="content-details">
               <div className="group-details">
