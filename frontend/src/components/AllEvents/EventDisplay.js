@@ -12,7 +12,7 @@ function EventDisplay({ event }) {
     });
     return `${formattedDate} \u2022 ${formattedTime}`;
   };
-  console.log(event);
+  // console.log(event);
   return (
     <div className="event-box">
       <NavLink

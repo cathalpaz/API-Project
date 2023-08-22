@@ -1,0 +1,50 @@
+.footer-container {
+    /* margin-top: 20vh; */
+    background-color: #212121;
+    height: 35vh;
+    padding-left: none;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 30px;
+    width: 980px;
+    max-width: 1024px;
+    padding: auto 10px;
+    margin: auto;
+}
+
+.footer-content * {
+    color: white;
+}
+
+.footer-header {
+    font-size: 16px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid white;
+}
+
+.footer-tech {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.footer-about_me {
+    font-size: 14px;
+    padding-top: 10px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 1rem;
+    font-size: 16px;
+}
+
+.footer-tag {
+    padding-top: 20px;
+    font-size: 14px;
+}

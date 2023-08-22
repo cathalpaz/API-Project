@@ -120,6 +120,7 @@
   background-color: rgba(233, 232, 232, 0.644);
   box-sizing: border-box;
   width: 100%;
+  min-height: 110vh;
 }
 
 .gray-content {
@@ -203,6 +204,58 @@
   font-size: 14px;
   color: gray;
 }
+
+.group-members {
+  margin: 50px 0 80px 0;
+}
+
+.members-list {
+  display: flex;
+  gap: 1.8rem;
+  background-color: white;
+  padding: 20px;
+  width: fit-content;
+  border-radius: 10px;
+}
+
+.member-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  border: 1px solid rgba(128, 128, 128, 0.192);
+  padding: 10px;
+  border-radius: 8px;
+  height: 130px;
+  width: 140px;
+}
+
+.member-card > i {
+  align-self: center;
+  font-size: 45px;
+  color: gray;
+  margin-bottom: 10px;
+}
+
+.member-details {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+
+.member-details > span {
+  align-self: center;
+}
+
+.member-name {
+  font-weight: 500;
+}
+
+.member-membership {
+  font-size: 14px;
+}
+
 
 .loading-container {
   display: flex;

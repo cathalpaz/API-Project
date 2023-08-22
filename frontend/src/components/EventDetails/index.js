@@ -13,7 +13,7 @@ function EventDetails() {
   const event = useSelector((state) => state.events.singleEvent);
   const group = useSelector((state) => state.groups.singleGroup);
   const user = useSelector((state) => state.session.user);
-  console.log(event);
+  // console.log(event);
   // console.log(group);
   const { eventId } = useParams();
 
@@ -64,7 +64,6 @@ function EventDetails() {
         <div className="event-gray-container">
           <div className="event-gray-content">
             <div className="event-upper-block">
-              {console.log(event)}
               <img alt="event" src={event ? event.EventImages[0].url : ""} />
               <div className="event-right-side">
                 <div className="event-group-info" onClick={groupClick}>

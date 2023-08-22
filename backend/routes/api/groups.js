@@ -398,9 +398,9 @@ router.get('/:groupId/members', async(req, res) => {
             include: {
                 model: Membership,
                 where: {
-                    status: {
-                        [Op.not]: 'pending'
-                    },
+                    // status: {
+                    //     [Op.not]: 'pending'
+                    // },
                     groupId: group.id
                 },
                 attributes: ['status']
@@ -424,7 +424,7 @@ router.post('/:groupId/membership', requireAuth, async(req, res) => {
         const newMembership = await Membership.create({
             userId: req.user.id,
             groupId: group.id,
-            status: 'pending'
+            status: 'member'
         })
         return res.json({
             memberId: newMembership.userId,

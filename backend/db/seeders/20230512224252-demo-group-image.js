@@ -19,7 +19,7 @@ module.exports = {
       {
         groupId: 1,
         url: "group1img2.png",
-        preview: true,
+        preview: false,
       },
       {
         groupId: 2,
@@ -48,6 +48,16 @@ module.exports = {
       },
       {
         groupId: 5,
+        url: "https://academy.hackthebox.com/storage/modules/85/logo.png",
+        preview: true,
+      },
+      {
+        groupId: 6,
+        url: "https://thrivemyway.com/wp-content/uploads/2022/10/Fake-Error-Message-Text-Copy-and-Paste-scaled-e1667235940867.jpg",
+        preview: true,
+      },
+      {
+        groupId: 7,
         url: "https://media.istockphoto.com/id/898227924/vector/crowd-of-protesters-people-silhouettes-of-people-with-banners-and-megaphones-concept-of.jpg?s=2048x2048&w=is&k=20&c=soUHt4cEv4-Lq5fbTxy2bxt3Eh1GgWe-MQ2JMhdxki0=",
         preview: true,
       },
@@ -59,7 +69,7 @@ module.exports = {
     const Op = Sequelize.Op;
     await queryInterface.bulkDelete(options, {
       groupId: {
-        [Op.in]: [1, 2, 3, 4, 5],
+        [Op.in]: [1, 2, 3, 4, 5, 6, 7],
       },
     });
   },

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { thunkGetMyGroups } from "../../store/memberships";
+import { thunkGetMyGroups, thunkLeaveGroup } from "../../store/memberships";
 import { NavLink, useHistory } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import DeleteGroup from "../DeleteGroupModal";
@@ -13,13 +13,19 @@ function ManageGroups() {
   const myGroups = useSelector((state) =>
     Object.values(state.memberships.myGroups)
   );
-  console.log(myGroups);
 
   useEffect(() => {
     dispatch(thunkGetMyGroups());
   }, [dispatch]);
 
+  const memberId = {
+    memberId: parseInt(user?.id)
+  }
 
+  const leaveGroup = async(groupId) => {
+    await dispatch(thunkLeaveGroup(memberId, groupId))
+    window.location.reload()
+  }
 
   return (
     <div className="list-manage-container">
@@ -65,7 +71,7 @@ function ManageGroups() {
                           </div>
                       ): (
                           <div className="manage-btns">
-                              <button onClick={(() => alert('Feature coming soon...'))}>Leave</button>
+                              <button onClick={() => leaveGroup(group.id)}>Leave</button>
                           </div>
                       )}
                       </div>
