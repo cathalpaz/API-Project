@@ -182,7 +182,7 @@ function GroupDetails() {
                     if (idxRes === 0) return sortMembers(a.Memberships[0].status, b.Memberships[0].status)
                     else return idxRes
                     }).map(member => (
-                      <div className="member-card">
+                      <div className="member-card" key={member.id}>
                         <i className="fa-solid fa-circle-user"></i>
                         <div className="member-details">
                           <span className="member-name">{member.firstName} {member.lastName}</span>

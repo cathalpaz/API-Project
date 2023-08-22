@@ -229,12 +229,15 @@ router.delete('/:eventId', requireAuth, async(req, res) => {
 router.get('/:eventId/attendees', async(req, res) => {
     const event = await Event.findByPk(req.params.eventId)
     if (!event) return res.status(404).json({message: "Event couldn't be found"})
-    const myMembership = await Membership.findOne({
-        where: {
-            userId: req.user.id,
-            groupId: event.groupId
-        }
-    })
+    let myMembership = null
+    if (req.user) {
+        myMembership = await Membership.findOne({
+            where: {
+                userId: req.user.id,
+                groupId: event.groupId
+            }
+        })
+    }
     if (myMembership && (myMembership.status === 'organizer' || myMembership.status === 'co-host')) {
         const attendees = await User.findAll({
             attributes: ['id', 'firstName', 'lastName'],
@@ -279,7 +282,7 @@ router.post('/:eventId/attendance', requireAuth, async(req, res) => {
         const newAttendance = await Attendance.create({
             eventId: event.id,
             userId: req.user.id,
-            status: 'pending'
+            status: 'attending'
         })
         return res.json({
             userId: newAttendance.userId,
@@ -344,9 +347,9 @@ router.delete('/:eventId/attendance', requireAuth, async(req, res) => {
             groupId: event.groupId
         }
     })
-    if (!membership || (userId !== req.user.id && membership.status !== 'organizer')) {
-        return res.status(401).json({message: "Unauthorized to delete attendance"})
-    }
+    // if (!membership || (userId !== req.user.id && membership.status !== 'organizer')) {
+    //     return res.status(401).json({message: "Unauthorized to delete attendance"})
+    // }
     await attendance.destroy()
     return res.json({message: "Successfully deleted attendance from event"})
 })

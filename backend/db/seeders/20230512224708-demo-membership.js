@@ -39,7 +39,7 @@ module.exports = {
       {
         userId: 2,
         groupId: 5,
-        status: "pending",
+        status: "member",
       },
       {
         userId: 2,
@@ -84,7 +84,7 @@ module.exports = {
       {
         userId: 5,
         groupId: 1,
-        status: "pending",
+        status: "member",
       },
       {
         userId: 6,

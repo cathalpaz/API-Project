@@ -15,8 +15,8 @@ function Footer() {
             <div className='footer-about_me'>
                 <p>Find out more about me</p>
                 <div className='footer-links'>
-                    <a href=''><i class="fa-solid fa-laptop"></i></a>
-                    <a href='https://www.github.com/cathalpaz'><i class="fa-brands fa-github"></i></a>
+                    <a href=''><i className="fa-solid fa-laptop"></i></a>
+                    <a href='https://www.github.com/cathalpaz'><i className="fa-brands fa-github"></i></a>
                     <a href='https://www.linkedin.com/in/cathal-paz-052239263/'><i className="fa-brands fa-linkedin"></i></a>
                 </div>
             </div>
