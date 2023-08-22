@@ -41,7 +41,7 @@ function GroupDetails() {
   }
   if (groupMembers) {
     for (let memberships of groupMembers) {
-      if (memberships.id === user.id && memberships.Memberships[0].status === 'pending') {
+      if (memberships.id === user?.id && memberships.Memberships[0].status === 'pending') {
         status = 'pending'
       }
     }
@@ -72,7 +72,7 @@ function GroupDetails() {
     dispatch(thunkGetGroupDetails(groupId));
     dispatch(thunkGetEventsByGroup(groupId))
     dispatch(thunkGetGroupMembers(groupId))
-    dispatch(thunkGetMyGroups())
+    if (user) dispatch(thunkGetMyGroups())
   }, [dispatch, groupId]);
 
   // CRUD helpers
@@ -159,9 +159,11 @@ function GroupDetails() {
               <div className="content-events">
                 <h2>Upcoming Events ({upcomingEvents.length})</h2>
                 <div className="event-card">
-                  {upcomingEvents && upcomingEvents.map(event => (
+                  {upcomingEvents.length ? upcomingEvents.map(event => (
                     <GroupEvents key={event.id} event={event} group={group} />
-                  ))}
+                  )) : (
+                    <div>No upcoming events.</div>
+                  )}
                 </div>
                 <h2>Past Events ({pastEvents.length})</h2>
                 <div className="event-card">
