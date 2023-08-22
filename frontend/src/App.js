@@ -29,12 +29,15 @@ function App() {
       {isLoaded && <Switch>
         <Route exact path='/'>
           <Home />
+          <Footer />
         </Route>
         <Route exact path='/groups'>
           <AllGroups />
+          <Footer />
         </Route>
         <Route exact path='/events'>
           <AllEvents />
+          <Footer />
         </Route>
         <Route exact path='/groups/new'>
           <CreateGroup />
@@ -44,6 +47,7 @@ function App() {
         </Route>
         <Route exact path='/groups/:groupId'>
           <GroupDetails />
+          <Footer />
         </Route>
         <Route exact path='/groups/:groupId/edit'>
           <EditGroup />
@@ -56,13 +60,13 @@ function App() {
         </Route>
         <Route exact path='/events/:eventId'>
           <EventDetails />
+          <Footer />
         </Route>
         <Route exact path='/events/:eventId/edit'>
           <EditEvent />
         </Route>
         <Route>Page Not Found</Route>
         </Switch>}
-        <Footer />
     </>
   );
 }

@@ -1,14 +1,15 @@
 .footer-container {
-    margin-top: 20vh;
+    /* margin-top: 20vh; */
     background-color: #212121;
     height: 35vh;
+    padding-left: none;
 }
 
 .footer-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-top: 20px;
+    padding-top: 30px;
     width: 980px;
     max-width: 1024px;
     padding: auto 10px;
