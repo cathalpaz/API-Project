@@ -3,6 +3,8 @@ import { csrfFetch } from "./csrf";
 // TYPES
 const GET_MY_GROUPS = 'groups/member'
 const GET_GROUP_MEMBERS = 'groups/members'
+const REQUEST_GROUP = 'groups/request'
+const LEAVE_GROUP = 'groups/leave'
 
 
 // ACTIONS
@@ -15,6 +17,18 @@ const actionGetMyGroups = (data) => {
 const actionGetGroupMembers = (data) => {
     return {
         type: GET_GROUP_MEMBERS,
+        payload: data
+    }
+}
+const actionRequestGroup = (data) => {
+    return {
+        type: REQUEST_GROUP,
+        payload: data
+    }
+}
+const actionLeaveGroup = (data) => {
+    return {
+        type: LEAVE_GROUP,
         payload: data
     }
 }
@@ -43,10 +57,37 @@ export const thunkGetGroupMembers = (groupId) => async(dispatch) => {
         return errorData
     }
 }
+export const thunkRequestGroup = (groupId) => async(dispatch) => {
+    const res = await csrfFetch(`/api/groups/${groupId}/membership`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+    })
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(actionRequestGroup(data))
+        return data
+    } else {
+        const errorData = await res.json()
+        return errorData
+    }
+}
+export const thunkLeaveGroup = (memberId, groupId) => async(dispatch) => {
+    const res = await csrfFetch(`/api/groups/${groupId}/membership`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(memberId)
+    })
+    if (res.ok) {
+        dispatch(actionLeaveGroup(groupId))
+    } else {
+        const errorData = await res.json()
+        return errorData
+    }
+}
 
 
 // REDUCER
-const initialState = { myGroups: {}, groupMembers: {} }
+const initialState = { myGroups: {}, groupMembers: {}, groupRequests: {} }
 
 const membershipReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -60,6 +101,14 @@ const membershipReducer = (state = initialState, action) => {
             const newState = {...state}
             newState.groupMembers[action.payload.groupId] = action.payload.Members
             return newState
+        case REQUEST_GROUP:
+            const newState2 = {...state}
+            newState2.groupRequests[action.payload.groupId] = action.payload.Members
+            return newState2
+        case LEAVE_GROUP:
+            const newState3 = {...state}
+            delete newState3.myGroups[action.payload]
+            return newState3
         default:
             return state
     }
