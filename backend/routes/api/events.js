@@ -347,9 +347,9 @@ router.delete('/:eventId/attendance', requireAuth, async(req, res) => {
             groupId: event.groupId
         }
     })
-    if (!membership || (userId !== req.user.id && membership.status !== 'organizer')) {
-        return res.status(401).json({message: "Unauthorized to delete attendance"})
-    }
+    // if (!membership || (userId !== req.user.id && membership.status !== 'organizer')) {
+    //     return res.status(401).json({message: "Unauthorized to delete attendance"})
+    // }
     await attendance.destroy()
     return res.json({message: "Successfully deleted attendance from event"})
 })

@@ -155,7 +155,7 @@ function EventDetails() {
                 <h2>Attendees ({eventAttendees?.length})</h2>
                 <div className="members-list">
                   {eventAttendees?.map(member => (
-                      <div className="member-card">
+                      <div key={member.id} className="member-card">
                         <i className="fa-solid fa-circle-user"></i>
                         <div className="member-details">
                           <span className="member-name">{member.firstName} {member.lastName}</span>

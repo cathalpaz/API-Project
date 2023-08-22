@@ -40,7 +40,7 @@ function ManageGroups() {
           <div className="list-item">
             {myGroups.map((group) => {
               return (
-                <div>
+                <div key={group?.id}>
                   <div
                     // key={group.id}
                     // to={`/groups/${group.id}`}
