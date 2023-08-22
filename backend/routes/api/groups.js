@@ -151,7 +151,7 @@ router.post('/:groupId/images', singleMulterUpload("image"),requireAuth, async(r
 
     const newGroupImage = await GroupImage.create({
         groupId: group.id,
-        groupImageUrl,
+        url: groupImageUrl,
         preview
     });
     return res.json({
