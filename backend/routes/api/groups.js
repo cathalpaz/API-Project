@@ -373,12 +373,15 @@ router.post('/:groupId/events', requireAuth, async(req, res) => {
 router.get('/:groupId/members', async(req, res) => {
     const group = await Group.findByPk(req.params.groupId)
     if (!group) return res.status(404).json({message: "Group couldn't be found"})
-    const membership = await Membership.findOne({
-        where: {
-            groupId: group.id,
-            userId: req.user.id
-        }
-    })
+    let membership = null
+    if (req.user) {
+        membership = await Membership.findOne({
+            where: {
+                groupId: group.id,
+                userId: req?.user.id
+            }
+        })
+    }
     if (membership && (membership.status === 'organizer' || membership.status === 'co-host')) {
         const members = await User.findAll({
             attributes: ['id', 'firstName', 'lastName'],
