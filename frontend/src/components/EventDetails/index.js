@@ -6,6 +6,7 @@ import { thunkGetGroupDetails } from "../../store/groups";
 import OpenModalButton from "../OpenModalButton";
 import DeleteEvent from "../DeleteEventModal";
 import "./EventDetails.css";
+import { thunkDeleteAttendance, thunkGetAttendees, thunkPostAttendance } from "../../store/attendances";
 
 function EventDetails() {
   const history = useHistory();
@@ -13,11 +14,9 @@ function EventDetails() {
   const event = useSelector((state) => state.events.singleEvent);
   const group = useSelector((state) => state.groups.singleGroup);
   const user = useSelector((state) => state.session.user);
-  // console.log(event);
-  // console.log(group);
+  const eventAttendees = useSelector((state) => state.attendances.eventAttendees.Attendees);
   const { eventId } = useParams();
 
-  // console.log(event.startDate);
   const formatTime = (timeString) => {
     const date = new Date(timeString);
     const formattedDate = date.toISOString().split("T")[0];
@@ -41,8 +40,34 @@ function EventDetails() {
     history.push(`/events/${eventId}/edit`)
   }
 
+  let buttonText = 'Attend this event'
+  if (eventAttendees) {
+    for (let person of eventAttendees) {
+      if (person.id === user?.id) {
+
+        buttonText = 'Remove Attendance'
+      }
+    }
+  }
+
+  const userId = {
+    userId: parseInt(user?.id)
+  }
+
+  const handleAttend = async () => {
+    if (buttonText === 'Attend this event') {
+      await dispatch(thunkPostAttendance(eventId))
+      dispatch(thunkGetAttendees(eventId))
+    } else {
+      await dispatch(thunkDeleteAttendance(userId, eventId))
+      dispatch(thunkGetAttendees(eventId))
+    }
+  }
+
+
   useEffect(() => {
     dispatch(thunkGetEventDetails(eventId));
+    dispatch(thunkGetAttendees(eventId));
   }, [dispatch, eventId]);
   useEffect(() => {
     if (event) {
@@ -95,6 +120,7 @@ function EventDetails() {
                     <i className="fa-solid fa-map-pin event-icon"></i>
                     <span>{event.type}</span>
                   </div>
+
                   {isOrganizer() ? (
                     <div className="event-delete">
                       <button onClick={editEvent}>Update</button>
@@ -103,7 +129,12 @@ function EventDetails() {
                         buttonText={"Delete"}
                       />
                   </div>
-                    ) : null}
+                    ) :
+                      user ?
+                      <div className="event-delete">
+                        <button onClick={handleAttend}>{buttonText}</button>
+                      </div>
+                    : null}
                 </div>
               </div>
             </div>
@@ -120,6 +151,20 @@ function EventDetails() {
                 vestibulum.
               </p>
             </div>
+            <div className="group-members">
+                <h2>Attendees ({eventAttendees?.length})</h2>
+                <div className="members-list">
+                  {eventAttendees?.map(member => (
+                      <div className="member-card">
+                        <i className="fa-solid fa-circle-user"></i>
+                        <div className="member-details">
+                          <span className="member-name">{member.firstName} {member.lastName}</span>
+                          <span className="member-membership">attending</span>
+                        </div>
+                      </div>
+                   ))}
+                </div>
+              </div>
           </div>
         </div>
       </div>
