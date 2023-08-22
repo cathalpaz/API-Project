@@ -3,6 +3,31 @@ const router = express.Router();
 const { Group, Membership, GroupImage, Venue, User, Attendance, Event, EventImage } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth')
 const { Op } = require('sequelize')
+const bodyParser = require('body-parser');
+const AWS = require('aws-sdk');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+
+const s3 = new AWS.S3();
+
+
+AWS.config.update({
+    region: process.env.AWS_S3_REGION,
+    correctClockSkew: true
+})
+
+router.use(bodyParser.json())
+
+const upload = multer({
+    storage: multerS3({
+        s3: s3,
+        acl: 'public-read',
+        bucket: 'linkup-bucket',
+        key: function (req, file, cb) {
+            cb(null, file.originalname); //use Date.now() for unique file keys
+        }
+    })
+})
 
 
 // Get all Groups
@@ -127,6 +152,7 @@ router.post('/', requireAuth, async(req, res) => {
         });
     }
     const organizerId = req.user.id;
+    const image = req.file
     const newGroup = await Group.create({organizerId, name, about, type, private, city, state});
 
     // create membership association
@@ -139,18 +165,20 @@ router.post('/', requireAuth, async(req, res) => {
 })
 
 // Add an Image to a Group based on the Group's id
-router.post('/:groupId/images', requireAuth, async(req, res) => {
+router.post('/:groupId/images', requireAuth, upload.single('image'),async(req, res) => {
     const group = await Group.findByPk(req.params.groupId)
-    const { url, preview } = req.body
+    const { preview } = req.body
+    const image = req.file;
 
     if (!group) return res.status(404).json({message: "Group couldn't be found"})
     if (group.organizerId !== req.user.id) return res.status(401).json({message: 'Unauthorized to add an image'});
 
     const newGroupImage = await GroupImage.create({
         groupId: group.id,
-        url,
+        url: image.location,
         preview
     });
+    console.log('yurrrr', newGroupImage)
     return res.json({
         id: newGroupImage.id,
         url: newGroupImage.url,
