@@ -50,16 +50,17 @@ export const thunkCreateGroup = (group, img) => async(dispatch) => {
     })
     if (res.ok) {
         const data = await res.json()
+        const formData = new FormData()
+        formData.append("url", img)
+        formData.append("preview", true)
         const imgRes = await csrfFetch(`/api/groups/${data.id}/images`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                url: img,
-                preview: true
-            })
+            headers: { 'Content-Type': 'multipart/form-data'},
+            body: formData
         })
-        const newImg = await imgRes.json()
-        data.GroupImages = [newImg]
+        // const newImg = await imgRes.json()
+        console.log('HERE', imgRes)
+        data.GroupImages = [imgRes]
         dispatch(actionCreateGroup([data]))
         return data
     } else {

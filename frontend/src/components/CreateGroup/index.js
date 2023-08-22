@@ -13,7 +13,7 @@ function CreateGroup() {
   const [about, setAbout] = useState("");
   const [type, setType] = useState(undefined);
   const [privacy, setPrivacy] = useState(undefined);
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(null);
   const [validationErrors, setValidationErrors] = useState({});
 
   const handleSubmit = async(e) => {
@@ -24,7 +24,7 @@ function CreateGroup() {
     if (about.length < 50) errors.about = 'Description must be at least 50 characters long';
     if (type === undefined) errors.type = 'Group Type is required';
     if (privacy === undefined) errors.privacy = 'Visibility type is required';
-    if (!url.endsWith('.png') && !url.endsWith('.jpg') && !url.endsWith('.jpeg')) errors.url = 'Image URL must end in .png, .jpg, or .jpeg';
+    // if (!url.endsWith('.png') && !url.endsWith('.jpg') && !url.endsWith('.jpeg')) errors.url = 'Image URL must end in .png, .jpg, or .jpeg';
     setValidationErrors(errors)
     if (Object.values(errors).length) {
       return
@@ -36,6 +36,10 @@ function CreateGroup() {
     const newGroup = await dispatch(thunkCreateGroup(payload, url))
 
     history.push(`/groups/${newGroup.id}`)
+  };
+  const updateFile = (e) => {
+    const file = e.target.files[0];
+    if (file) setUrl(file);
   };
 
   return (
@@ -136,10 +140,10 @@ function CreateGroup() {
             )}
             <span>Please add an image URL for your group below.</span>
             <input
-              type="url"
+              type="file"
               className="form-input"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
+              // value={url}
+              onChange={updateFile}
             />
             {validationErrors.url && (
               <span className="errors">{validationErrors.url}</span>

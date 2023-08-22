@@ -3,6 +3,7 @@ const router = express.Router();
 const { Group, Membership, GroupImage, Venue, User, Attendance, Event, EventImage } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth')
 const { Op } = require('sequelize')
+const { singlePublicFileUpload, singleMulterUpload } = require('../../awsS3')
 
 
 // Get all Groups
@@ -139,16 +140,18 @@ router.post('/', requireAuth, async(req, res) => {
 })
 
 // Add an Image to a Group based on the Group's id
-router.post('/:groupId/images', requireAuth, async(req, res) => {
+router.post('/:groupId/images', singleMulterUpload("image"),requireAuth, async(req, res) => {
     const group = await Group.findByPk(req.params.groupId)
-    const { url, preview } = req.body
+    const { preview } = req.body
+
+    const groupImageUrl = await singlePublicFileUpload(req.file)
 
     if (!group) return res.status(404).json({message: "Group couldn't be found"})
     if (group.organizerId !== req.user.id) return res.status(401).json({message: 'Unauthorized to add an image'});
 
     const newGroupImage = await GroupImage.create({
         groupId: group.id,
-        url,
+        groupImageUrl,
         preview
     });
     return res.json({
