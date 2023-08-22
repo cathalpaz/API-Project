@@ -7,6 +7,7 @@ import DeleteGroup from "../DeleteGroupModal";
 import GroupEvents from "./GroupEvents";
 import { thunkGetEventsByGroup } from "../../store/events";
 import './GroupDetails.css';
+import { thunkGetGroupMembers } from "../../store/memberships";
 
 function GroupDetails() {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ function GroupDetails() {
   const user = useSelector((state) => state.session.user);
   const group = useSelector((state) => state.groups.singleGroup);
   const eventState = useSelector((state) => state.events.allEvents);
+  const groupMembers = useSelector((state) => Object.values(state.memberships.groupMembers));
   const events = Object.values(eventState).sort((a, b) => {
     let dateA = new Date(a.startDate).getTime();
     let dateB = new Date(b.startDate).getTime();
@@ -29,12 +31,11 @@ function GroupDetails() {
       upcomingEvents.push(event)
     }
   }
-  // console.log(events);
-  // console.log(group)
 
   useEffect(() => {
     dispatch(thunkGetGroupDetails(groupId));
     dispatch(thunkGetEventsByGroup(groupId))
+    dispatch(thunkGetGroupMembers(groupId))
   }, [dispatch, groupId]);
 
   // CRUD helpers
@@ -102,20 +103,34 @@ function GroupDetails() {
               <span>{group.Organizer.firstName} {group.Organizer.lastName}</span>
               <h2>What we're about</h2>
               <p>{group.about}</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae.</p>
+              {/* <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae.</p> */}
               <div className="content-events">
                 <h2>Upcoming Events ({upcomingEvents.length})</h2>
                 <div className="event-card">
                   {upcomingEvents && upcomingEvents.map(event => (
                     <GroupEvents key={event.id} event={event} group={group} />
-
                   ))}
                 </div>
                 <h2>Past Events ({pastEvents.length})</h2>
                 <div className="event-card">
-                  {pastEvents && pastEvents.map(event => (
+                  {pastEvents.length ? pastEvents.map(event => (
                     <GroupEvents key={event.id} event={event} group={group} />
-
+                  )) : (
+                    <div>No past events.</div>
+                  )}
+                </div>
+              </div>
+              <div className="group-members">
+                <h2>Members ({groupMembers[0]?.length})</h2>
+                <div className="members-list">
+                  {groupMembers[0] && groupMembers[0].map(member => (
+                    <div className="member-card">
+                      <i className="fa-solid fa-circle-user"></i>
+                      <div className="member-details">
+                        <span className="member-name">{member.firstName} {member.lastName}</span>
+                        <span className="member-membership">{member.Memberships[0].status}</span>
+                      </div>
+                    </div>
                   ))}
                 </div>
               </div>
