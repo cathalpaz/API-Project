@@ -34,6 +34,11 @@ This project is deployed live: https://api-project-ziul.onrender.com/. This can 
 
 [meetup-database-schema]: ./frontend/public/images/meetup_dbdiagram.png
 
+## Any questions/concerns, Contact me here!
+
+<a href='https://www.linkedin.com/in/cathal-paz/' target='_blank' rel='noreferrer'>
+  <img src="https://img.shields.io/badge/LinkedIn-0A66C2.svg?style=for-the-badge&logo=LinkedIn&logoColor=white" alt='linkedin' />
+</a>
 
 ## API Documentation
 
