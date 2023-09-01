@@ -23,6 +23,8 @@ This project is deployed live: https://api-project-ziul.onrender.com/. This can 
   * Vanilla CSS
 
 ## Screenshots/GIFS
+![join1](https://github.com/cathalpaz/joinUp-Project/assets/124412635/317f0df0-9864-4535-8b24-ddd7085ef448)
+![join2](https://github.com/cathalpaz/joinUp-Project/assets/124412635/e82bb862-dd6a-4ba0-90c0-782e52c55415)
 
 
 ## Database Schema Design
@@ -32,6 +34,11 @@ This project is deployed live: https://api-project-ziul.onrender.com/. This can 
 
 [meetup-database-schema]: ./frontend/public/images/meetup_dbdiagram.png
 
+## Any questions/concerns, Contact me here!
+
+<a href='https://www.linkedin.com/in/cathal-paz/' target='_blank' rel='noreferrer'>
+  <img src="https://img.shields.io/badge/LinkedIn-0A66C2.svg?style=for-the-badge&logo=LinkedIn&logoColor=white" alt='linkedin' />
+</a>
 
 ## API Documentation
 
